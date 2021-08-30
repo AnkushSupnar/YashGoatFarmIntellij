@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainFrame" prefHeight="565.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.BankStatementControler">
+   <children>
+      <Pane layoutX="144.0" layoutY="14.0" prefHeight="36.0" prefWidth="500.0" style="-fx-background-color: #007bff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="239.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Statement">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Label layoutX="14.0" layoutY="50.0" text="Select Bank Name" />
+      <ComboBox fx:id="cmbBankName" layoutX="14.0" layoutY="75.0" prefHeight="25.0" prefWidth="221.0" />
+      <Label layoutX="250.0" layoutY="50.0" text="From Date" />
+      <DatePicker fx:id="dateFrom" layoutX="242.0" layoutY="75.0" prefHeight="25.0" prefWidth="120.0" />
+      <Label layoutX="374.0" layoutY="50.0" text="To Date" />
+      <DatePicker fx:id="dateTo" layoutX="366.0" layoutY="75.0" prefHeight="25.0" prefWidth="120.0" />
+      <HBox layoutX="14.0" layoutY="110.0" spacing="10.0">
+         <children>
+            <Button fx:id="btnShow" mnemonicParsing="false" onAction="#btnShowAction" stylesheets="@../transaction/button.css" text="SHOW" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EYE" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnWeekly" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="WEEKLY" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMonthly" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="MONTHLY" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnYearly" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="YEARLY" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAll" mnemonicParsing="false" onAction="#btnCloseAction" stylesheets="@../transaction/button.css" text="ALL" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnReset" mnemonicParsing="false" onAction="#btnResetAction" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPrint" layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCloseAction" stylesheets="@../transaction/button.css" text="PRINT" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PRINT" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseAction" stylesheets="@../transaction/button.css" text="CLOSE" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="table" layoutX="-32.0" layoutY="148.0" prefHeight="334.0" prefWidth="545.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="148.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="58.0" text="Sr.No" />
+          <TableColumn fx:id="colDescription" prefWidth="358.0" text="Description" />
+            <TableColumn fx:id="colDate" prefWidth="118.0" text="Date" />
+            <TableColumn fx:id="colCredit" prefWidth="113.0" text="Credit" />
+            <TableColumn fx:id="colDebit" prefWidth="129.0" text="Debit" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="506.0" text="Total Credit" AnchorPane.bottomAnchor="42.0" />
+      <Label layoutX="154.0" layoutY="506.0" text="Total Debit" AnchorPane.bottomAnchor="42.0" />
+      <Label layoutX="296.0" layoutY="506.0" text="Total Balance" AnchorPane.bottomAnchor="42.0" />
+      <TextField fx:id="txtDebit" editable="false" layoutX="14.0" layoutY="523.0" prefHeight="30.0" prefWidth="120.0" text="0.0" AnchorPane.bottomAnchor="12.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtCredit" editable="false" layoutX="150.0" layoutY="523.0" prefHeight="30.0" prefWidth="120.0" text="0.0" AnchorPane.bottomAnchor="12.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtBalance" editable="false" layoutX="296.0" layoutY="523.0" prefHeight="30.0" prefWidth="120.0" text="0.0" AnchorPane.bottomAnchor="12.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

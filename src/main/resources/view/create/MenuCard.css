@@ -1,0 +1,21 @@
+.button{
+	-fx-background-color:transparent;
+	-fx-alignment:left;
+}
+.button:hover {
+	-fx-background-color:#2196f3;	
+}
+.button:pressed{
+	-fx-background-color:#64b5f6;
+}
+.pane{
+
+	-fx-background-color:#1976d2;
+	/*-fx-background-color:#311b92;*/
+	-fx-background-radius:30;
+	-fx-border-radius:30;
+	-fx-border-width:5;	
+}
+.pane:hover{
+	-fx-background-color:#311b92;
+}

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.home.DashboardController">
+   <children>
+      <BorderPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Pane prefHeight="42.0" prefWidth="500.0" style="-fx-background-color: #3f51b5; -fx-border-color: #2196f3;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="14.0" layoutY="10.0" text="Login User : " textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtTitle" layoutX="96.0" layoutY="11.0" prefHeight="20.0" prefWidth="156.0" text="User Name" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtWindowTitle" layoutX="317.0" layoutY="10.0" prefHeight="20.0" prefWidth="281.0" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </top>
+         <left>
+            <VBox prefHeight="458.0" prefWidth="196.0" style="-fx-background-color: #2196f3;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="DASHBOARD" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="btnTransaction" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openTransaction" prefHeight="37.0" stylesheets="@home.css" text="TRANSACTION" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnCreate" graphicTextGap="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#openCreate" prefHeight="37.0" stylesheets="@home.css" text="CREATE MASTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="GROUP" size="20" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnReport" graphicTextGap="10.0" layoutY="105.0" mnemonicParsing="false" onAction="#openReport" prefHeight="37.0" stylesheets="@home.css" text="REPORT" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="20" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnSettings" graphicTextGap="10.0" layoutY="142.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="37.0" stylesheets="@home.css" text="SETTINGS" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="GEAR" size="20" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>
+      <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefHeight="37.0" prefWidth="195.0" stylesheets="@home.css" text="LOGOUT" textFill="WHITE" AnchorPane.bottomAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

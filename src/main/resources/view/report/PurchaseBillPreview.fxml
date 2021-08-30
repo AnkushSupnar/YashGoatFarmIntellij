@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="mainFrame" prefHeight="627.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="main.java.main.java.controller.report.PurchaseInvoicePreviewControler">
+   <children>
+      <Label layoutX="24.0" layoutY="10.0" text="Bill No" />
+      <Label layoutX="137.0" layoutY="10.0" text="Invoice No" />
+      <Label layoutX="319.0" layoutY="10.0" text="Date" />
+      <TextField fx:id="txtBillNo" editable="false" layoutX="14.0" layoutY="30.0" prefHeight="25.0" prefWidth="104.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtInvoiceNo" editable="false" layoutX="137.0" layoutY="30.0" prefHeight="25.0" prefWidth="104.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="date" layoutX="296.0" layoutY="30.0" />
+      <Label layoutX="14.0" layoutY="70.0" text="Party Information" />
+      <TextField fx:id="txtPartyName" editable="false" layoutX="14.0" layoutY="93.0" prefHeight="30.0" prefWidth="362.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="txtAddress" editable="false" layoutX="14.0" layoutY="129.0" prefHeight="78.0" prefWidth="362.0" />
+      <TableView fx:id="table" layoutX="14.0" layoutY="214.0" prefHeight="276.0" prefWidth="472.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="214.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="53.0" text="Sr.No" />
+          <TableColumn fx:id="colItemName" prefWidth="194.0" text="ItemName" />
+            <TableColumn fx:id="colQty" prefWidth="55.0" text="Qty" />
+            <TableColumn fx:id="colUnit" prefWidth="43.0" text="Unit" />
+            <TableColumn fx:id="colRate" prefWidth="69.0" text="Rate" />
+            <TableColumn fx:id="colAmount" prefWidth="57.0" text="Amount" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="495.0" text="Net Total" AnchorPane.bottomAnchor="100.0" />
+      <Label layoutX="124.0" layoutY="495.0" text="Other Chargs" AnchorPane.bottomAnchor="100.0" />
+      <Label layoutX="239.0" layoutY="495.0" text="Transporting Chargs" AnchorPane.bottomAnchor="100.0" />
+      <Label layoutX="359.0" layoutY="495.0" text="Grand Total" AnchorPane.bottomAnchor="100.0" />
+      <TextField fx:id="txtNetTotal" editable="false" layoutX="14.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtOtherCharges" editable="false" layoutX="120.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtTransport" editable="false" layoutX="238.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtGrand" editable="false" layoutX="353.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="543.0" text="Paid Amount" AnchorPane.bottomAnchor="50.0" />
+      <TextField fx:id="txtPaid" editable="false" layoutX="14.0" layoutY="560.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="124.0" layoutY="543.0" text="Remaining Amount" AnchorPane.bottomAnchor="50.0" />
+      <TextField fx:id="txtRemaining" editable="false" layoutX="124.0" layoutY="560.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="245.0" layoutY="543.0" text="Bank Name" AnchorPane.bottomAnchor="50.0" />
+      <TextField fx:id="txtBankName" editable="false" layoutX="241.0" layoutY="560.0" prefHeight="30.0" prefWidth="213.0" AnchorPane.bottomAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

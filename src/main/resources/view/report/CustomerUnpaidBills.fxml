@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainFrame" prefHeight="500.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.CustomerUnpaidBillControler">
+   <children>
+      <Label layoutX="13.0" layoutY="26.0" text="Enter Customer Name" />
+      <ComboBox fx:id="cmbCustomerName" layoutX="452.0" layoutY="443.0" prefHeight="25.0" prefWidth="211.0" />
+      <TextField fx:id="txtCustomerName" layoutX="10.0" layoutY="45.0" prefHeight="25.0" prefWidth="217.0" promptText="Enter Customer Name" />
+      <Button fx:id="btnShow" layoutX="235.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnShowAction" prefHeight="25.0" stylesheets="@../transaction/button.css" text="SHOW" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnPreview" layoutX="326.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnPreviewAction" prefHeight="25.0" stylesheets="@../transaction/button.css" text="PRVIEW" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="EYE" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnReset" layoutX="429.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnResetAction" prefHeight="25.0" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="ERASER" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBack" layoutX="521.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnBackAction" prefHeight="25.0" stylesheets="@../transaction/button.css" text="BACK" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <TableView fx:id="table" layoutX="14.0" layoutY="82.0" prefHeight="332.0" prefWidth="809.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="58.0" text="Sr.No" />
+          <TableColumn fx:id="colDate" prefWidth="125.0" text="Date" />
+            <TableColumn fx:id="colBillNo" prefWidth="112.0" text="Bill No" />
+            <TableColumn fx:id="colBillAmount" prefWidth="108.0" text="Bill Amount" />
+            <TableColumn fx:id="colPaidAmount" prefWidth="99.0" text="Paid Amount" />
+            <TableColumn fx:id="colRemaining" prefWidth="121.0" text="Remaining Amount" />
+            <TableColumn fx:id="colSalesmanName" prefWidth="181.0" text="Salesman Name" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="396.0" text="Total Bill Amount" AnchorPane.bottomAnchor="65.0" />
+      <Label layoutX="147.0" layoutY="396.0" text="Total Paid Amount" AnchorPane.bottomAnchor="65.0" />
+      <Label layoutX="279.0" layoutY="396.0" text="Total Remaining Amount" AnchorPane.bottomAnchor="65.0" />
+      <TextField fx:id="txtTotalBillAmount" editable="false" layoutX="10.0" layoutY="425.0" prefHeight="25.0" prefWidth="121.0" AnchorPane.bottomAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtTotalPaidAmount" editable="false" layoutX="144.0" layoutY="425.0" prefHeight="25.0" prefWidth="121.0" AnchorPane.bottomAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtTotalRemainigAmount" editable="false" layoutX="286.0" layoutY="425.0" prefHeight="25.0" prefWidth="121.0" AnchorPane.bottomAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

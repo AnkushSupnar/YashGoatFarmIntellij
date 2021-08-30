@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainFrame" prefHeight="567.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.SalesmanSaleReportControler">
+   <children>
+      <Label layoutX="34.0" layoutY="20.0" text="Select Salesman" />
+      <ComboBox fx:id="cmbSalesman" layoutX="34.0" layoutY="40.0" prefHeight="25.0" prefWidth="240.0" />
+      <Label layoutX="293.0" layoutY="20.0" text="From Date" />
+      <Label layoutX="480.0" layoutY="20.0" text="To Date" />
+      <DatePicker fx:id="fromDate" layoutX="283.0" layoutY="40.0" prefHeight="25.0" prefWidth="154.0" />
+      <DatePicker fx:id="toDate" layoutX="445.0" layoutY="40.0" prefHeight="25.0" prefWidth="154.0" />
+      <Button fx:id="btnShow" layoutX="34.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnShowAction" prefHeight="30.0" prefWidth="100.0" stylesheets="@../transaction/button.css" text="SHOW" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="15" />
+         </graphic>
+      </Button>
+      <Button fx:id="btnReset" layoutX="158.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnResetAction" prefHeight="30.0" prefWidth="100.0" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="15" />
+         </graphic>
+      </Button>
+      <Button fx:id="btnPreview" layoutX="277.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnPreviewAction" prefHeight="30.0" prefWidth="100.0" stylesheets="@../transaction/button.css" text="PREVIEW" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="EYE" size="15" />
+         </graphic>
+      </Button>
+      <Button fx:id="btnBack" layoutX="396.0" layoutY="77.0" mnemonicParsing="false" onAction="#btnBackAction" prefHeight="30.0" prefWidth="100.0" stylesheets="@../transaction/button.css" text="BACK" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="15" />
+         </graphic>
+      </Button>
+      <TableView fx:id="table" layoutX="34.0" layoutY="119.0" prefHeight="390.0" prefWidth="954.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="115.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="75.0" text="Sr.No" />
+          <TableColumn fx:id="colDate" prefWidth="115.0" text="Date" />
+            <TableColumn fx:id="colBillNo" prefWidth="105.0" text="Bill No" />
+            <TableColumn fx:id="colBillAmount" prefWidth="102.0" text="Bill Amount" />
+            <TableColumn fx:id="colCommistion" prefWidth="97.0" text="Commision" />
+            <TableColumn fx:id="colPaidCommision" prefWidth="114.0" text="Paid Commision" />
+            <TableColumn fx:id="colCustomerName" prefWidth="337.0" text="Customer Name" />
+        </columns>
+      </TableView>
+      <Label layoutX="20.0" layoutY="463.0" text="Total Bill Amount" AnchorPane.bottomAnchor="42.0" />
+      <Label layoutX="180.0" layoutY="463.0" text="Total Commision" AnchorPane.bottomAnchor="42.0" />
+      <Label layoutX="327.0" layoutY="463.0" text="Total Paid Commistion" AnchorPane.bottomAnchor="42.0" />
+      <TextField fx:id="txtTotalBillAmount" layoutX="14.0" layoutY="489.0" prefHeight="30.0" prefWidth="131.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtTotalCommision" layoutX="170.0" layoutY="489.0" prefHeight="30.0" prefWidth="131.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtPaidCommition" layoutX="321.0" layoutY="489.0" prefHeight="30.0" prefWidth="131.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

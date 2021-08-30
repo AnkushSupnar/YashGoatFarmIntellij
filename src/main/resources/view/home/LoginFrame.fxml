@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.home.LoginController">
+   <children>
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="500.0" prefWidth="264.0" style="-fx-background-color: white; -fx-border-color: blue;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/YashLogo.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="21.0" layoutY="232.0" text="Yash Goat Farm &amp; Seeds" textFill="#2196f3">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Text layoutX="21.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed By Ankush Supnar" wrappingWidth="217.13671875" />
+            <Text layoutX="21.0" layoutY="495.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact No 8329394603 / 9960855742" wrappingWidth="217.13671875" />
+            <Text fill="#2196f3" layoutX="66.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management System">
+               <font>
+                  <Font name="Bell MT" size="16.0" />
+               </font>
+            </Text>
+            <ProgressIndicator fx:id="loding" layoutX="21.0" layoutY="332.0" prefHeight="100.0" prefWidth="200.0" visible="false" />
+         </children>
+      </Pane>
+      <ComboBox fx:id="cmbUserName" layoutX="337.0" layoutY="184.0" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-border-color: #2196f3; -fx-border-width: 0px 0px 2px 0px;" />
+      <Label layoutX="337.0" layoutY="155.0" text="Select User Name" textFill="#2196f3">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font></Label>
+      <PasswordField fx:id="txtPassword" layoutX="337.0" layoutY="256.0" onAction="#txtPasswordAction" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-border-color: #2196f3; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Label layoutX="337.0" layoutY="228.0" text="Enter Your Password" textFill="#2196f3">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font></Label>
+      <FontAwesomeIcon fill="#2196f3" glyphName="USER" layoutX="409.0" layoutY="76.0" size="60" />
+      <Text fill="#2196f3" layoutX="383.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+         <font>
+            <Font name="Georgia" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnLogin" layoutX="311.0" layoutY="359.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #2196f3;" text="LOGIN" textFill="WHITE">
+         <font>
+            <Font name="Georgia Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancel" layoutX="456.0" layoutY="359.0" mnemonicParsing="false" style="-fx-background-color: #f44336;;" text="CANCEL" textFill="WHITE">
+         <font>
+            <Font name="Georgia Bold" size="16.0" />
+         </font>
+      </Button>
+      <Hyperlink fx:id="linkAddEmployee" layoutX="337.0" layoutY="317.0" onAction="#addEmployee" text="Add User?" visible="false" />
+      <FontAwesomeIcon fill="#2196f3" glyphName="USER" layoutX="316.0" layoutY="203.0" size="20" />
+      <FontAwesomeIcon fill="#2196f3" glyphName="KEY" layoutX="316.0" layoutY="284.0" size="20" />
+   </children>
+</AnchorPane>

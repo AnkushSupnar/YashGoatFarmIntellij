@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainPanel" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.transaction.BillControler">
+   <center>
+      <AnchorPane prefHeight="600.0" prefWidth="600.0">
+         <children>
+            <TableView fx:id="tableOldBill" layoutX="23.0" layoutY="73.0" prefHeight="718.0" prefWidth="572.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+              <columns>
+                <TableColumn fx:id="colBillNo" prefWidth="59.0" text="Bill No" />
+                <TableColumn fx:id="colCustomerName" prefWidth="182.0" text="Customer Name" />
+                  <TableColumn fx:id="colDate" prefWidth="86.0" text="Date" />
+                  <TableColumn fx:id="colBillAmount" prefWidth="92.0" text="Bill Amount" />
+                  <TableColumn fx:id="colRecivedAmount" prefWidth="102.0" text="Rec. Amount" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnTodaysBills" layoutX="14.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadTodaysBills" stylesheets="@button.css" text="TODAYS BILLS" textFill="WHITE" />
+            <Button fx:id="btnThisWeek" layoutX="130.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadThisWeekBills" stylesheets="@button.css" text="THIS WEEK" textFill="WHITE" />
+            <Button fx:id="btnThisMonth" layoutX="225.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadThisMonthBills" stylesheets="@button.css" text="THIS MONTH" textFill="WHITE" />
+            <Button fx:id="btnThisYear" layoutX="331.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadThisYearBills" stylesheets="@button.css" text="THIS YEAR" textFill="WHITE" />
+            <Button fx:id="btnAllBills" layoutX="423.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadAllBills" stylesheets="@button.css" text="ALL BILLS" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="6.0" text="SELECT TO VIEW BILLS " />
+            <DatePicker fx:id="dateSearch" layoutX="13.0" layoutY="63.0" onAction="#dateSearchAction" prefHeight="25.0" prefWidth="106.0" promptText="Select Date" />
+            <TextField fx:id="txtSearchBillNo" layoutX="130.0" layoutY="63.0" onAction="#txtSearchBillNo" prefHeight="25.0" prefWidth="79.0" promptText="Enter BillNo" />
+         </children></AnchorPane>
+   </center>
+   <left>
+      <AnchorPane prefHeight="818.0" prefWidth="558.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="33.0" layoutY="15.0" text="Bill No" />
+            <TextField fx:id="txtBillNo" editable="false" layoutX="81.0" layoutY="10.0" />
+            <Label layoutX="291.0" layoutY="15.0" text="Date" />
+            <DatePicker fx:id="date" layoutX="325.0" layoutY="10.0" promptText="Billing Date" />
+            <Label layoutX="15.0" layoutY="51.0" text="Customer" />
+            <TextField fx:id="txtCustomerName" layoutX="80.0" layoutY="46.0" onAction="#customerNameAction" prefHeight="26.0" prefWidth="286.0" promptText="Enter Customer Name" />
+            <Button fx:id="btnSearch" layoutX="370.0" layoutY="46.0" mnemonicParsing="false" onAction="#searchCustomer" text="SEARCH">
+               <graphic>
+                  <FontAwesomeIcon glyphName="SEARCH" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnNew" layoutX="461.0" layoutY="46.0" mnemonicParsing="false" onAction="#btnNewAction" text="NEW">
+               <graphic>
+                  <FontAwesomeIcon glyphName="PLUS" />
+               </graphic>
+            </Button>
+            <TextArea fx:id="txtCustomerInfo" editable="false" layoutX="80.0" layoutY="77.0" prefHeight="74.0" prefWidth="444.0" promptText="Customer Search Result" />
+            <Label layoutX="14.0" layoutY="88.0" text="Customer" />
+            <Label layoutX="18.0" layoutY="114.0" text="Info." />
+            <Label layoutX="7.0" layoutY="161.0" text="Sales Man" />
+            <ComboBox fx:id="cmbSalesman" layoutX="81.0" layoutY="155.0" prefHeight="26.0" prefWidth="441.0" promptText="Select Sales Man" />
+            <Label layoutX="3.0" layoutY="193.0" text="Item Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtItemName" layoutX="1.0" layoutY="212.0" onAction="#searchItem" prefHeight="26.0" prefWidth="224.0" promptText="Enter Item Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="231.0" layoutY="193.0" text="Qty Unit">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUnit" editable="false" layoutX="226.0" layoutY="212.0" prefHeight="26.0" prefWidth="63.0" promptText="Unit">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="394.0" layoutY="193.0" text="Quantity">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtQty" layoutX="383.0" layoutY="212.0" onAction="#txtQtyAction" onKeyReleased="#txtQtyKeyEvent" prefHeight="26.0" prefWidth="85.0" promptText="Quantity">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="307.0" layoutY="193.0" text="Rate">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtRate" layoutX="289.0" layoutY="212.0" prefHeight="26.0" prefWidth="94.0" promptText="Rate">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtAmount" layoutX="470.0" layoutY="212.0" prefHeight="28.0" prefWidth="85.0" promptText="Amount">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="488.0" layoutY="193.0" text="Amount">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAdd" layoutX="7.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnAddAction" prefHeight="30.0" prefWidth="90.0" stylesheets="@button.css" text="ADD" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnClear" layoutX="103.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="90.0" stylesheets="@button.css" text="CLEAR" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnRemove" layoutX="199.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnremoveAction" prefHeight="30.0" prefWidth="90.0" stylesheets="@button.css" text="REMOVE" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnUpdate" layoutX="296.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="90.0" stylesheets="@button.css" text="UPDATE" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" />
+               </graphic>
+            </Button>
+            <TableView fx:id="table" layoutX="10.0" layoutY="283.0" prefHeight="215.0" prefWidth="553.0" stylesheets="@../css/table.css" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+              <columns>
+                <TableColumn fx:id="colSrNo" prefWidth="33.0" text="No" />
+                <TableColumn fx:id="colItemName" prefWidth="207.0" text="Item Name" />
+                  <TableColumn fx:id="colUnit" prefWidth="37.0" text="Unit" />
+                  <TableColumn fx:id="colQty" prefWidth="71.0" text="Quantity" />
+                  <TableColumn fx:id="colRate" prefWidth="75.0" text="Rate" />
+                  <TableColumn fx:id="colAmount" prefWidth="128.0" text="Amount" />
+              </columns>
+            </TableView>
+            <Pane layoutX="7.0" layoutY="500.0" prefHeight="144.0" prefWidth="553.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label layoutX="7.0" layoutY="7.0" text="Recieved By" />
+                  <Label layoutX="337.0" layoutY="7.0" text="Net Total" />
+                  <TextField fx:id="txtNetTotal" editable="false" layoutX="400.0" layoutY="3.0" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: #76ff03;" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="305.0" layoutY="43.0" text="Transp. Chrgs." />
+                  <TextField fx:id="txtTransoChrgs" layoutX="400.0" layoutY="39.0" onAction="#txtTranspChrgsAction" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: #ccff90;" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="314.0" layoutY="76.0" text="Other Chrgs." />
+                  <TextField fx:id="txtOtherChargs" layoutX="399.0" layoutY="72.0" onAction="#txtOtherChargesAction" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: #ccff90;" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="315.0" layoutY="113.0" text="Grand Total" />
+                  <TextField fx:id="txtGrandTotal" editable="false" layoutX="400.0" layoutY="109.0" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: #ffeb3b;" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="cmbRecievedBy" layoutX="101.0" layoutY="4.0" prefHeight="26.0" prefWidth="200.0" />
+                  <Label layoutX="6.0" layoutY="41.0" text="Reff. No" />
+                  <TextField fx:id="txtReffNo" layoutX="101.0" layoutY="36.0" prefHeight="26.0" prefWidth="200.0" />
+                  <Label layoutX="8.0" layoutY="75.0" text="Bank Name" />
+                  <ComboBox fx:id="cmbBankName" layoutX="101.0" layoutY="70.0" prefHeight="26.0" prefWidth="200.0" />
+                  <Label layoutX="6.0" layoutY="110.0" text="Recieved Amt." />
+                  <TextField fx:id="txtReivedAmount" layoutX="101.0" layoutY="105.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #76ff03;">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </Pane>
+            <Button fx:id="btnSave" layoutX="3.0" layoutY="649.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="37.0" prefWidth="100.0" stylesheets="@button.css" text="SAVE" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnClearBill" layoutX="111.0" layoutY="650.0" mnemonicParsing="false" onAction="#btnClearBillAction" prefHeight="37.0" prefWidth="100.0" stylesheets="@button.css" text="CLEAR" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditBill" layoutX="219.0" layoutY="650.0" mnemonicParsing="false" onAction="#btnEditBillAction" prefHeight="37.0" prefWidth="100.0" stylesheets="@button.css" text="EDIT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnPrint" layoutX="327.0" layoutY="650.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="37.0" prefWidth="100.0" stylesheets="@button.css" text="PRINT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PRINT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnExit" layoutX="434.0" layoutY="650.0" mnemonicParsing="false" onAction="#btnExitAction" prefHeight="37.0" prefWidth="100.0" stylesheets="@button.css" text="EXIT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

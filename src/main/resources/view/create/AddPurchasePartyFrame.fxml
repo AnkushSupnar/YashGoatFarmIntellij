@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.AddPartyControler">
+   <children>
+      <Pane layoutX="14.0" layoutY="6.0" prefHeight="624.0" prefWidth="652.0" style="-fx-border-color: Black;" stylesheets="@home.css" AnchorPane.leftAnchor="100.0">
+         <children>
+            <Label layoutX="51.0" layoutY="22.0" text="Party Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPartyName" layoutX="51.0" layoutY="49.0" prefHeight="26.0" prefWidth="408.0" promptText="Party Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="51.0" layoutY="90.0" text="Party Address">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TextArea fx:id="txtAddress" layoutX="51.0" layoutY="116.0" prefHeight="96.0" prefWidth="408.0">
+               <font>
+                  <Font size="14.0" />
+               </font></TextArea>
+            <Label layoutX="55.0" layoutY="222.0" text="Paty PAN No">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TextField fx:id="txtPanno" layoutX="51.0" layoutY="245.0" prefHeight="26.0" prefWidth="194.0">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <TextField fx:id="txtGst" layoutX="259.0" layoutY="245.0">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <Label layoutX="259.0" layoutY="222.0" text="Party GST No.">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Button fx:id="btnClear" graphicTextGap="10.0" layoutX="187.0" layoutY="283.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="CLEAR" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
+               </graphic>
+            </Button>
+            <TableView fx:id="table" layoutX="20.0" layoutY="328.0" prefHeight="282.0" prefWidth="614.0" stylesheets="@../css/table.css">
+              <columns>
+                <TableColumn fx:id="colSrNo" prefWidth="75.0" text="Sr.No" />
+                <TableColumn fx:id="colName" prefWidth="238.0" text="Party Name" />
+                  <TableColumn fx:id="colAddress" prefWidth="300.0" text="Address" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnAdd" graphicTextGap="10.0" layoutX="51.0" layoutY="283.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="ADD" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEdit" graphicTextGap="10.0" layoutX="318.0" layoutY="283.0" mnemonicParsing="false" onAction="#edit" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EDIT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEdit1" graphicTextGap="10.0" layoutX="450.0" layoutY="283.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EXIT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

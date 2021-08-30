@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPanel" prefHeight="646.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.transaction.PaymentRecieptController">
+   <children>
+      <Label layoutX="43.0" layoutY="15.0" text="Date" />
+      <DatePicker fx:id="date" layoutX="36.0" layoutY="42.0" prefHeight="25.0" prefWidth="98.0" promptText="select Date" />
+      <VBox layoutX="32.0" layoutY="78.0" prefHeight="195.0" prefWidth="351.0">
+         <children>
+            <Label text="Payment Reciever Name" />
+            <TextField fx:id="txtName" prefHeight="25.0" prefWidth="351.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Refference Note" />
+            <TextField fx:id="txtReference" prefHeight="25.0" prefWidth="351.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Amount" />
+            <TextField fx:id="txtAmount" prefHeight="25.0" prefWidth="351.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="10.0" layoutY="104.0" text="Select Bank Name" />
+            <ComboBox fx:id="cmbBankName" prefHeight="25.0" prefWidth="351.0" promptText="Select Bank Name" />
+         </children>
+      </VBox>
+      <HBox layoutX="32.0" layoutY="278.0">
+         <children>
+            <Button fx:id="btnPay" mnemonicParsing="false" stylesheets="@button.css" text="PAY" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnClear" mnemonicParsing="false" stylesheets="@button.css" text="CLEAR" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="REFRESH" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnUpdate" mnemonicParsing="false" stylesheets="@button.css" text="UPDATE" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="RECYCLE" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnPrint" mnemonicParsing="false" stylesheets="@button.css" text="PRINT" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PRINT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnHome" layoutX="280.0" layoutY="10.0" mnemonicParsing="false" stylesheets="@button.css" text="HOME" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="table" layoutX="30.0" layoutY="320.0" prefHeight="326.0" prefWidth="739.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="55.0" text="Sr.No" />
+            <TableColumn fx:id="colDate" prefWidth="102.0" text="Date" />
+          <TableColumn fx:id="colName" prefWidth="233.0" text="Reciever Name" />
+            <TableColumn fx:id="colAmount" prefWidth="109.0" text="Amount" />
+            <TableColumn fx:id="colBank" prefWidth="126.0" text="Bank Name" />
+            <TableColumn fx:id="colNote" prefWidth="113.0" text="Note" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

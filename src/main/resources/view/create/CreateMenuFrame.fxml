@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="createMenuPanel" stylesheets="@home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.CreateMenuControler">
+   <children>
+      <Pane layoutX="41.0" layoutY="32.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="80.0" layoutY="50.0" size="50" />
+            <Text fill="WHITE" layoutX="50.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAddEmployee" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#addEmployee" stylesheets="@MenuCard.css" text="Add Employee" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditEmployee" layoutX="34.0" layoutY="144.0" mnemonicParsing="false" onAction="#addEmployee" stylesheets="@MenuCard.css" text="Edit Employee" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnViewEmployee" layoutX="34.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewEmployee" stylesheets="@MenuCard.css" text="View Employees" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="300.0" layoutY="32.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="80.0" layoutY="50.0" size="50" />
+            <Text fill="WHITE" layoutX="81.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAddUser" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#AddUser" stylesheets="@MenuCard.css" text="Add User" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditUser" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#AddUser" stylesheets="@MenuCard.css" text="Edit User" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnViewUser" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewUser" stylesheets="@MenuCard.css" text="View Users" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="560.0" layoutY="32.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="80.0" layoutY="50.0" size="50" />
+            <Text fill="WHITE" layoutX="56.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAddCustomer" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#addCustomer" stylesheets="@MenuCard.css" text="Add Customer" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditCustomer" layoutX="34.0" layoutY="144.0" mnemonicParsing="false" onAction="#addCustomer" stylesheets="@MenuCard.css" text="Edit Customer" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnViewCustomer" layoutX="34.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewCustomer" stylesheets="@MenuCard.css" text="View Customers" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="41.0" layoutY="317.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="DIAMOND" layoutX="73.0" layoutY="50.0" size="50" />
+            <Text fill="WHITE" layoutX="78.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAddItem" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#addItem" stylesheets="@MenuCard.css" text="Add Item" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditItem" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#addItem" stylesheets="@MenuCard.css" text="Edit Item" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnVIewItem" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewItem" stylesheets="@MenuCard.css" text="View Items" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="300.0" layoutY="317.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="BUS" layoutX="81.0" layoutY="50.0" size="50" />
+            <Text fill="WHITE" layoutX="29.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Party">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAddParty" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#addParty" stylesheets="@MenuCard.css" text="Add Party" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditParty" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#addParty" stylesheets="@MenuCard.css" text="Edit Party" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnViewParty" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewParty" stylesheets="@MenuCard.css" text="View Parties" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="560.0" layoutY="317.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="BANK" layoutX="80.0" layoutY="50.0" size="50" />
+            <Text fill="WHITE" layoutX="31.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Accounts">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAddBank" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#addBank" stylesheets="@MenuCard.css" text="Add Bank" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditBank" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#addBank" stylesheets="@MenuCard.css" text="Edit Bank" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnViewBank" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewBank" stylesheets="@MenuCard.css" text="View Banks" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

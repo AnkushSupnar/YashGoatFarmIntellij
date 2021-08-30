@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="500.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.SalesmanItemSalesReportController">
+   <children>
+      <StackPane layoutX="97.0" layoutY="29.0" prefHeight="46.0" prefWidth="500.0" style="-fx-background-color: #2196f3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Salesman wise Item Sales Report">
+               <font>
+                  <Font name="Georgia Bold" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <Label layoutX="28.0" layoutY="66.0" text="Select Salesman Name">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font></Label>
+      <HBox layoutX="23.0" layoutY="83.0" spacing="5.0">
+         <children>
+            <ComboBox fx:id="cmbSalesman" prefHeight="25.0" prefWidth="232.0" />
+            <TextField fx:id="txtItem" prefHeight="25.0" prefWidth="232.0" promptText="Select Item" />
+            <DatePicker fx:id="dateStart" prefHeight="25.0" prefWidth="120.0" promptText="start Date" />
+            <DatePicker fx:id="dateEnd" prefHeight="25.0" prefWidth="120.0" promptText="start Date" />
+         </children>
+      </HBox>
+      <Label layoutX="256.0" layoutY="66.0" text="Select Item Name">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font></Label>
+      <Label layoutX="503.0" layoutY="66.0" text="Start Date">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font></Label>
+      <Label layoutX="623.0" layoutY="66.0" text="End Date">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font></Label>
+      <HBox layoutX="23.0" layoutY="127.0" spacing="10.0">
+         <children>
+            <Button fx:id="btnShow" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="SHOW">
+               <graphic>
+                  <FontAwesomeIcon glyphName="SEARCH_PLUS" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnWeek" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="WEEK">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LIST_OL" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMonth" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="MONTH">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LIST_OL" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnYear" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="YEAR">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LIST_OL" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAll" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="ALL">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LIST_OL" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPrint" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="PRINT">
+               <graphic>
+                  <FontAwesomeIcon glyphName="NEWSPAPER_ALT" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnReset" layoutX="444.0" layoutY="10.0" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="RESET">
+               <graphic>
+                  <FontAwesomeIcon glyphName="ROTATE_RIGHT" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnExit" layoutX="536.0" layoutY="10.0" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="EXIT">
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOSE" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="table" layoutX="23.0" layoutY="164.0" prefHeight="263.0" prefWidth="778.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="159.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="66.0" text="Sr.No" />
+          <TableColumn fx:id="colDate" prefWidth="108.0" text="Date" />
+            <TableColumn fx:id="collBillNo" prefWidth="79.0" text="BillNo" />
+            <TableColumn fx:id="colItem" prefWidth="267.0" text="Item Name" />
+            <TableColumn fx:id="colQuantity" prefWidth="74.0" text="Quantity" />
+            <TableColumn fx:id="colRate" prefWidth="78.0" text="Rate" />
+            <TableColumn fx:id="colAmount" prefWidth="102.0" text="Amount" />
+        </columns>
+      </TableView>
+      <Label layoutX="24.0" layoutY="428.0" text="Total Quantity" AnchorPane.bottomAnchor="56.0">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtQty" layoutX="24.0" layoutY="416.0" prefHeight="30.0" prefWidth="110.0" AnchorPane.bottomAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="140.0" layoutY="428.0" text="Total Amount" AnchorPane.bottomAnchor="56.0">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtAmount" layoutX="140.0" layoutY="416.0" prefHeight="30.0" prefWidth="110.0" AnchorPane.bottomAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

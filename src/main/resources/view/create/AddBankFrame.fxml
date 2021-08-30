@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.AddBankControler">
+   <children>
+      <Pane layoutX="38.0" layoutY="29.0" prefHeight="609.0" prefWidth="769.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="100.0">
+         <children>
+            <Label layoutX="21.0" layoutY="24.0" text="Bank Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="417.0" layoutY="24.0" text="IFSC Code">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="213.0" layoutY="24.0" text="Account Type">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="104.0" text="Account No">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="213.0" layoutY="104.0" text="Branch Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="417.0" layoutY="104.0" text="Present Balance">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtBalance" layoutX="417.0" layoutY="124.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtBankName" layoutX="21.0" layoutY="48.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtIfsc" layoutX="417.0" layoutY="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtAccountno" layoutX="21.0" layoutY="122.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtBanch" layoutX="213.0" layoutY="124.0" prefHeight="28.0" prefWidth="197.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnSave" graphicTextGap="10.0" layoutX="17.0" layoutY="183.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@../home/home.css" text="SAVE" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
+               </graphic>
+            </Button>
+            <TableView fx:id="table" layoutX="8.0" layoutY="230.0" prefHeight="362.0" prefWidth="756.0" stylesheets="@../css/table.css">
+              <columns>
+                <TableColumn fx:id="colSrno" prefWidth="55.0" text="Sr.No" />
+                <TableColumn fx:id="colBankname" prefWidth="185.0" text="Bank Name" />
+                  <TableColumn fx:id="colIfsc" prefWidth="93.0" text="IFSC" />
+                  <TableColumn fx:id="colAccountno" prefWidth="106.0" text="Account No" />
+                  <TableColumn fx:id="colAccountType" prefWidth="106.0" text="Account Type" />
+                  <TableColumn fx:id="colBranch" prefWidth="124.0" text="Branch" />
+                  <TableColumn fx:id="colBalance" prefWidth="107.0" text="Balance" />
+                  <TableColumn fx:id="calAcountno1" prefWidth="106.0" text="Account No" />
+              </columns>
+            </TableView>
+            <ComboBox fx:id="cmbAcountType" layoutX="213.0" layoutY="50.0" prefHeight="26.0" prefWidth="197.0" promptText="Select Account Type" />
+            <Button fx:id="btnClear" graphicTextGap="10.0" layoutX="149.0" layoutY="183.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="CLEAR" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnEdit" graphicTextGap="10.0" layoutX="283.0" layoutY="183.0" mnemonicParsing="false" onAction="#edit" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EDIT" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnExit" graphicTextGap="10.0" layoutX="417.0" layoutY="183.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EXIT" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

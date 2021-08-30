@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="658.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.transaction.CounterStockController">
+   <children>
+      <SplitPane dividerPositions="0.6050314465408805" layoutX="115.0" layoutY="29.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #b3e5fc;" SplitPane.resizableWithParent="false">
+               <children>
+                  <DatePicker fx:id="date" layoutX="10.0" layoutY="34.0" prefHeight="25.0" prefWidth="132.0" promptText="Select date" />
+                  <Label layoutX="10.0" layoutY="14.0" text="Date" />
+                  <Label layoutX="10.0" layoutY="66.0" text="Item Name" />
+                  <TextField fx:id="txtItemName" layoutX="10.0" layoutY="83.0" prefHeight="25.0" prefWidth="249.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <HBox layoutX="9.0" layoutY="140.0">
+                     <children>
+                        <TextField fx:id="txtNewQty" prefWidth="100.0" promptText="New Quantity">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="txtOldQty" editable="false" prefWidth="100.0" promptText="Old Quantity">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="txtTotalQty" prefWidth="100.0" promptText="Total Quantity">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <Label layoutX="16.0" layoutY="120.0" text="New Quantity" />
+                  <Label layoutX="122.0" layoutY="120.0" text="Old Quantity" />
+                  <Label layoutX="235.0" layoutY="120.0" text="Total Quantity" />
+                  <HBox layoutX="14.0" layoutY="189.0">
+                     <children>
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddAction" stylesheets="@button.css" text="ADD" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="CART_PLUS" size="20" text="" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnClear" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@button.css" text="CLEAR" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnRemoveAction" stylesheets="@button.css" text="REMOVE" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="REMOVE" size="20" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="table" layoutX="49.0" layoutY="227.0" prefHeight="381.0" prefWidth="464.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="227.0">
+                    <columns>
+                      <TableColumn fx:id="colSrNo" prefWidth="54.0" text="SR.No" />
+                      <TableColumn fx:id="colItemName" prefWidth="204.0" text="Item Name" />
+                        <TableColumn fx:id="colOldQty" prefWidth="60.0" text="Old Qty" />
+                        <TableColumn fx:id="colNewQty" prefWidth="76.0" text="New Qty" />
+                        <TableColumn fx:id="colTotalQty" prefWidth="69.0" text="Total Qty" />
+                    </columns>
+                  </TableView>
+                  <HBox layoutX="10.0" layoutY="540.0" AnchorPane.bottomAnchor="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnSaveAction" stylesheets="@button.css" text="SAVE" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelAction" stylesheets="@button.css" text="CANCEL" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="UNDO" size="20" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnEditAction" stylesheets="@button.css" text="EDIT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnPrintAction" stylesheets="@button.css" text="PRINT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PRINT" size="20" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnHomeAction" stylesheets="@button.css" text="HOME" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="20" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="lblAvailableQty" layoutX="266.0" layoutY="90.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="tblOld" layoutX="27.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="colId" prefWidth="75.0" text="Sr.No" />
+                      <TableColumn fx:id="colDate" prefWidth="154.0" text="Date" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      
+   </children>
+</AnchorPane>

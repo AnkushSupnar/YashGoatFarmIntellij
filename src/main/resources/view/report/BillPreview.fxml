@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="567.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.BillPreviewControler">
+   <children>
+      <Label layoutX="31.0" layoutY="25.0" text="Bill No" />
+      <Label layoutX="277.0" layoutY="25.0" text="Date" />
+      <TextField fx:id="txtBillNo" editable="false" layoutX="68.0" layoutY="19.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="date" editable="false" layoutX="303.0" layoutY="21.0" />
+      <Label layoutX="31.0" layoutY="66.0" text="Customer Name" />
+      <TextField fx:id="txtCustomerName" editable="false" layoutX="31.0" layoutY="83.0" prefHeight="25.0" prefWidth="258.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="31.0" layoutY="115.0" text="Salesman Name" />
+      <TextField fx:id="txtSalesmanName" editable="false" layoutX="31.0" layoutY="132.0" prefHeight="25.0" prefWidth="258.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TableView fx:id="table" layoutX="31.0" layoutY="172.0" prefHeight="268.0" prefWidth="547.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="172.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="50.0" text="Sr.No" />
+          <TableColumn fx:id="colItemName" prefWidth="158.0" text="Item Name" />
+            <TableColumn fx:id="colUnit" minWidth="0.0" prefWidth="39.0" text="Unit" />
+            <TableColumn fx:id="colQty" prefWidth="61.0" text="Qty" />
+            <TableColumn fx:id="colRate" prefWidth="69.0" text="Rate" />
+            <TableColumn fx:id="colAmount" prefWidth="87.0" text="Amount" />
+            <TableColumn fx:id="colCommision" prefWidth="82.0" text="Commision" />
+        </columns>
+      </TableView>
+      <Label layoutX="8.0" layoutY="438.0" text="Net Total" AnchorPane.bottomAnchor="40.0" />
+      <TextField fx:id="txtNetTotal" editable="false" layoutX="8.0" layoutY="455.0" prefHeight="25.0" prefWidth="108.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="120.0" layoutY="438.0" text="Other Chrgs" AnchorPane.bottomAnchor="40.0" />
+      <TextField fx:id="txtOtherChrgs" editable="false" layoutX="117.0" layoutY="455.0" prefHeight="25.0" prefWidth="108.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="234.0" layoutY="438.0" text="Transporting Chrgs" AnchorPane.bottomAnchor="40.0" />
+      <TextField fx:id="txtTransaportingChrgs" editable="false" layoutX="226.0" layoutY="455.0" prefHeight="25.0" prefWidth="108.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="348.0" layoutY="438.0" text="Grand Total" AnchorPane.bottomAnchor="40.0" />
+      <TextField fx:id="txtGrandTotal" editable="false" layoutX="336.0" layoutY="455.0" prefHeight="25.0" prefWidth="108.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="456.0" layoutY="438.0" text="Paid Amount" AnchorPane.bottomAnchor="40.0" />
+      <TextField fx:id="txtPaid" editable="false" layoutX="446.0" layoutY="455.0" prefHeight="25.0" prefWidth="108.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

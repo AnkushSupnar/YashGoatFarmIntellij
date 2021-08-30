@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="628.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.PaymentReceipReportController">
+   <children>
+      <StackPane layoutX="154.0" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: #2196f3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Receipt Report">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <Label layoutX="26.0" layoutY="59.0" text="Select Date" />
+      <DatePicker fx:id="date" layoutX="24.0" layoutY="75.0" prefHeight="25.0" prefWidth="134.0" />
+      <HBox layoutX="24.0" layoutY="113.0" spacing="5.0">
+         <children>
+            <Button fx:id="btnShow" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="SHOW">
+               <graphic>
+                  <FontAwesomeIcon glyphName="SEARCH" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnWeekly" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="WEEKLY">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMonthly" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="MONTHLY">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnYear" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="YEARLY">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAll" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="ALL">
+               <graphic>
+                  <FontAwesomeIcon glyphName="LAPTOP" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPrint" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="PRINT">
+               <graphic>
+                  <FontAwesomeIcon glyphName="PRINT" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnHome" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="HOME">
+               <graphic>
+                  <FontAwesomeIcon glyphName="HOME" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="table" layoutX="24.0" layoutY="143.0" prefHeight="435.0" prefWidth="888.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="50.0" AnchorPane.topAnchor="150.0">
+        <columns>
+          <TableColumn fx:id="colSrno" prefWidth="44.0" text="SR.No" />
+          <TableColumn fx:id="colDate" prefWidth="91.0" text="Date" />
+            <TableColumn fx:id="colName" prefWidth="207.0" text="Name" />
+            <TableColumn fx:id="colNote" prefWidth="246.0" text="Note" />
+            <TableColumn fx:id="colBankName" prefWidth="194.0" text="Bank Name" />
+            <TableColumn fx:id="colAmount" minWidth="0.0" prefWidth="103.0" text="Amount" />
+        </columns>
+      </TableView>
+      <Label layoutX="674.0" layoutY="590.0" text="Total" AnchorPane.bottomAnchor="18.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtTotal" alignment="TOP_RIGHT" editable="false" layoutX="712.0" layoutY="581.0" style="-fx-background-color: #fff59d; -fx-border-color: black;" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

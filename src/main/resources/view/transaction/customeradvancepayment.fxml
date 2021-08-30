@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="678.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.transaction.CustomerAdvancePaymentController">
+   <children>
+      <StackPane layoutX="128.0" layoutY="28.0" prefHeight="39.0" prefWidth="500.0" style="-fx-background-color: #3f50b5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Advance Payment">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <VBox layoutX="26.0" layoutY="42.0" AnchorPane.leftAnchor="26.0">
+         <children>
+            <Label text="Date" />
+            <DatePicker fx:id="date" prefHeight="25.0" prefWidth="140.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </DatePicker>
+            <Label text="Customer Name">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtCustomer" layoutX="10.0" layoutY="223.0" prefHeight="25.0" prefWidth="241.0" promptText="Enter Customer Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+            <Label text="Bank Name">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cmbBankName" prefHeight="25.0" prefWidth="382.0" promptText="Select Bank Name">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </ComboBox>
+            <Label text="Amount">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtAmount" onKeyReleased="#txtAmountKeyRelease" prefHeight="30.0" prefWidth="380.0" promptText="Enter Amount">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Reference Note">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtReff" prefHeight="25.0" prefWidth="241.0" promptText="Enter Refference Note">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <HBox layoutX="28.0" layoutY="326.0">
+         <children>
+            <Button fx:id="btnSave" mnemonicParsing="false" stylesheets="@button.css" text="SAVE">
+               <graphic>
+                  <FontAwesomeIcon glyphName="SAVE" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnClear" mnemonicParsing="false" stylesheets="@button.css" text="CLEAR">
+               <graphic>
+                  <FontAwesomeIcon glyphName="ERASER" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnUpdate" mnemonicParsing="false" stylesheets="@button.css" text="UPDATE">
+               <graphic>
+                  <FontAwesomeIcon glyphName="EDIT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnExit" mnemonicParsing="false" stylesheets="@button.css" text="EXIT">
+               <graphic>
+                  <FontAwesomeIcon glyphName="HOME" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="table" layoutX="25.0" layoutY="372.0" prefHeight="256.0" prefWidth="824.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="372.0">
+         <columns>
+            <TableColumn fx:id="colSrNo" prefWidth="54.0" text="Sr.No" />
+            <TableColumn fx:id="colDate" prefWidth="98.0" text="Date" />
+            <TableColumn fx:id="colCustomer" prefWidth="209.0" text="Customer Name" />
+            <TableColumn fx:id="colAmount" prefWidth="104.0" text="Amount" />
+            <TableColumn fx:id="colBankName" prefWidth="198.0" text="Bak Name" />
+            <TableColumn fx:id="colReff" prefWidth="157.0" text="Reff. Note" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

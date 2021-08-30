@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="959.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.ShowAllUnpaidBills">
+   <children>
+      <Pane layoutX="120.0" layoutY="27.0" prefHeight="45.0" prefWidth="959.0" style="-fx-background-color: #2196f3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="444.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Unpaid Bills">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <TableView fx:id="table" editable="true" layoutX="7.0" layoutY="43.0" prefHeight="480.0" prefWidth="959.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
+        <columns>
+          <TableColumn fx:id="colSrNo" prefWidth="56.0" text="Sr.No" />
+          <TableColumn fx:id="colDate" prefWidth="85.0" text="Date" />
+            <TableColumn fx:id="colBillNo" prefWidth="86.0" text="Bill No" />
+            <TableColumn fx:id="colCustomerName" prefWidth="222.0" text="Customer Name" />
+            <TableColumn fx:id="colBillAmount" prefWidth="76.0" text="Bill Amount" />
+            <TableColumn fx:id="colPaidAmount" text="Paid Amount" />
+            <TableColumn fx:id="colRemainingAmount" prefWidth="122.0" text="Remaining Amount" />
+            <TableColumn fx:id="colSalesmanName" prefWidth="222.0" text="Salesman Name" />
+        </columns>
+      </TableView>
+      <Label layoutX="3.0" layoutY="533.0" text="Total BillAmount" AnchorPane.bottomAnchor="23.0" />
+      <TextField fx:id="txtBill" layoutX="99.0" layoutY="529.0" prefHeight="30.0" prefWidth="154.0" AnchorPane.bottomAnchor="14.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="264.0" layoutY="533.0" text="Total Recieved" AnchorPane.bottomAnchor="23.0" />
+      <TextField fx:id="txtRecieved" layoutX="360.0" layoutY="529.0" prefHeight="30.0" prefWidth="154.0" AnchorPane.bottomAnchor="14.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="527.0" layoutY="533.0" text="Total Remaining" AnchorPane.bottomAnchor="23.0" />
+      <TextField fx:id="txtRemaining" layoutX="623.0" layoutY="529.0" prefHeight="30.0" prefWidth="154.0" AnchorPane.bottomAnchor="14.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

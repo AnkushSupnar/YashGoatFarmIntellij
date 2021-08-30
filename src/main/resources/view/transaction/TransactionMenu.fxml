@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="transactionMenuPanel" prefHeight="544.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.transaction.TransactionMenuControler">
+   <children>
+      <HBox layoutX="51.0" layoutY="39.0">
+         <children>
+            <Pane prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="47.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daily Billing">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="34.0" layoutY="96.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="btnBilling" mnemonicParsing="false" onAction="#openBilling" prefHeight="28.0" prefWidth="130.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Billing" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnPaymentRecieved" mnemonicParsing="false" onAction="#btnPaymentRecievedAction" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Payment Recieved" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnCustomerAdvancePayment" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Advance Payment" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnAllBill" mnemonicParsing="false" onAction="#openViewAllBill" prefHeight="28.0" prefWidth="130.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="View All Bills" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+            </Pane>
+            <Pane fx:id="purchaseMenu" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="30.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Invice">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="34.0" layoutY="103.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="btnBilling1" mnemonicParsing="false" onAction="#openPurchaseBilling" prefHeight="28.0" prefWidth="125.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Invoice" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnPayInvoice" mnemonicParsing="false" onAction="#btnPayInvoiceAction" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Pay Invoice Bills" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="20" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnViewAllInvoices" mnemonicParsing="false" onAction="#btnViewAllInvoicesAction" prefHeight="28.0" prefWidth="124.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="View All Invice" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Pane>
+            <Pane fx:id="stickCuttingMenu" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stick Cutting">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnCuttingOrder" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#openCuttingOrder" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Cutting Order" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                     </graphic>
+                  </Button>
+                  <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Pane>
+            <Pane fx:id="purchaseMenu11" layoutX="410.0" layoutY="10.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Counter Stock">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnAddCounterStock" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Add Counter Stock" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                     </graphic>
+                  </Button>
+                  <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="81.0" layoutY="53.0" size="50" />
+                  <Button layoutX="34.0" layoutY="135.0" mnemonicParsing="false" onAction="#btnViewCounterStock" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="VIew Counter Stock" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" text="" />
+                     </graphic>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Pane>
+         </children>
+      </HBox>
+      <Pane fx:id="menuBankTransaction" layoutX="51.0" layoutY="291.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
+         <children>
+            <Text fill="WHITE" layoutX="29.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Transaction">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <VBox layoutX="34.0" layoutY="103.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnPaymentReceiptAction" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Payment Receipt" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#btnAdvancePayment" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Advance Payment " textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#btnBankTransferAction" prefHeight="28.0" prefWidth="133.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Bank Transfer" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+            <FontAwesomeIcon fill="WHITE" glyphName="BANK" layoutX="75.0" layoutY="53.0" size="50" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="reportMenuPanel" prefHeight="619.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.ReportMenuControler">
+   <children>
+      <HBox layoutX="50.0" layoutY="42.0" spacing="10.0">
+         <children>
+            <Pane prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sales Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="20.0" layoutY="95.0">
+                     <children>
+                        <Button fx:id="btnDailySalesReport" mnemonicParsing="false" onAction="#btnDailySalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Daily Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnWeeklySalesReport" mnemonicParsing="false" onAction="#btnWeeklySalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Weekly Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnMonthlySalesReport" mnemonicParsing="false" onAction="#btnMonthlySalesReport" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Monthly Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnPeriodSalesReport" mnemonicParsing="false" onAction="#btnPeriodSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Period Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="brnYearSalesReport" mnemonicParsing="false" onAction="#brnYearSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Year Sales Rport" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane prefHeight="262.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="31.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="5.0" layoutY="95.0">
+                     <children>
+                        <Button fx:id="btnCommisionReport" mnemonicParsing="false" onAction="#btnCommisionReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Commision Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnSalesReport" mnemonicParsing="false" onAction="#btnSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnLabourCharges" mnemonicParsing="false" onAction="#btnLabourChargesAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Labour Charges" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnSalesmanLabourChargesAction" prefWidth="192.0" stylesheets="@../transaction/MenuCard.css" text="Salesman Labour Chargs" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="115.0" mnemonicParsing="false" onAction="#btnSalesmanItemReportAction" prefWidth="192.0" stylesheets="@../transaction/MenuCard.css" text="Salesman Item Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <effect>
+                  <Blend />
+               </effect>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="31.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="34.0" layoutY="103.0">
+                     <children>
+                        <Button fx:id="btnCustomerBills" mnemonicParsing="false" onAction="#btnCustomerBillsAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Customer Bills" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnUnpaidBills" mnemonicParsing="false" onAction="#btnUnpaidBillsAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Unpaid Bills" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnAllUnpaidBills" mnemonicParsing="false" onAction="#allUnpaidBillAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="All Unpaid Bills" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="17.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Stock Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="33.0" layoutY="103.0">
+                     <children>
+                        <Button fx:id="btnViewAllStock" mnemonicParsing="false" onAction="#btnViewAllStockAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Godown Stock" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnStickReportAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Stick Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnCounterStock" mnemonicParsing="false" onAction="#btnCounterStockAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Counter Stock" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane layoutX="640.0" layoutY="10.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="42.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Labour Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="3.0" layoutY="103.0" prefHeight="110.0" prefWidth="192.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnWeeklyLabourChargesAction" prefHeight="30.0" prefWidth="194.0" stylesheets="@../transaction/MenuCard.css" text="Weekly Labour Charges" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnMonthlyLabouChargesAction" prefHeight="30.0" prefWidth="195.0" stylesheets="@../transaction/MenuCard.css" text="Monthly Labour Charges" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnCounterStock1" mnemonicParsing="false" onAction="#btnPeriodLabourChargesAction" prefHeight="30.0" prefWidth="195.0" stylesheets="@../transaction/MenuCard.css" text="Period Labour Charges" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnCounterStock11" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnYearlyLabourChargesAction" prefHeight="30.0" prefWidth="195.0" stylesheets="@../transaction/MenuCard.css" text="Yearly Labour Charges" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <HBox layoutX="50.0" layoutY="330.0" spacing="10.0">
+         <children>
+            <Pane prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="20.0" layoutY="95.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnDailyItemSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Daily Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#weeklyItemSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Weekly Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnMonthlyItemSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Monthly Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnPeriodSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Period Sales Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#brnYearSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Year Sales Rport" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Report">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="20.0" layoutY="95.0">
+                     <children>
+                        <Button fx:id="btnBankStatement" mnemonicParsing="false" onAction="#btnBankStatementAction" stylesheets="@../transaction/MenuCard.css" text="Bank Statement" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnBankStatement1" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCashReceiptreportAction" stylesheets="@../transaction/MenuCard.css" text="Cash Reciept Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane layoutX="250.0" layoutY="10.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="18.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Statement">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="20.0" layoutY="95.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnPartyStatementAction" stylesheets="@../transaction/MenuCard.css" text="Party Statement" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+            </Pane>
+            <Pane layoutX="490.0" layoutY="10.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
+               <children>
+                  <Text fill="WHITE" layoutX="7.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Statement">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="20.0" layoutY="95.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnCustomerStatementAction" stylesheets="@../transaction/MenuCard.css" text="Customer Statement" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

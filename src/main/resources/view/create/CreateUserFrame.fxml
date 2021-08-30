@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPain" prefHeight="484.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.CreateUserControler">
+   <children>
+      <Label layoutX="103.0" layoutY="125.0" text="Select Employee" />
+      <ComboBox fx:id="cmbEmployee" layoutX="103.0" layoutY="142.0" prefHeight="25.0" prefWidth="270.0" promptText="Select Employee" />
+      <Label layoutX="103.0" layoutY="181.0" text="User Name" />
+      <TextField fx:id="txtUserName" layoutX="103.0" layoutY="198.0" prefHeight="25.0" prefWidth="270.0" promptText="User Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="103.0" layoutY="238.0" text="New Password" />
+      <PasswordField fx:id="txtPassword" layoutX="103.0" layoutY="255.0" prefHeight="25.0" prefWidth="270.0" promptText="New Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Label layoutX="103.0" layoutY="296.0" text="New Password" />
+      <PasswordField fx:id="txtRepassword" layoutX="103.0" layoutY="313.0" prefHeight="25.0" prefWidth="270.0" promptText="New Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="btnCreate" layoutX="103.0" layoutY="373.0" mnemonicParsing="false" onAction="#saveLogin" style="-fx-background-color: #2196f3;" text="CREATE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancel" layoutX="300.0" layoutY="373.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #2196f3;" text="CANCEL" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <FontAwesomeIcon fill="#2196f3" glyphName="USER" layoutX="218.0" layoutY="69.0" size="60" />
+      <Text fill="#2196f3" layoutX="193.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add User">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

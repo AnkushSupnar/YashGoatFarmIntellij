@@ -1,0 +1,13 @@
+.button{
+	-fx-background-color:#007bff;
+	-fx-text-fill:White;
+}
+.button .glyph-icon{
+	-fx-fill:white;
+}
+.button:hover {
+	-fx-background-color:#00e676;	
+}
+.button:pressed{
+	-fx-background-color:#1de9b6;
+}

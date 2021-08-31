@@ -14,13 +14,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         pagename="home/LoginFrame";
-        pagename="report/MonthlyItemSalesReport";
+       // pagename="report/YearItemSalesReport";
        // pagename="report/YearItemSalesReport";
        // pagename = "report/labourcharges/WeeklyLabourChargesReport";
         //pagename = "report/labourcharges/MonthlyLabourChargesReport";
        // pagename = "report/labourcharges/YearlyLabourChargesReport";
        // pagename = "report/labourcharges/PeriodLabourChargesReport";
-        //pagename = "report/salesmanitemsalesreport";
+        pagename = "report/CommisionFrame";
       try {
 //          Parent root = FXMLLoader.load(getClass().getResource("/view/" +pagename+".fxml"));
           Parent root = FXMLLoader.load(getClass().getResource("/view/"+pagename+".fxml"));

@@ -47,14 +47,14 @@ public class PrintMonthlyItemSaleReport {
         c1.setBorder(PdfPCell.NO_BORDER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Paragraph("Item Monthly Sales Report", font));
+        c1 = new PdfPCell(new Paragraph("Item Sales Report", font));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorder(0);
         c1.setBorder(PdfPCell.NO_BORDER);
         table.addCell(c1);
         doc.add(table);
 
-        float[] columnWidths = new float[]{10f,20f,12,40f,10f, 15f,10f,15f};
+        float[] columnWidths = new float[]{10f,18f,12,40f,10f, 15f,12f,15f};
         PdfPTable data = new PdfPTable(8);
         data.setWidths(columnWidths);
 

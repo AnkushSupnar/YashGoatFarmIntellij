@@ -106,7 +106,7 @@
             <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
          </graphic>
       </Button>
-      <TableView fx:id="tableCommision" layoutX="597.0" layoutY="34.0" prefHeight="697.0" prefWidth="498.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="593.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0">
+      <TableView fx:id="tableCommision" layoutX="597.0" layoutY="39.0" prefHeight="637.0" prefWidth="654.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="593.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="39.0">
         <columns>
           <TableColumn fx:id="colSrNo" prefWidth="47.0" text="Sr.No" />
           <TableColumn fx:id="colEmpName" prefWidth="197.0" text="Employee Name" />
@@ -173,5 +173,42 @@
       <Label layoutX="395.0" layoutY="516.0" text="Other Charges" AnchorPane.bottomAnchor="174.0" />
       <Label layoutX="488.0" layoutY="516.0" text="Total Commision" AnchorPane.bottomAnchor="174.0" />
       <Label layoutX="301.0" layoutY="517.0" text="Unpaid" AnchorPane.bottomAnchor="174.0" />
+      <HBox layoutX="593.0" layoutY="8.0" spacing="10.0">
+         <children>
+            <DatePicker fx:id="dateLoad" prefHeight="25.0" prefWidth="119.0" promptText="select Date" />
+            <Button fx:id="btnLoad" mnemonicParsing="false" stylesheets="@../css/button.css" text="LOAD">
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnMonth" mnemonicParsing="false" stylesheets="@../css/button.css" text="MONTH">
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnYear" mnemonicParsing="false" stylesheets="@../css/button.css" text="YEAR">
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnAll" mnemonicParsing="false" stylesheets="@../css/button.css" text="ALL">
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

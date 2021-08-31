@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -22,12 +23,15 @@ import main.java.main.java.Main;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.entities.Item;
 import main.java.main.java.hibernate.entities.Transaction;
+import main.java.main.java.hibernate.reportEntity.ItemSaleReportPojo;
 import main.java.main.java.hibernate.reportEntity.WeeklyItemSales;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintMonthlyItemSaleReport;
 
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -36,14 +40,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
+
 public class WeeklyItemSalesReport implements Initializable {
+	@FXML private AnchorPane mainPane;
 	@FXML private DatePicker date;
     @FXML private TextField txtItemName;
     @FXML private Button btnShow;
     @FXML private Button btnShowAll;
     @FXML private Button btnShowChart;
     @FXML private Button btnClear;
-    @FXML private TableView<WeeklyItemSales> table;
+	@FXML private Button btnPrint;
+	@FXML private Button btnExit;
+	@FXML private TableView<WeeklyItemSales> table;
     @FXML private TableColumn<WeeklyItemSales,Integer> colSrNo;
     @FXML private TableColumn<WeeklyItemSales,Long>    colDate;
     @FXML private TableColumn<WeeklyItemSales,String>  colBillNo;
@@ -52,8 +64,10 @@ public class WeeklyItemSalesReport implements Initializable {
     @FXML private TableColumn<?, ?> colUnit;
     @FXML private TableColumn<WeeklyItemSales,Float>  colRate;
     @FXML private TableColumn<WeeklyItemSales,Float>  colAmount;
-    
-    private BillService billService;
+	@FXML private TextField txtQyt;
+	@FXML private TextField txtAmount;
+
+	private BillService billService;
     private ItemService itemService;
     private ObservableList<WeeklyItemSales>list = FXCollections.observableArrayList();
     private List<Bill>billList = new ArrayList<Bill>();
@@ -72,6 +86,31 @@ public class WeeklyItemSalesReport implements Initializable {
 		colRate.setCellValueFactory(new PropertyValueFactory<>("rate"));
 		colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		table.setItems(list);
+		btnPrint.setOnAction(e->{
+			if(list.isEmpty())
+			{
+				new Alert(AlertType.ERROR,"No Data to Print").showAndWait();
+				return;
+			}
+			List<ItemSaleReportPojo>itemList = new ArrayList<>();
+			for(WeeklyItemSales sale:list)
+			{
+				itemList.add(new ItemSaleReportPojo(
+						sale.getSrno(),
+						sale.getBillNo(),
+						sale.getDate(),
+						sale.getItemName(),
+						sale.getUnit(),
+						sale.getQty(),
+						sale.getRate(),
+						sale.getAmount()
+						));
+			}
+			new PrintMonthlyItemSaleReport(itemList,
+					date.getValue().with(previousOrSame(MONDAY)),
+					date.getValue().with(nextOrSame(SUNDAY)));
+			new PrintFile().openFile("D:\\Software\\Prints\\ItemSalesReport.pdf");
+		});
 	}
 	 @FXML
 	    void btnClearAction(ActionEvent event) {
@@ -118,11 +157,8 @@ public class WeeklyItemSalesReport implements Initializable {
 	    			}
 	    		}
 	    	}
-	    	list.add(null);
-	    	list.add(null);
-	    	list.add(null);
-	    	list.add(null);
-	    	list.add(new WeeklyItemSales(0, null, 0,"Total", qty, "", 0,amount));
+	    	txtQyt.setText(""+qty);
+			txtAmount.setText(""+amount);
 	    }
 
 	    @FXML
@@ -144,10 +180,11 @@ public class WeeklyItemSalesReport implements Initializable {
 	    	}
 	    	int sr=0;
 	    	WeeklyItemSales week =null;
+			float amount = 0;
 	    	for(Item item:itemService.getAllItems())
 	    	{
 	    		week = new WeeklyItemSales(++sr,date.getValue() , 0, item.getItemname(),getItemAllSale(item.getItemname()),item.getUnit(), item.getRate(),item.getRate()*getItemAllSale(item.getItemname()));
-	    		
+	    		amount+=week.getAmount();
 	    		list.add(week);
 	    		if(item.getLabourCharges()>0)
 	    		{

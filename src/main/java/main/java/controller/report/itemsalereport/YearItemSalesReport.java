@@ -15,12 +15,17 @@ import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintMonthlyItemSaleReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
+import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 
 public class YearItemSalesReport implements Initializable {
 	@FXML private AnchorPane MainFrame;
@@ -72,7 +77,15 @@ public class YearItemSalesReport implements Initializable {
 		date.setValue(LocalDate.now());
 		list.clear();
 	});
-
+	btnPrint.setOnAction(e->{
+		if(list.isEmpty())
+		{
+			notify.showErrorMessage("No Data To Print");
+			return;
+		}
+		new PrintMonthlyItemSaleReport(list,date.getValue().with(firstDayOfYear()),date.getValue().with(lastDayOfYear()));
+		new PrintFile().openFile("D:\\Software\\Prints\\ItemSalesReport.pdf");
+	});
 
 	}
 
@@ -87,16 +100,19 @@ public class YearItemSalesReport implements Initializable {
 		txtQuantity.setText("");
 		txtAmount.setText("");
 		int sr=0;
+		float amount=0;
 		List<Bill> billList = billService.getYearWiseBills(date.getValue().getYear());
 		for(String name:itemService.getAllItemNames())
 		{
-			float qty=0,amount=0,rate=0;
+			float qty=0,rate=0;
 			qty=getItemSale(billList,name);
 			rate=itemService.getItemByName(name).getRate();
 
 			list.add(new ItemSaleReportPojo(
 					++sr,0,date.getValue(),name,itemService.getItemByName(name).getUnit(),qty,rate,qty*rate));
+			amount+=(qty*rate);
 		}
+		txtAmount.setText(""+amount);
 	}
 	private float getItemSale(List<Bill>billList,String name)
 	{

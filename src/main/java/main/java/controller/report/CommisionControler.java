@@ -33,6 +33,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.*;
+
 public class CommisionControler implements Initializable {
 		@FXML
 		private AnchorPane mainFrame;
@@ -79,7 +83,12 @@ public class CommisionControler implements Initializable {
 	    @FXML private TextField txtOtherCharges;
 	    @FXML private TextField txtUnpaid;
 
-	    
+	@FXML private DatePicker dateLoad;
+	@FXML private Button btnLoad;
+	@FXML private Button btnMonth;
+	@FXML private Button btnYear;
+	@FXML private Button btnAll;
+
 	    private EmployeeService employeeService;
 	    private BillService billService;
 	    private BankService bankService;
@@ -115,8 +124,12 @@ public class CommisionControler implements Initializable {
 			colCash.setCellValueFactory(new PropertyValueFactory<>("cashamount"));
 			colCommision2.setCellValueFactory(new PropertyValueFactory<>("paidCommision"));
 			colTransaporting.setCellValueFactory(new PropertyValueFactory<>("transaportingCharges"));
-			
-			commisionList.addAll(commisionService.getAllCommision());
+			dateLoad.setValue(LocalDate.now());
+			commisionList.addAll(commisionService.getDatePeriodCommision(
+					dateLoad.getValue().with(previousOrSame(MONDAY)),
+					dateLoad.getValue().with(nextOrSame(SUNDAY))));
+			//commisionList.addAll(commisionService.getAllCommision());
+
 			for(int i=0;i<commisionList.size();i++)
 			{
 				commisionList.get(i).setBankReffNo(
@@ -126,7 +139,70 @@ public class CommisionControler implements Initializable {
 						);
 			}
 			tableCommision.setItems(commisionList);
-			
+			btnLoad.setOnAction(e->{
+				if(dateLoad.getValue()!=null)
+				{
+					commisionList.clear();
+					commisionList.addAll(commisionService.getDatePeriodCommision(
+							dateLoad.getValue().with(previousOrSame(MONDAY)),
+							dateLoad.getValue().with(nextOrSame(SUNDAY))));
+					for(int i=0;i<commisionList.size();i++)
+					{
+						commisionList.get(i).setBankReffNo(
+								commisionList.get(i).getEmployee().getFname()+" "+
+										commisionList.get(i).getEmployee().getLname()+" "+
+										commisionList.get(i).getEmployee().getLname()
+						);
+					}
+				}
+				});
+			btnMonth.setOnAction(e->{
+				if(dateLoad.getValue()!=null)
+				{
+					commisionList.clear();
+					commisionList.addAll(commisionService.getDatePeriodCommision(
+							dateLoad.getValue().with(firstDayOfMonth()),
+							dateLoad.getValue().with(lastDayOfMonth())));
+					for(int i=0;i<commisionList.size();i++)
+					{
+						commisionList.get(i).setBankReffNo(
+								commisionList.get(i).getEmployee().getFname()+" "+
+										commisionList.get(i).getEmployee().getLname()+" "+
+										commisionList.get(i).getEmployee().getLname()
+						);
+					}
+				}
+			});
+			btnYear.setOnAction(e->{
+				if(dateLoad.getValue()!=null)
+				{
+					commisionList.clear();
+					commisionList.addAll(commisionService.getDatePeriodCommision(
+							dateLoad.getValue().with(firstDayOfYear()),
+							dateLoad.getValue().with(lastDayOfYear())));
+					for(int i=0;i<commisionList.size();i++)
+					{
+						commisionList.get(i).setBankReffNo(
+								commisionList.get(i).getEmployee().getFname()+" "+
+										commisionList.get(i).getEmployee().getLname()+" "+
+										commisionList.get(i).getEmployee().getLname()
+						);
+					}
+				}
+			});
+			btnAll.setOnAction(e->{
+
+				commisionList.addAll(commisionService.getAllCommision());
+				//commisionList.addAll(commisionService.getAllCommision());
+				for(int i=0;i<commisionList.size();i++)
+				{
+					commisionList.get(i).setBankReffNo(
+							commisionList.get(i).getEmployee().getFname()+" "+
+									commisionList.get(i).getEmployee().getLname()+" "+
+									commisionList.get(i).getEmployee().getLname()
+					);
+				}
+			});
 		}
 
 	    @FXML

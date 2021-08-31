@@ -15,6 +15,8 @@ import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintMonthlyItemSaleReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -76,6 +78,15 @@ public class PeriodItemSalesReport implements Initializable {
 		 txtAmount.setText("");
 	 });
 	 btnExit.setOnAction(e->mainFrame.setVisible(false));
+	 btnPrint.setOnAction(e->{
+		if(list.isEmpty())
+		{
+			notify.showErrorMessage("No Data Tot Print");
+			return;
+		}
+		new PrintMonthlyItemSaleReport(list,startDate.getValue(),endDate.getValue());
+		new PrintFile().openFile("D:\\Software\\Prints\\ItemSalesReport.pdf");
+	 });
 	}
 
 	private void showAll() {
@@ -102,6 +113,7 @@ public class PeriodItemSalesReport implements Initializable {
 		txtAmount.setText("");
 		List<Bill>billList = billService.getPeriodWiseBills(startDate.getValue(),endDate.getValue());
 		int sr=0;
+		float amount=0;
 		for(String name:itemService.getAllItemNames())
 		{
 			float qty = getItemQty(billList,name);
@@ -115,7 +127,9 @@ public class PeriodItemSalesReport implements Initializable {
 					qty,
 					rate,
 					qty*rate));
+			amount+=(qty*rate);
 		}
+		txtAmount.setText(""+amount);
 	}
 
 	private float getItemQty(List<Bill> billList, String name) {

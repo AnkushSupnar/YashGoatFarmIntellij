@@ -1,4 +1,4 @@
-package main.java.main.java.controller.report;
+package main.java.main.java.controller.report.itemsalereport;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

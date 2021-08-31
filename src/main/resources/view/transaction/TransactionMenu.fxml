@@ -23,22 +23,22 @@
                   </Text>
                   <VBox layoutX="34.0" layoutY="96.0" spacing="5.0">
                      <children>
-                        <Button fx:id="btnBilling" mnemonicParsing="false" onAction="#openBilling" prefHeight="28.0" prefWidth="130.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Billing" textFill="WHITE">
+                        <Button fx:id="btnBilling" mnemonicParsing="false" onAction="#openBilling" prefHeight="28.0" prefWidth="130.0" stylesheets="@MenuCard.css" text="Billing" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnPaymentRecieved" mnemonicParsing="false" onAction="#btnPaymentRecievedAction" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Payment Recieved" textFill="WHITE">
+                        <Button fx:id="btnPaymentRecieved" mnemonicParsing="false" onAction="#btnPaymentRecievedAction" stylesheets="@MenuCard.css" text="Payment Recieved" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#btnCustomerAdvancePayment" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Advance Payment" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#btnCustomerAdvancePayment" stylesheets="@MenuCard.css" text="Advance Payment" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnAllBill" mnemonicParsing="false" onAction="#openViewAllBill" prefHeight="28.0" prefWidth="130.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="View All Bills" textFill="WHITE">
+                        <Button fx:id="btnAllBill" mnemonicParsing="false" onAction="#openViewAllBill" prefHeight="28.0" prefWidth="130.0" stylesheets="@MenuCard.css" text="View All Bills" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
                            </graphic>
@@ -57,17 +57,17 @@
                   </Text>
                   <VBox layoutX="34.0" layoutY="103.0" spacing="5.0">
                      <children>
-                        <Button fx:id="btnBilling1" mnemonicParsing="false" onAction="#openPurchaseBilling" prefHeight="28.0" prefWidth="125.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Invoice" textFill="WHITE">
+                        <Button fx:id="btnBilling1" mnemonicParsing="false" onAction="#openPurchaseBilling" prefHeight="28.0" prefWidth="125.0" stylesheets="@MenuCard.css" text="Invoice" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnPayInvoice" mnemonicParsing="false" onAction="#btnPayInvoiceAction" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Pay Invoice Bills" textFill="WHITE">
+                        <Button fx:id="btnPayInvoice" mnemonicParsing="false" onAction="#btnPayInvoiceAction" stylesheets="@MenuCard.css" text="Pay Invoice Bills" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="20" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnViewAllInvoices" mnemonicParsing="false" onAction="#btnViewAllInvoicesAction" prefHeight="28.0" prefWidth="124.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="View All Invice" textFill="WHITE">
+                        <Button fx:id="btnViewAllInvoices" mnemonicParsing="false" onAction="#btnViewAllInvoicesAction" prefHeight="28.0" prefWidth="124.0" stylesheets="@MenuCard.css" text="View All Invice" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
                            </graphic>
@@ -87,7 +87,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button fx:id="btnCuttingOrder" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#openCuttingOrder" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Cutting Order" textFill="WHITE">
+                  <Button fx:id="btnCuttingOrder" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#openCuttingOrder" stylesheets="@MenuCard.css" text="Cutting Order" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                      </graphic>
@@ -105,13 +105,13 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnAddCounterStock" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Add Counter Stock" textFill="WHITE">
+                  <Button layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnAddCounterStock" stylesheets="@MenuCard.css" text="Add Counter Stock" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                      </graphic>
                   </Button>
                   <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="81.0" layoutY="53.0" size="50" />
-                  <Button layoutX="34.0" layoutY="135.0" mnemonicParsing="false" onAction="#btnViewCounterStock" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="VIew Counter Stock" textFill="WHITE">
+                  <Button layoutX="34.0" layoutY="135.0" mnemonicParsing="false" onAction="#btnViewCounterStock" stylesheets="@MenuCard.css" text="VIew Counter Stock" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" text="" />
                      </graphic>
@@ -132,17 +132,17 @@
             </Text>
             <VBox layoutX="34.0" layoutY="103.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#btnPaymentReceiptAction" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Payment Receipt" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#btnPaymentReceiptAction" stylesheets="@MenuCard.css" text="Payment Receipt" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnAdvancePayment" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Advance Payment " textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#btnAdvancePayment" stylesheets="@MenuCard.css" text="Advance Payment " textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnBankTransferAction" prefHeight="28.0" prefWidth="133.0" style="-fx-alignment: left;" stylesheets="@MenuCard.css" text="Bank Transfer" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#btnBankTransferAction" prefHeight="28.0" prefWidth="133.0" stylesheets="@MenuCard.css" text="Bank Transfer" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
                      </graphic>

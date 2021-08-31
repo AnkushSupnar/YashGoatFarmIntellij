@@ -26,7 +26,6 @@
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-font-family: "Georgia";
-    
     -fx-text-fill: white;
     
 }

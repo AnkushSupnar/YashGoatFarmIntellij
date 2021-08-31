@@ -1,4 +1,4 @@
-package main.java.main.java.controller.report;
+package main.java.main.java.controller.report.itemsalereport;
 
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -28,6 +29,8 @@ import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintItemSaleReport;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,6 +39,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DailyItemSalesReportController implements Initializable{
+		@FXML private AnchorPane mainPane;
 		@FXML private DatePicker date;
 	    @FXML private Button btnShow;
 	    @FXML private TextField txtItemName;
@@ -50,8 +54,11 @@ public class DailyItemSalesReportController implements Initializable{
 	    @FXML private TableColumn<DailyItemSales,Float> colRate;
 	    @FXML private TableColumn<DailyItemSales,Float> colAmount;
 	    @FXML private Button btnShowChart;
+		@FXML private TextField txtQty;
+		@FXML private TextField txtAmount;
 
-	    private BillService billService;
+
+	private BillService billService;
 	    private ItemService itemService;
 	    private ObservableList<DailyItemSales>list = FXCollections.observableArrayList();
 	    private List<Bill>billList = new ArrayList<Bill>();
@@ -79,6 +86,8 @@ public class DailyItemSalesReportController implements Initializable{
 			 list.clear();
 			 billList.clear();	
 			 CommonData.dailyItemSaleList.clear();
+			 txtAmount.setText("");
+			 txtQty.setText("");
 		    }
 
 		    @FXML
@@ -131,7 +140,7 @@ public class DailyItemSalesReportController implements Initializable{
 		    	}
 		    	try {
 		    	Stage stage = new Stage();
-				Parent root = FXMLLoader.load(Main.class.getResource("/resources/view/report/charts/DailyItemSalesChart.fxml"));
+				Parent root = FXMLLoader.load(Main.class.getResource("/view/report/charts/DailyItemSalesChart.fxml"));
 				stage.setScene(new Scene(root));
 				stage.setTitle("My modal window");
 				stage.initModality(Modality.WINDOW_MODAL);
@@ -170,9 +179,8 @@ public class DailyItemSalesReportController implements Initializable{
 		    		
 		    	}
 		    	
-		    	list.add(null);
-	    		list.add(null);
-	    		list.add(new DailyItemSales(0, 0, "Total", qty, "", 0, amount));
+		    	txtAmount.setText(""+amount);
+				txtQty.setText(""+qty);
 		    }
 		    private void showAll()
 		    {
@@ -181,10 +189,12 @@ public class DailyItemSalesReportController implements Initializable{
 		    	int sr=0;
 		    	
 		    	DailyItemSales d = null;
+				float amount=0;
 		    	for(Item item:itemService.getAllItems())
 		    	{
 		    		d=new DailyItemSales(++sr, 0, item.getItemname(), getItemSale(item.getItemname()), item.getUnit(), item.getRate(),item.getRate()*getItemSale(item.getItemname())); 
 		    		list.add(d);
+					amount +=d.getAmount();
 		    		if(item.getLabourCharges()>0)
 		    		{
 		    			//for Stick
@@ -197,7 +207,8 @@ public class DailyItemSalesReportController implements Initializable{
 		    		}
 		    		d=null;
 		    	}
-		    	
+		    	txtAmount.setText(""+amount);
+				txtQty.setText("");
 		    	
 		    }
 		    private float getItemSale(String name)
@@ -219,4 +230,19 @@ public class DailyItemSalesReportController implements Initializable{
 					return 0;
 				}
 		    }
+	@FXML
+	void btnExitAction(ActionEvent event) {
+		mainPane.setVisible(false);
+	}
+	@FXML
+	void btnPrintAction(ActionEvent event) {
+		if(list.isEmpty())
+		{
+			new Alert(AlertType.ERROR,"No Data to Print ").showAndWait();
+			return;
+		}
+		new PrintItemSaleReport(list,date.getValue(),date.getValue());
+		new PrintFile().openFile("D:\\Software\\Prints\\DailyItemSalesReport.pdf");
+
+	}
 }

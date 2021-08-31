@@ -10,73 +10,81 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.DailyItemSalesReportController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.itemsalereport.DailyItemSalesReportController">
    <children>
-      <Pane layoutX="100.0" layoutY="32.0" prefHeight="42.0" prefWidth="600.0" styleClass="frameMenu" stylesheets="@../transaction/MenuCard.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Text fill="WHITE" layoutX="239.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daily Item Sales Rport">
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font></Text>
-         </children>
-      </Pane>
       <Label layoutX="21.0" layoutY="48.0" text="Start Date" />
       <DatePicker fx:id="date" layoutX="18.0" layoutY="64.0" prefHeight="25.0" prefWidth="138.0" promptText="select date" />
-      <HBox layoutX="22.0" layoutY="101.0">
+      <HBox layoutX="22.0" layoutY="101.0" spacing="10.0">
          <children>
             <Button fx:id="btnShow" mnemonicParsing="false" onAction="#btnShowAction" stylesheets="@../transaction/button.css" text="SHOW" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Georgia" size="16.0" />
                </font>
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
                </graphic>
                <HBox.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
             <Button fx:id="btnShowAll" mnemonicParsing="false" onAction="#btnShowAllAction" stylesheets="@../transaction/button.css" text="SHOW ALL" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Georgia" size="16.0" />
                </font>
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
                </graphic>
                <HBox.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </HBox.margin>
+            </Button>
+            <Button layoutX="99.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPrintAction" stylesheets="@../transaction/button.css" text="PRINT" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="PRINT" />
+               </graphic>
             </Button>
             <Button fx:id="btnShowChart" mnemonicParsing="false" onAction="#btnShowChartAction" stylesheets="@../transaction/button.css" text="SHOW CHART" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Georgia" size="16.0" />
                </font>
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="TABLE" />
                </graphic>
                <HBox.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnClear" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@../transaction/button.css" text="CLEAR" textFill="WHITE">
+            <Button fx:id="btnClear" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Georgia" size="16.0" />
                </font>
                <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="RECYCLE" />
                </graphic>
                <HBox.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </HBox.margin>
+            </Button>
+            <Button layoutX="442.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnExitAction" stylesheets="@../transaction/button.css" text="EXIT" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="HOME" />
+               </graphic>
             </Button>
          </children>
       </HBox>
       <TextField fx:id="txtItemName" layoutX="161.0" layoutY="63.0" prefHeight="25.0" prefWidth="206.0" promptText="Enter Item Name" />
       <Label layoutX="161.0" layoutY="47.0" text="Select Item Name" />
-      <TableView fx:id="table" layoutX="22.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="143.0">
+      <TableView fx:id="table" layoutX="22.0" layoutY="143.0" prefHeight="467.0" prefWidth="920.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="143.0">
         <columns>
           <TableColumn fx:id="colSrNo" prefWidth="67.0" text="Sr.No" />
           <TableColumn fx:id="colBillNo" prefWidth="117.0" text="BillNo" />
@@ -90,5 +98,26 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <StackPane layoutX="367.0" layoutY="14.0" prefHeight="44.0" prefWidth="964.0" style="-fx-background-color: #007bff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Daily Item Sales Rport">
+               <font>
+                  <Font name="Georgia Bold" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <Label layoutX="22.0" layoutY="621.0" text="Total Quantity" AnchorPane.bottomAnchor="14.0" />
+      <Label layoutX="294.0" layoutY="621.0" text="Total Amount" />
+      <TextField fx:id="txtQty" layoutX="106.0" layoutY="617.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtAmount" layoutX="378.0" layoutY="617.0" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

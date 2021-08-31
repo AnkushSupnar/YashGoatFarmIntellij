@@ -1,4 +1,4 @@
-package main.java.main.java.controller.report;
+package main.java.main.java.controller.report.itemsalereport;
 
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;

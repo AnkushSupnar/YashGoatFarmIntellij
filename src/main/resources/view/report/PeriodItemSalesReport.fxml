@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainFrame" prefHeight="554.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.PeriodItemSalesReport">
+<AnchorPane fx:id="mainFrame" prefHeight="554.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.itemsalereport.PeriodItemSalesReport">
    <children>
       <HBox layoutX="14.0" layoutY="35.0" spacing="10.0">
          <children>

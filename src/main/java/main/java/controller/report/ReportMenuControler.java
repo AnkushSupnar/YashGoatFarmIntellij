@@ -272,6 +272,9 @@ public class ReportMenuControler implements Initializable {
 
 	@FXML
 	void btnPeriodLabourChargesAction(ActionEvent event) {
+		centerPane = viewUtil.getPage("report/labourcharges/PeriodLabourChargesReport");
+		pane =(BorderPane) reportMenuPanel.getParent();
+		pane.setCenter(centerPane);
 
 	}
 	@FXML

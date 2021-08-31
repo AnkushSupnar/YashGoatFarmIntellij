@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import main.java.main.java.guiUtil.AlertNotification;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.Item;
 import main.java.main.java.hibernate.entities.Transaction;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.EmployeeService;
@@ -18,6 +19,8 @@ import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.EmployeeServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintSalemanItemSalesReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -99,9 +102,29 @@ public class SalesmanItemSalesReportController implements Initializable {
 			txtQty.setText("");
 		});
 		btnExit.setOnAction(e->mainPane.setVisible(false));
+        btnPrint.setOnAction(e->print());
 		
 	}
-	private void show(ActionEvent e) {
+
+    private void print() {
+        if(list.size()==0)
+        {notify.showErrorMessage("No data to print"); return;}
+        if(list.get(0).getBill().getBillno()==0)
+        {
+            //for all items
+            new PrintSalemanItemSalesReport(list,cmbSalesman.getSelectionModel().getSelectedItem(),dateStart.getValue(),dateEnd.getValue());
+			new PrintFile().openFile("D:\\Software\\Prints\\SalesmanItemSalesReport.pdf");
+			System.out.println("Printing done");
+        }
+        else{
+            //for individual item
+            new PrintSalemanItemSalesReport(list,cmbSalesman.getSelectionModel().getSelectedItem(),dateStart.getValue(),dateEnd.getValue());
+			new PrintFile().openFile("D:\\Software\\Prints\\SalesmanItemSalesReport.pdf");
+			System.out.println("Printing done");
+        }
+    }
+
+    private void show(ActionEvent e) {
 		Button button = (Button) e.getSource();
 		
 		if(button.getId().equals("btnShow"))
@@ -120,17 +143,34 @@ public class SalesmanItemSalesReportController implements Initializable {
 			{
 				//date wise bills
 				billList.clear();
+				list.clear();
 				billList.addAll(
 						billService.getDateWiseSalesmanBills(empid,dateStart.getValue()));
-				showTable(billList);
+				if(billList.size()==0)
+				{
+					notify.showErrorMessage("No data to show");
+					return;
+				}
+				if(txtItem.getText().isEmpty())
+				{
+					showAllItem(billList);
+				}else {
+					showTable(billList);
+				}
 				return;
 			}
 			if(dateStart.getValue()!=null && dateEnd.getValue()!=null)
 			{
 				//period bills
 				billList.clear();
+				list.clear();
 				billList.addAll(billService.getPeriodWiseSalesmanBills(empid, dateStart.getValue(), dateEnd.getValue()));
-				showTable(billList);
+                if(txtItem.getText().isEmpty())
+                {
+                    showAllItem(billList);
+                }else {
+                    showTable(billList);
+                }
 				return;
 			}
 		}
@@ -141,8 +181,14 @@ public class SalesmanItemSalesReportController implements Initializable {
 				return;
 			}
 			billList.clear();
+			list.clear();
 			billList.addAll(billService.getPeriodWiseSalesmanBills(empid, dateStart.getValue().with(previousOrSame(MONDAY)), dateStart.getValue().with(nextOrSame(SUNDAY))));
-			showTable(billList);
+			if(txtItem.getText().isEmpty())
+			{
+				showAllItem(billList);
+			}else {
+				showTable(billList);
+			}
 			return;
 		}
 		if(button.getId().equals("btnMonth"))
@@ -151,9 +197,15 @@ public class SalesmanItemSalesReportController implements Initializable {
 			{
 				return;
 			}
+			list.clear();
 			billList.clear();
 			billList.addAll(billService.getPeriodWiseSalesmanBills(empid, dateStart.getValue().with(firstDayOfMonth()),dateStart.getValue().with(lastDayOfMonth())));
-			showTable(billList);
+			if(txtItem.getText().isEmpty())
+			{
+				showAllItem(billList);
+			}else {
+				showTable(billList);
+			}
 			return;
 		}
 		if(button.getId().equals("btnYear"))
@@ -162,9 +214,15 @@ public class SalesmanItemSalesReportController implements Initializable {
 			{
 				return;
 			}
+			list.clear();
 			billList.clear();
 			billList.addAll(billService.getPeriodWiseSalesmanBills(empid, dateStart.getValue().with(firstDayOfYear()),dateStart.getValue().with(lastDayOfYear())));
-			showTable(billList);
+			if(txtItem.getText().isEmpty())
+			{
+				showAllItem(billList);
+			}else {
+				showTable(billList);
+			}
 			return;
 		}
 		if(button.getId().equals("btnAll"))
@@ -174,12 +232,61 @@ public class SalesmanItemSalesReportController implements Initializable {
 				return;
 			}
 			billList.clear();
+			list.clear();
 			billList.addAll(billService.getSalesmanAllBills(empid));
-			showTable(billList);
+			if(txtItem.getText().isEmpty())
+			{
+				showAllItem(billList);
+			}else {
+				showTable(billList);
+			}
 			return;
 		}
 		
 	}
+
+	private void showAllItem(List<Bill> billList) {
+	try {
+		for(String name:itemService.getAllItemNames())
+		{
+			list.add(getItemWise(billList,name));
+		}
+	}catch(Exception e)
+	{
+		notify.showErrorMessage("Error in loading Item List"+e.getMessage());
+	}
+	}
+
+	private Transaction getItemWise(List<Bill> billList, String name) {
+		Transaction t = new Transaction();
+		float qty=0;
+		float amt=0;
+        Item item = itemService.getItemByName(name);
+		for(Bill bill :billList)
+		{
+			for(Transaction tr:bill.getTransaction())
+			{
+				if(tr.getItemname().equals(name))
+				{
+					qty+=tr.getQuantity();
+					amt+=tr.getAmount();
+				}
+			}
+		}
+		Bill b = new Bill();
+		b.setDate(dateStart.getValue());
+		b.setBillno(0);
+        t.setId(list.size()+1);
+        t.setAmount(amt);
+        t.setBill(b);
+        t.setItemname(name);
+        t.setCommision(0);
+        t.setQuantity(qty);
+        t.setRate(item.getRate());
+        t.setUnit(item.getUnit());
+        return t;
+	}
+
 	private void showTable(List<Bill> billList2) {
 		try {
 			int sr=0;
@@ -212,12 +319,12 @@ public class SalesmanItemSalesReportController implements Initializable {
 			cmbSalesman.requestFocus();
 			return false;
 		}
-		if(txtItem.getText().isEmpty())
-		{
-			notify.showErrorMessage("Enter Item Name");
-			txtItem.requestFocus();
-			return false;
-		}
+//		if(txtItem.getText().isEmpty())
+//		{
+//			notify.showErrorMessage("Enter Item Name");
+//			txtItem.requestFocus();
+//			return false;
+//		}
 		empid = employeeService.getEmployeeByName(cmbSalesman.getSelectionModel().getSelectedItem()).getId();
 		return true;
 	}

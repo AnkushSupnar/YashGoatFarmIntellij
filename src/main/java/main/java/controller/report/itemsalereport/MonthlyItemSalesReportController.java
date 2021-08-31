@@ -1,4 +1,4 @@
-package main.java.main.java.controller.report;
+package main.java.main.java.controller.report.itemsalereport;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,12 +15,17 @@ import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintMonthlyItemSaleReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 public class MonthlyItemSalesReportController implements Initializable {
 @FXML private AnchorPane mainPane;
@@ -73,6 +78,14 @@ public void initialize(URL location, ResourceBundle resources) {;
         txtQty.setText("");
     });
     btnExit.setOnAction(e->mainPane.setVisible(false));
+    btnPrint.setOnAction(e->{
+        if(list.isEmpty()) {
+            notify.showErrorMessage("No Data to Print");
+            return;
+        }
+        new PrintMonthlyItemSaleReport(list,date.getValue().with(firstDayOfMonth()),date.getValue().with(lastDayOfMonth()));
+        new PrintFile().openFile("D:\\Software\\Prints\\ItemSalesReport.pdf");
+    });
     }
     private void showAll() {
         if(date.getValue()==null)

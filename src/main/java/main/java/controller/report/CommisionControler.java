@@ -436,7 +436,7 @@ public class CommisionControler implements Initializable {
 	    	 Stage stage = new Stage();
 			 Parent root;
 			 try {
-				root = FXMLLoader.load(Main.class.getResource("/resources/view/report/BillPreview.fxml"));
+				root = FXMLLoader.load(Main.class.getResource("/view/report/BillPreview.fxml"));
 			    stage.setScene(new Scene(root));
 			    stage.setTitle("Bill Preview");
 			    stage.initModality(Modality.WINDOW_MODAL);

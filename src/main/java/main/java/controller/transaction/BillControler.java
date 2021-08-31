@@ -564,7 +564,7 @@ public class BillControler implements Initializable{
 	@FXML
 	void btnNewAction(ActionEvent event) throws IOException {
 		Stage stage = new Stage();
-		Parent root = FXMLLoader.load(Main.class.getResource("/resources/view/create/AddCustomerFrame.fxml"));
+		Parent root = FXMLLoader.load(Main.class.getResource("/view/create/AddCustomerFrame.fxml"));
 		stage.setScene(new Scene(root));
 		stage.setTitle("My modal window");
 		stage.initModality(Modality.WINDOW_MODAL);

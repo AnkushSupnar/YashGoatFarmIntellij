@@ -17,8 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddCustomerControler implements Initializable {
-	    @FXML
-		private AnchorPane mainPanel;
+	    @FXML private AnchorPane mainPanel;
 	 	@FXML private TextField txtFname;
 	    @FXML private TextField txtMname;
 	    @FXML private TextField txtLname;
@@ -40,6 +39,7 @@ public class AddCustomerControler implements Initializable {
 	    @FXML private Button btnClear;
 	    @FXML private Button btnUpdate;
 	    @FXML private Button btnExit;
+		@FXML private Button btnLoadAll;
 	    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 	    private CustomerService service;
 	    private int id;
@@ -51,14 +51,17 @@ public class AddCustomerControler implements Initializable {
 		colName.setCellValueFactory(new PropertyValueFactory<Customer,String>("fname"));
 		colAddress.setCellValueFactory(new PropertyValueFactory<Customer,String>("address"));
 		colContact.setCellValueFactory(new PropertyValueFactory<Customer,String>("mobileno"));
-		 
-		customerList.addAll(service.getAllCustomer());
-		for(Customer c:customerList)
-		{
-			c.setFname(c.getFname()+" "+c.getMname()+" "+c.getLname());
-			c.setAddress(c.getAddress()+" "+c.getCity()+" "+c.getTaluka()+" "+c.getDistrict()+" "+c.getState()+" "+c.getPin());
-			c.setMobileno(c.getMobileno()+" / "+c.getAltermobileno());
-		}
+		 btnLoadAll.setOnAction(e->{
+			 customerList.addAll(service.getAllCustomer());
+			 for(Customer c:customerList)
+			 {
+				 c.setFname(c.getFname()+" "+c.getMname()+" "+c.getLname());
+				 c.setAddress(c.getAddress()+" "+c.getCity()+" "+c.getTaluka()+" "+c.getDistrict()+" "+c.getState()+" "+c.getPin());
+				 c.setMobileno(c.getMobileno()+" / "+c.getAltermobileno());
+			 }
+		 });
+
+
 		table.setItems(customerList);
 		}
 	    @FXML

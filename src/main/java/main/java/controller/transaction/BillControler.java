@@ -92,6 +92,7 @@ public class BillControler implements Initializable{
     @FXML private Button btnAllBills;
     @FXML private DatePicker dateSearch;
     @FXML private TextField txtSearchBillNo;
+
    
     
     private ObservableList<Bill> oldBillList = FXCollections.observableArrayList();

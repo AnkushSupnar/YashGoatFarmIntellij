@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -110,13 +111,50 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Button fx:id="btnSave" graphicTextGap="10.0" layoutX="45.0" layoutY="264.0" mnemonicParsing="false" onAction="#save" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="SAVE" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
-               </graphic></Button>
+            <HBox layoutX="45.0" layoutY="264.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnSave" graphicTextGap="10.0" mnemonicParsing="false" onAction="#save" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #2196f3;" text="SAVE" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnClear" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #2196f3;" text="CLEAR" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnUpdate" graphicTextGap="10.0" mnemonicParsing="false" onAction="#edit" prefHeight="32.0" prefWidth="122.0" style="-fx-background-color: #2196f3;" text="UPDATE" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnLoadAll" graphicTextGap="10.0" layoutX="362.0" layoutY="10.0" mnemonicParsing="false" onAction="#exit" prefHeight="32.0" style="-fx-background-color: #2196f3;" text="LOAD ALL" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_DOWNLOAD" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnExit" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exit" prefHeight="32.0" prefWidth="103.0" style="-fx-background-color: #2196f3;" text="EXIT" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
             <TableView fx:id="table" layoutX="16.0" layoutY="308.0" prefHeight="337.0" prefWidth="649.0" stylesheets="@../css/table.css">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="75.0" text="Sr.No" />
@@ -125,30 +163,6 @@
                   <TableColumn fx:id="colAddress" prefWidth="169.0" text="Address" />
               </columns>
             </TableView>
-            <Button fx:id="btnClear" graphicTextGap="10.0" layoutX="195.0" layoutY="264.0" mnemonicParsing="false" onAction="#clear" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="CLEAR" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnUpdate" graphicTextGap="10.0" layoutX="347.0" layoutY="264.0" mnemonicParsing="false" onAction="#edit" prefHeight="32.0" prefWidth="122.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="UPDATE" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnExit" graphicTextGap="10.0" layoutX="499.0" layoutY="264.0" mnemonicParsing="false" onAction="#exit" prefHeight="32.0" prefWidth="103.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EXIT" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
-               </graphic>
-            </Button>
          </children>
       </Pane>
    </children>

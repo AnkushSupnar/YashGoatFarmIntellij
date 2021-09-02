@@ -20,7 +20,7 @@ public class Main extends Application {
         //pagename = "report/labourcharges/MonthlyLabourChargesReport";
        // pagename = "report/labourcharges/YearlyLabourChargesReport";
        // pagename = "report/labourcharges/PeriodLabourChargesReport";
-        pagename = "report/CommisionFrame";
+        //pagename = "report/CommisionFrame";
       try {
 //          Parent root = FXMLLoader.load(getClass().getResource("/view/" +pagename+".fxml"));
           Parent root = FXMLLoader.load(getClass().getResource("/view/"+pagename+".fxml"));

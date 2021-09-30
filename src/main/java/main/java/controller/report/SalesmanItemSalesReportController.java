@@ -247,13 +247,16 @@ public class SalesmanItemSalesReportController implements Initializable {
 
 	private void showAllItem(List<Bill> billList) {
 	try {
+		txtAmount.setText("");
 		for(String name:itemService.getAllItemNames())
 		{
 			list.add(getItemWise(billList,name));
 		}
+
 	}catch(Exception e)
 	{
 		notify.showErrorMessage("Error in loading Item List"+e.getMessage());
+		e.printStackTrace();
 	}
 	}
 
@@ -284,6 +287,8 @@ public class SalesmanItemSalesReportController implements Initializable {
         t.setQuantity(qty);
         t.setRate(item.getRate());
         t.setUnit(item.getUnit());
+		if(txtAmount.getText().isEmpty()) txtAmount.setText(""+0.0);
+		txtAmount.setText(String.valueOf(Float.parseFloat(txtAmount.getText())+t.getAmount()));
         return t;
 	}
 

@@ -85,7 +85,8 @@ public class CounterStockController implements Initializable {
 	    	oldCounterStockList.addAll(counterStockService.getAllCounterStock());
 	    	tblOld.setItems(oldCounterStockList);
 	    	
-	    	TextFields.bindAutoCompletion(txtItemName, itemService.getStockableItemNames());
+	    	//TextFields.bindAutoCompletion(txtItemName, itemService.getStockableItemNames());
+			TextFields.bindAutoCompletion(txtItemName, itemService.getAllItemNames());
 	    	txtItemName.setOnAction(e->{
 	    		if(!txtItemName.getText().equals(""))
 	    		{

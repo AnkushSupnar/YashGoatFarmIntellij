@@ -136,6 +136,12 @@ public class WeeklyLabourChargesReportController implements Initializable {
                     date.getValue().with(previousOrSame(MONDAY)),
                     date.getValue().with(nextOrSame(SUNDAY))
             ));
+            float total=0;
+            for(LabourCharges lc:list)
+            {
+                total +=lc.getAmount();
+            }
+            txtTotal.setText(String.valueOf(total));
             
         }catch(Exception e)
         {

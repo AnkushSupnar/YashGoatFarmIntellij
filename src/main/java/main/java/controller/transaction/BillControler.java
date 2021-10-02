@@ -295,7 +295,7 @@ public class BillControler implements Initializable{
 		}
 		// bill.setBillno(billNo);
 		int index = -1;
-		float com=0;
+		float com=0;//not used
 		if(itemService.getItemByName(txtItemName.getText()).getLabourCharges()>0)
 		{
 			if (txtItemName.getText().equals("Indonesian Baahubali"))
@@ -317,7 +317,8 @@ public class BillControler implements Initializable{
 				Float.parseFloat(txtQty.getText()),
 				Float.parseFloat(txtAmount.getText()), 
 				bill,
-				(com * Float.parseFloat(txtQty.getText())));
+                itemService.getItemByName(txtItemName.getText()).getCommision()
+        );
 		for (int i = 0; i < trList.size(); i++) {
 			if (trList.get(i).getItemname().equals(transaction.getItemname())
 					&& trList.get(i).getRate() == transaction.getRate()) {

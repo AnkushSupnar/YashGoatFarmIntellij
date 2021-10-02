@@ -18,46 +18,28 @@ import java.util.ResourceBundle;
 
 public class AddItemControler implements Initializable {
 
-	@FXML
-    private AnchorPane mainPane;
+	@FXML private AnchorPane mainPane;
+	@FXML private TextField txtItemName;
+	@FXML private TextField txtHsnCode;
+    @FXML private ComboBox<String> cmbUnit;
+    @FXML private TextField txtRate;
+    @FXML private TextField txtCommision;
+	@FXML private ComboBox<String> cmbCommisionRate;
+	@FXML private TextField txtLabour;
+    @FXML private Button btnSave;
+    @FXML private TableView<Item> table;
+    @FXML private TableColumn<Item, Integer> colSrNo;
+    @FXML private TableColumn<Item, String> colItemName;
+    @FXML private TableColumn<Item,String> colHsnCode;
+    @FXML private TableColumn<Item, String> colUnit;
+    @FXML private TableColumn<Item, Float> colRate;
+    @FXML private TableColumn<Item, Float> colCommision;
+	@FXML private TableColumn<Item,String> colCommisionRate;
 
-	@FXML
-    private TextField txtItemName;
-	@FXML
-	private TextField txtHsnCode;
-
-    @FXML
-    private ComboBox<String> cmbUnit;
-    @FXML
-    private TextField txtRate;
-    @FXML
-    private TextField txtCommision;
-    @FXML
-    private TextField txtLabour;
-    @FXML
-    private Button btnSave;
-    @FXML
-    private TableView<Item> table;
-    @FXML
-    private TableColumn<Item, Integer> colSrNo;
-    @FXML
-    private TableColumn<Item, String> colItemName;
-    @FXML
-    private TableColumn<Item,String> colHsnCode;
-    @FXML
-    private TableColumn<Item, String> colUnit;
-    @FXML
-    private TableColumn<Item, Float> colRate;
-    @FXML
-    private TableColumn<Item, Float> colCommision;
-    @FXML
-    private TableColumn<Item, Float> colLabour;
-    @FXML
-    private Button btnUpdate;
-    @FXML
-    private Button btnClear;
-    @FXML
-    private Button btnExit;
+	@FXML private TableColumn<Item, Float> colLabour;
+    @FXML private Button btnUpdate;
+    @FXML private Button btnClear;
+    @FXML private Button btnExit;
     private ItemService service;
     private ObservableList<Item> itemList = FXCollections.observableArrayList();
     private int id;
@@ -69,6 +51,7 @@ public class AddItemControler implements Initializable {
 		colUnit.setCellValueFactory(new PropertyValueFactory<Item, String>("unit"));
 		colRate.setCellValueFactory(new PropertyValueFactory<Item, Float>("rate"));
 		colCommision.setCellValueFactory(new PropertyValueFactory<Item,Float>("commision"));
+		colCommisionRate.setCellValueFactory(new PropertyValueFactory<Item,String>("commisionrate"));
 		colHsnCode.setCellValueFactory(new PropertyValueFactory<Item,String>("hsn"));
 		colLabour.setCellValueFactory(new PropertyValueFactory<Item,Float>("labourCharges"));
 		itemList.addAll(service.getAllItems());
@@ -76,7 +59,9 @@ public class AddItemControler implements Initializable {
 		
 		cmbUnit.getItems().add("Nos");
 		cmbUnit.getItems().add("KG");
-	
+
+		cmbCommisionRate.getItems().add("Fix");
+		cmbCommisionRate.getItems().add("Percentage");
 		txtRate.textProperty().addListener((observable, oldValue, newValue) -> {
 		    if (newValue.matches("\\d.*")) return;
 		    txtRate.setText(newValue.replaceAll("[^\\d]", ""));
@@ -109,12 +94,23 @@ public class AddItemControler implements Initializable {
 			{
 				return;
 			}
+			float com=0;
+			if(cmbCommisionRate.getSelectionModel().getSelectedItem().equals("Fix"))
+			{
+				com = Float.parseFloat(txtCommision.getText());
+			}
+			else
+			{
+				com = Float.parseFloat(txtRate.getText())*(Float.parseFloat(txtCommision.getText())/100);
+			}
 			Item item = new Item(
 					txtItemName.getText().trim(),
 					txtHsnCode.getText().trim(),
 					Float.parseFloat(txtRate.getText().trim()),
 					cmbUnit.getValue(),
-					Float.parseFloat(txtCommision.getText().trim()),
+					//Float.parseFloat(txtCommision.getText().trim()),
+					com,
+					cmbCommisionRate.getSelectionModel().getSelectedItem(),
 					Float.parseFloat(txtLabour.getText().trim()));
 			item.setId(id);
 			int f=0;
@@ -182,6 +178,14 @@ public class AddItemControler implements Initializable {
     		if(item.getHsn()==null)
     		txtHsnCode.setText("");
     		else txtHsnCode.setText(item.getHsn());
+			cmbCommisionRate.setValue(item.getCommisionrate());
+			if(item.getCommisionrate().equals("Percentage"))
+			{
+				//txtCommision.setText(String.valueOf(item.getCommision()*item.getRate()));
+				txtCommision.setText(
+						String.valueOf((item.getCommision()*100)/item.getRate())
+				);
+			}
     	}
     
     	
@@ -213,6 +217,12 @@ public class AddItemControler implements Initializable {
     			txtCommision.requestFocus();
     			return 0;
     		}
+			if(cmbCommisionRate.getValue()==null)
+			{
+				new Alert(Alert.AlertType.ERROR,"Enter Item Salesman Commision Rate !!!").showAndWait();
+				cmbCommisionRate.requestFocus();
+				return 0;
+			}
     		if(txtLabour.getText().equals("")||txtLabour.getText()==null)
     		{
     			txtLabour.setText(""+0.0);

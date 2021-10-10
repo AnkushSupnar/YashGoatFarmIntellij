@@ -292,6 +292,13 @@ public class CommisionControler implements Initializable {
 	    	txtRefferenceNo.setText("");
 	    	cmbBankName.getSelectionModel().clearSelection();
 	    	txtTotalCommision.setText(""+0.0f);
+			txtBank.setText("");
+			txtBillAmount.setText(""+0.0f);
+			txtCash.setText(""+0.0f);
+			txtTotalCommision.setText(""+0.0f);
+			txtOtherCharges.setText(""+0.0f);
+			txtRefferenceNo.setText(""+0.0f);
+			txtUnpaid.setText(""+0.0f);
 	    	
 	    	
 	    }

@@ -84,6 +84,7 @@ public class ItemDaoImpl implements ItemDao {
 				i.setCommision(item.getCommision());
 				i.setHsn(item.getHsn());
 				i.setLabourCharges(item.getLabourCharges());
+				i.setCommisionrate(item.getCommisionrate());
 				session.update(i);
 				session.getTransaction().commit();
 				return 2;

@@ -56,6 +56,8 @@ public class DailyItemSalesReportController implements Initializable{
 	    @FXML private Button btnShowChart;
 		@FXML private TextField txtQty;
 		@FXML private TextField txtAmount;
+		@FXML private TextField txtNos;
+		@FXML private TextField txtKG;
 
 
 	private BillService billService;
@@ -190,11 +192,16 @@ public class DailyItemSalesReportController implements Initializable{
 		    	
 		    	DailyItemSales d = null;
 				float amount=0;
+				float nos=0,kg=0;
 		    	for(Item item:itemService.getAllItems())
 		    	{
 		    		d=new DailyItemSales(++sr, 0, item.getItemname(), getItemSale(item.getItemname()), item.getUnit(), item.getRate(),item.getRate()*getItemSale(item.getItemname())); 
 		    		list.add(d);
 					amount +=d.getAmount();
+					if(item.getUnit().equals("KG"))
+						kg+=d.getQty();
+					else
+						nos+=d.getQty();
 		    		if(item.getLabourCharges()>0)
 		    		{
 		    			//for Stick
@@ -209,6 +216,8 @@ public class DailyItemSalesReportController implements Initializable{
 		    	}
 		    	txtAmount.setText(""+amount);
 				txtQty.setText("");
+				txtKG.setText(String.valueOf(kg));
+				txtNos.setText(String.valueOf(nos));
 		    	
 		    }
 		    private float getItemSale(String name)

@@ -24,6 +24,7 @@ import main.java.main.java.print.PrintSalemanItemSalesReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -79,7 +80,7 @@ public class SalesmanItemSalesReportController implements Initializable {
         TextFields.bindAutoCompletion(txtItem,itemService.getAllItemNames());
 	
         colSrNo.setCellValueFactory(new PropertyValueFactory<>("id"));
-		colDate.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getBill().getDate().toString()));
+		colDate.setCellValueFactory(cellData->new SimpleStringProperty(""+cellData.getValue().getBill().getDate().toString()));
 		collBillNo.setCellValueFactory(cellData->new SimpleStringProperty(Long.toString(cellData.getValue().getBill().getBillno())));
 		colItem.setCellValueFactory(new PropertyValueFactory<>("itemname"));
 		colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -180,6 +181,12 @@ public class SalesmanItemSalesReportController implements Initializable {
 			{
 				return;
 			}
+			if(dateStart.getValue()==null)
+			{
+				notify.showErrorMessage("Select Starting Date");
+				dateStart.requestFocus();
+				return;
+			}
 			billList.clear();
 			list.clear();
 			billList.addAll(billService.getPeriodWiseSalesmanBills(empid, dateStart.getValue().with(previousOrSame(MONDAY)), dateStart.getValue().with(nextOrSame(SUNDAY))));
@@ -197,6 +204,12 @@ public class SalesmanItemSalesReportController implements Initializable {
 			{
 				return;
 			}
+			if(dateStart.getValue()==null)
+			{
+				notify.showErrorMessage("Select Starting Date");
+				dateStart.requestFocus();
+				return;
+			}
 			list.clear();
 			billList.clear();
 			billList.addAll(billService.getPeriodWiseSalesmanBills(empid, dateStart.getValue().with(firstDayOfMonth()),dateStart.getValue().with(lastDayOfMonth())));
@@ -212,6 +225,12 @@ public class SalesmanItemSalesReportController implements Initializable {
 		{
 			if(!validate())
 			{
+				return;
+			}
+			if(dateStart.getValue()==null)
+			{
+				notify.showErrorMessage("Select Starting Date");
+				dateStart.requestFocus();
 				return;
 			}
 			list.clear();
@@ -233,7 +252,9 @@ public class SalesmanItemSalesReportController implements Initializable {
 			}
 			billList.clear();
 			list.clear();
+			dateStart.setValue(LocalDate.now());
 			billList.addAll(billService.getSalesmanAllBills(empid));
+
 			if(txtItem.getText().isEmpty())
 			{
 				showAllItem(billList);

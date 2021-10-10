@@ -66,7 +66,8 @@ public class WeeklyItemSalesReport implements Initializable {
     @FXML private TableColumn<WeeklyItemSales,Float>  colAmount;
 	@FXML private TextField txtQyt;
 	@FXML private TextField txtAmount;
-
+	@FXML private TextField txtKG;
+	@FXML private TextField txtNos;
 	private BillService billService;
     private ItemService itemService;
     private ObservableList<WeeklyItemSales>list = FXCollections.observableArrayList();

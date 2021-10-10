@@ -310,6 +310,15 @@ public class BillControler implements Initializable{
 		{
 			com = itemService.getItemByName(txtItemName.getText()).getCommision();
 		}
+		com=0;
+		Item flagItem =itemService.getItemByName(txtItemName.getText());
+		if(flagItem.getCommisionrate().equals("Percentage"))
+		{
+			float comrate = (flagItem.getCommision()*100/flagItem.getRate());
+			com = (comrate/100)*Float.parseFloat(txtRate.getText());
+		}
+		else
+			com = flagItem.getCommision();
 		Transaction transaction = new Transaction(
 				txtItemName.getText(), 
 				txtUnit.getText(),
@@ -317,7 +326,8 @@ public class BillControler implements Initializable{
 				Float.parseFloat(txtQty.getText()),
 				Float.parseFloat(txtAmount.getText()), 
 				bill,
-                itemService.getItemByName(txtItemName.getText()).getCommision()
+                //itemService.getItemByName(txtItemName.getText()).getCommision()*Float.parseFloat(txtQty.getText())
+				com*Float.parseFloat(txtQty.getText())
         );
 		for (int i = 0; i < trList.size(); i++) {
 			if (trList.get(i).getItemname().equals(transaction.getItemname())

@@ -314,7 +314,10 @@ public class BillDaoImpl implements BillDao {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 			session.beginTransaction();
 			String hql=" select sum(nettotal+otherchargs+transportingchrges) from Bill where customerid=:cid and bankid=2";
-			return session.createQuery(hql,Double.class).setParameter("cid", customerid).uniqueResult();			
+			if(session.createQuery(hql,Double.class).setParameter("cid", customerid).uniqueResult()!=null) {
+				return session.createQuery(hql, Double.class).setParameter("cid", customerid).uniqueResult();
+			}
+			else return 0.0;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

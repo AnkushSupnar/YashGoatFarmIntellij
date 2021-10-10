@@ -102,6 +102,7 @@ public class BillServiceImpl implements BillService {
 	}
 	@Override
 	public double getWholeSaleBillAmount(int customerid) {
+
 		return dao.getWholeSaleBillAmount(customerid);
 	}
 	@Override

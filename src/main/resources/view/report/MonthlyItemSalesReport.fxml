@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -92,9 +93,49 @@
             <TableColumn fx:id="colAmount" prefWidth="91.0" text="Amount" />
         </columns>
       </TableView>
-      <Label layoutX="27.0" layoutY="519.0" text="Total Quantity" AnchorPane.bottomAnchor="25.0" />
-      <TextField fx:id="txtQty" layoutX="107.0" layoutY="515.0" AnchorPane.bottomAnchor="20.0" />
-      <Label layoutX="262.0" layoutY="519.0" text="Total Amount" AnchorPane.bottomAnchor="25.0" />
-      <TextField fx:id="txtAmount" layoutX="342.0" layoutY="515.0" AnchorPane.bottomAnchor="20.0" />
+      <HBox layoutX="10.0" layoutY="520.0" spacing="5.0" AnchorPane.bottomAnchor="20.0">
+         <children>
+            <Label text="Total Quantity">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtQty" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total Amount">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtAmount" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total KG">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtKG" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total Nos">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtNos" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

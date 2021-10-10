@@ -108,17 +108,49 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="22.0" layoutY="610.0" text="Total Quantity" AnchorPane.bottomAnchor="20.0" />
-      <Label layoutX="284.0" layoutY="613.0" text="Total Amount" AnchorPane.bottomAnchor="20.0" />
-      <TextField fx:id="txtQyt" layoutX="100.0" layoutY="606.0" AnchorPane.bottomAnchor="10.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="txtAmount" layoutX="363.0" layoutY="606.0" AnchorPane.bottomAnchor="10.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
+      <HBox layoutX="22.0" layoutY="606.0" spacing="5.0" AnchorPane.bottomAnchor="16.0">
+         <children>
+            <Label text="Total Quantity">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtQyt" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total Amount">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtAmount" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total KG">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtKG" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total NOS">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtNos" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

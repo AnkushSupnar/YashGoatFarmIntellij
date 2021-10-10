@@ -113,6 +113,7 @@ public class AddItemControler implements Initializable {
 					cmbCommisionRate.getSelectionModel().getSelectedItem(),
 					Float.parseFloat(txtLabour.getText().trim()));
 			item.setId(id);
+
 			int f=0;
 			for(Item i:itemList)
 			{
@@ -128,6 +129,7 @@ public class AddItemControler implements Initializable {
 				return;
 			}
 			int flag = service.saveItem(item);
+			System.out.println("Item To Save==> "+item);
 			if(flag==1)
 			{
 				new Alert(Alert.AlertType.INFORMATION,"Item Saved Success").showAndWait();

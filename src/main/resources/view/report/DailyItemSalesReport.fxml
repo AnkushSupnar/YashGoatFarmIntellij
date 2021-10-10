@@ -107,17 +107,49 @@
             </Text>
          </children>
       </StackPane>
-      <Label layoutX="22.0" layoutY="621.0" text="Total Quantity" AnchorPane.bottomAnchor="14.0" />
-      <Label layoutX="294.0" layoutY="621.0" text="Total Amount" />
-      <TextField fx:id="txtQty" layoutX="106.0" layoutY="617.0" AnchorPane.bottomAnchor="10.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="txtAmount" layoutX="378.0" layoutY="617.0" AnchorPane.bottomAnchor="10.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </TextField>
+      <HBox layoutX="22.0" layoutY="612.0" spacing="5.0" AnchorPane.bottomAnchor="10.0">
+         <children>
+            <Label text="Total Quantity">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtQty" prefWidth="100.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total Amount">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtAmount" prefWidth="100.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total Nos">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtNos" prefHeight="30.0" prefWidth="100.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label text="Total KG">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtKG" prefHeight="30.0" prefWidth="103.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

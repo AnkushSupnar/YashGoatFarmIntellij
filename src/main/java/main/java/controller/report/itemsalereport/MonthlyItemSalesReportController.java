@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import main.java.main.java.guiUtil.AlertNotification;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.Item;
 import main.java.main.java.hibernate.entities.Transaction;
 import main.java.main.java.hibernate.reportEntity.ItemSaleReportPojo;
 import main.java.main.java.hibernate.service.service.BillService;
@@ -47,6 +48,8 @@ public class MonthlyItemSalesReportController implements Initializable {
 @FXML  private TableColumn<ItemSaleReportPojo,Float> colAmount;
 @FXML  private TextField txtQty;
 @FXML  private TextField txtAmount;
+@FXML private TextField txtKG;
+@FXML private TextField txtNos;
 private ItemService itemService;
 private BillService billService;
 private AlertNotification notify;
@@ -98,17 +101,27 @@ public void initialize(URL location, ResourceBundle resources) {;
         txtQty.setText("");
         txtAmount.setText("");
         int sr=0;
+        float kg=0,nos=0,totalamt=0;
 
         List<Bill>billList = billService.getMonthWiseBill(date.getValue());
             for(String name:itemService.getAllItemNames())
             {
                 float qty=0,amount=0,rate=0;
                 qty=getItemSale(billList,name);
-                rate=itemService.getItemByName(name).getRate();
+                Item item =itemService.getItemByName(name);
+                rate=item.getRate();
+                if(item.getUnit().equals("KG"))
+                    kg+=qty;
+                else nos+=qty;
+
+                totalamt+=(qty*rate);
 
                 list.add(new ItemSaleReportPojo(
                         ++sr,0,date.getValue(),name,itemService.getItemByName(name).getUnit(),qty,rate,qty*rate));
             }
+            txtAmount.setText(String.valueOf(totalamt));
+            txtKG.setText(String.valueOf(kg));
+            txtNos.setText(String.valueOf(nos));
     }
     private float getItemSale(List<Bill>billList,String name)
     {

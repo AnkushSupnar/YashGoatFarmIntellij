@@ -34,6 +34,11 @@ public class LabourChargesServiceImpl implements LabourChargesService {
 	}
 
 	@Override
+	public List<LabourCharges> getPeriodWiseLabourChargesByEmployee(LocalDate start, LocalDate end, long empid) {
+		return dao.getPeriodWiseLabourChargesByEmployee(start,end,empid);
+	}
+
+	@Override
 	public int saveLabourCharges(LabourCharges labourCharges) {
 		return dao.saveLabourCharges(labourCharges);
 	}

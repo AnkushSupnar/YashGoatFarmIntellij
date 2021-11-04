@@ -64,6 +64,23 @@ public class LabourChargesDaoImpl implements LabourChargesDao {
 	}
 
 	@Override
+	public List<LabourCharges> getPeriodWiseLabourChargesByEmployee(LocalDate start, LocalDate end, long empid) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+			session.beginTransaction();
+			String hql = "from LabourCharges where date>=:d1 and date<=:d2 and labourId=:empid";
+			List<LabourCharges> lc = session.createQuery(hql,LabourCharges.class).
+					setParameter("d1", start)
+					.setParameter("d2", end)
+					.setParameter("empid",empid)
+					.list();
+			return lc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
 	public int saveLabourCharges(LabourCharges labourCharges) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 			session.beginTransaction();

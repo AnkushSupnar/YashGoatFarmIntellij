@@ -11,6 +11,7 @@ public interface LabourChargesDao {
 	public List<LabourCharges> getLabourChargesByDate(LocalDate date);
 	public List<LabourCharges>getAllLabourCharges();
 	public List<LabourCharges>getPeriodWiseLabourCharges(LocalDate start,LocalDate end);
+	public List<LabourCharges>getPeriodWiseLabourChargesByEmployee(LocalDate start,LocalDate end,long empid);
 	public int saveLabourCharges(LabourCharges labourCharges);
 	
 }

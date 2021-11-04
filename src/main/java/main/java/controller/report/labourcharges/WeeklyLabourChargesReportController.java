@@ -15,6 +15,7 @@ import main.java.main.java.hibernate.service.service.EmployeeService;
 import main.java.main.java.hibernate.service.service.LabourChargesService;
 import main.java.main.java.hibernate.service.serviceImpl.EmployeeServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.LabourChargesServiceImpl;
+import main.java.main.java.print.PrintLabourWeeklyCharges;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -35,6 +36,7 @@ public class WeeklyLabourChargesReportController implements Initializable {
     @FXML private Button btnShowAll;
     @FXML private Button btnReset;
     @FXML private Button btnExit;
+    @FXML private Button btnPrint;
     @FXML private TableView<LabourCharges> table;
     @FXML private TableColumn<LabourCharges,Long> colSr;
     @FXML private TableColumn<LabourCharges, LocalDate> colDate;
@@ -76,6 +78,25 @@ public class WeeklyLabourChargesReportController implements Initializable {
             list.clear();
         });
         btnExit.setOnAction(e->mainPane.setVisible(false));
+        btnPrint.setOnAction(e->{
+            if(list.isEmpty())
+                notify.showErrorMessage("No Data To Print");
+            else
+            {
+                if(txtLabourName.getText().isEmpty())
+                {
+
+                }
+                else{
+                    new PrintLabourWeeklyCharges(
+                            employeeService.getEmployeeByName(txtLabourName.getText()).getId(),
+                            date.getValue().with(previousOrSame(MONDAY)),
+                            date.getValue().with(nextOrSame(SUNDAY))
+                    );
+                }
+            }
+
+        });
     }
 
     private void show() {
@@ -109,6 +130,7 @@ public class WeeklyLabourChargesReportController implements Initializable {
             {
                 if(lc.getLabour().getId()==labour.getId())
                 {
+
                     lc.setId(++sr);
                     total+=lc.getAmount();
                     list.add(lc);

@@ -94,6 +94,7 @@ public class LabourChargesTransaction {
 
 	@Override
 	public String toString() {
+//		return "";
 		return "LabourChargesTransaction [id=" + id + ", date=" + date + ", itemName=" + itemName + ", qty=" + qty
 				+ ", charges=" + charges + ", paidLabourCharges=" + paidLabourCharges + ", labourCharges="
 				+ labourCharges + "]";

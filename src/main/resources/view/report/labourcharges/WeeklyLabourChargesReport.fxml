@@ -49,6 +49,14 @@
                   <Font name="Georgia" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="btnPrint" layoutX="568.0" layoutY="10.0" mnemonicParsing="false" stylesheets="@../../css/button.css" text="PRINT">
+               <graphic>
+                  <FontAwesomeIcon glyphName="PRINT" />
+               </graphic>
+               <font>
+                  <Font name="Georgia" size="14.0" />
+               </font>
+            </Button>
             <Button fx:id="btnReset" mnemonicParsing="false" stylesheets="@../../css/button.css" text="RESET">
                <graphic>
                   <FontAwesomeIcon glyphName="RECYCLE" />

@@ -181,12 +181,26 @@ public class WeeklyItemSalesReport implements Initializable {
 	    	}
 	    	int sr=0;
 	    	WeeklyItemSales week =null;
-			float amount = 0;
+			float amount = 0,kg=0,nos=0;
+
 	    	for(Item item:itemService.getAllItems())
 	    	{
-	    		week = new WeeklyItemSales(++sr,date.getValue() , 0, item.getItemname(),getItemAllSale(item.getItemname()),item.getUnit(), item.getRate(),item.getRate()*getItemAllSale(item.getItemname()));
+				float qty = getItemAllSale(item.getItemname());
+	    		week = new WeeklyItemSales
+						(++sr,
+								date.getValue() ,
+								0,
+								item.getItemname(),
+								qty,
+								item.getUnit(),
+								item.getRate(),
+								item.getRate()*qty);
 	    		amount+=week.getAmount();
+
+				if(item.getUnit().equals("KG")) kg+=qty;
+				else nos+=qty;
 	    		list.add(week);
+
 	    		if(item.getLabourCharges()>0)
 	    		{
 	    			CommonData.weeklyItemSaleStickList.add(week);
@@ -196,7 +210,9 @@ public class WeeklyItemSalesReport implements Initializable {
 	    			CommonData.weeklyItemSaleList.add(week);
 	    		}
 	    	}
-	    	
+			txtKG.setText(String.valueOf(kg));
+			txtNos.setText(String.valueOf(nos));
+			txtAmount.setText(String.valueOf(amount));
 	    }
 
 	    @FXML
@@ -225,6 +241,7 @@ public class WeeklyItemSalesReport implements Initializable {
 	    		e.printStackTrace();
 	    	}
 	    }
+
 	    private float getItemAllSale(String itemName)
 	    {
 	    	try {

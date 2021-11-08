@@ -10,12 +10,14 @@
 }
 .pane{
 
-	-fx-background-color:#1976d2;
-	/*-fx-background-color:#311b92;*/
+	/*-fx-background-color:#1976d2;
+	-fx-background-color:#311b92;*/
+	-fx-background-color:linear-gradient(to bottom, #2262C6,AA14F0);
+
 	-fx-background-radius:30;
 	-fx-border-radius:30;
 	-fx-border-width:5;	
 }
 .pane:hover{
-	-fx-background-color:#311b92;
+	/*-fx-background-color:#311b92;*/
 }

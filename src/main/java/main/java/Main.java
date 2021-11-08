@@ -13,7 +13,7 @@ public class Main extends Application {
     static Logger log = Logger.getLogger(Main.class.getName());
     @Override
     public void start(Stage primaryStage) throws Exception{
-       // pagename="home/LoginFrame";
+        pagename="home/LoginFrame";
        // pagename="report/YearItemSalesReport";
        // pagename="report/YearItemSalesReport";
        // pagename = "report/labourcharges/WeeklyLabourChargesReport";
@@ -22,7 +22,7 @@ public class Main extends Application {
        // pagename = "report/labourcharges/PeriodLabourChargesReport";
         //pagename = "report/CommisionFrame";
 
-        pagename = "report/labourcharges/WeeklyLabourChargesReport";
+       // pagename = "report/labourcharges/WeeklyLabourChargesReport";
       try {
 //          Parent root = FXMLLoader.load(getClass().getResource("/view/" +pagename+".fxml"));
           Parent root = FXMLLoader.load(getClass().getResource("/view/"+pagename+".fxml"));

@@ -15,7 +15,9 @@ import main.java.main.java.hibernate.service.service.EmployeeService;
 import main.java.main.java.hibernate.service.service.LabourChargesService;
 import main.java.main.java.hibernate.service.serviceImpl.EmployeeServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.LabourChargesServiceImpl;
+import main.java.main.java.print.PrintFile;
 import main.java.main.java.print.PrintLabourWeeklyCharges;
+import main.java.main.java.print.PrintWeeklyAllLabourReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -50,6 +52,7 @@ public class WeeklyLabourChargesReportController implements Initializable {
     private EmployeeService employeeService;
     private AlertNotification notify;
     private final ObservableList<LabourCharges>list= FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colSr.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -85,7 +88,9 @@ public class WeeklyLabourChargesReportController implements Initializable {
             {
                 if(txtLabourName.getText().isEmpty())
                 {
-
+                    new PrintWeeklyAllLabourReport(date.getValue().with(previousOrSame(MONDAY)),
+                            date.getValue().with(nextOrSame(SUNDAY)));
+                    new PrintFile().openFile("D:\\Software\\Prints\\WeeklyAllLabouCharges.pdf");
                 }
                 else{
                     new PrintLabourWeeklyCharges(
@@ -93,6 +98,7 @@ public class WeeklyLabourChargesReportController implements Initializable {
                             date.getValue().with(previousOrSame(MONDAY)),
                             date.getValue().with(nextOrSame(SUNDAY))
                     );
+                    new PrintFile().openFile("D:\\Software\\Prints\\WeeklyLabouCharges.pdf");
                 }
             }
 

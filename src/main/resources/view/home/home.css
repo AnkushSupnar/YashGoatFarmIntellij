@@ -7,3 +7,9 @@
 .button:pressed{
 	-fx-background-color:#7156DD;
 }
+/* #2196f3*/
+.sidePane{
+    -fx-background-color:linear-gradient(to bottom, #2262C6,B4FE98);
+
+    -fx-background-radius: 0px 50px 0px 0px;
+}

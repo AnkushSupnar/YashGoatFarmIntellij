@@ -1,0 +1,27 @@
+.text-menu {
+ -fx-font-smoothing-type: lcd;
+ -fx-fill: white;
+ -fx-font-size: 11pt;
+}
+.menu .glyph-icon{
+    -fx-fill:white;
+}
+
+.menu:hover{
+-fx-border-color:#0fbcf9;
+-fx-border-width:0px 0px 0px 4px;
+-fx-background-color:#34e7e4e0;
+-fx-cursor:hand;
+}
+
+.menu:pressed{
+    -fx-background-color:#2262C6;
+}
+.sidebar{
+    /*-fx-background-color:linear-gradient(to left,#61D8DE,#E839F6);
+    -fx-background-color: #2262C6;
+    #aea1a1
+    */
+    -fx-background-color:linear-gradient(to bottom, #2262C6,B4FE98);
+    -fx-background-radius: 0px 50px 0px 0px;
+}

@@ -26,18 +26,18 @@ public class ReportMenuControler implements Initializable {
 	    @FXML private Button btnPeriodSalesReport;	 
 	    @FXML private Button brnYearSalesReport;
 	    @FXML private Button btnLabourCharges;
-	    
 
 	    @FXML private Button btnCounterStock;
 
-	    
 	    @FXML private Button btnCustomerBills;
 	    @FXML private Button btnUnpaidBills;
 	    @FXML private Button btnViewAllStock;
 	    //Bank Report Menu
 	    @FXML private Button btnBankStatement;
 	    @FXML private Button btnAllUnpaidBills;
-	    
+
+		@FXML private Button btnPartyReport;
+
 	    private BorderPane pane;
 		private ViewUtil viewUtil;
 		private Pane centerPane;
@@ -45,9 +45,23 @@ public class ReportMenuControler implements Initializable {
 		public void initialize(URL location, ResourceBundle resources) {
 	    	viewUtil = new ViewUtil();
 	    	//pane = (BorderPane) reportMenuPanel.getParent();
+			btnPartyReport.setOnAction(e->partyReport());
 	    	
 		}
-	    @FXML
+
+	private void partyReport() {
+		if(ViewUtil.login.getId()!=1)
+		{
+			new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();
+			return;
+		}
+		centerPane = viewUtil.getPage("report/purchasereport/PurchasePartyReport");
+		pane = (BorderPane) reportMenuPanel.getParent();
+		pane.setCenter(centerPane);
+		centerPane.setVisible(true);
+	}
+
+	@FXML
 	    void btnCommisionReportAction(ActionEvent event) {
 	    	if(ViewUtil.login.getId()!=1)
 	    	{

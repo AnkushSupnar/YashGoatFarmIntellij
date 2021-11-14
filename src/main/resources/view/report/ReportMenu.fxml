@@ -434,6 +434,14 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Button>
+                        <Button fx:id="btnPartyReport" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPartyStatementAction" stylesheets="@../transaction/MenuCard.css" text="Party Report" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="LAPTOP" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
                      </children>
                   </VBox>
                   <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />

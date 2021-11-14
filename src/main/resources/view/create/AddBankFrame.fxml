@@ -11,7 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.AddBankControler">
+<AnchorPane fx:id="mainPane"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.create.AddBankControler">
    <children>
       <Pane layoutX="38.0" layoutY="29.0" prefHeight="609.0" prefWidth="769.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="100.0">
          <children>

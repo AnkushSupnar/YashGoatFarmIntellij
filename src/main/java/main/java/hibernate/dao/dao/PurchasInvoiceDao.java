@@ -21,4 +21,8 @@ public interface PurchasInvoiceDao {
 	public List<PurchaseInvoice>getPurchaseInvoicePartyWise(LocalDate date,int partyid);
 	public double getAllPaidAmountByparty(int partyId);
 	public double getPartyUnpaidAmount(int partyId);
+
+	public List<PurchaseInvoice>getPartyPeriodPurchaseInvoice(int partyid,LocalDate start,LocalDate end);
+	public List<PurchaseInvoice>getPeriodPurchaseInvoice(LocalDate start,LocalDate end);
+	public List<PurchaseInvoice>getPartyAllPurchaseInvoice(int partyid);
 }

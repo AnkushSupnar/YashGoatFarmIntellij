@@ -218,5 +218,57 @@ public class PurchaseInvoiceDaoImpl implements PurchasInvoiceDao {
 		}
 	}
 
-	
+	@Override
+	public List<PurchaseInvoice> getPartyPeriodPurchaseInvoice(int partyid, LocalDate start, LocalDate end) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			session.beginTransaction();
+			String hql="from PurchaseInvoice where partyid=:pid and date between :start and :end";
+			return session.createQuery(hql,PurchaseInvoice.class)
+					.setParameter("pid",partyid)
+					.setParameter("start",start)
+					.setParameter("end",end)
+					.list();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<PurchaseInvoice> getPeriodPurchaseInvoice(LocalDate start, LocalDate end) {
+		try(Session session= HibernateUtil.getSessionFactory().openSession())
+		{
+			session.beginTransaction();
+			String hql="from PurchaseInvoice where date between :start and :end";
+			return session.createQuery(hql,PurchaseInvoice.class)
+					.setParameter("start",start)
+					.setParameter("end",end)
+					.list();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<PurchaseInvoice> getPartyAllPurchaseInvoice(int partyid) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			session.beginTransaction();
+			String hql="from PurchaseInvoice where partyid=:pid";
+			return session.createQuery(hql,PurchaseInvoice.class)
+					.setParameter("pid",partyid)
+					.list();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 }

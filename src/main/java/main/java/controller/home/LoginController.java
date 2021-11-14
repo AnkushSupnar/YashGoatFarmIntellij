@@ -90,8 +90,8 @@ public class LoginController implements Initializable {
                 //new Alert(Alert.AlertType.INFORMATION, "Login Success").show();
                 notification.showSuccessMessage("Login Success");
                 ViewUtil.login = service.getLoginByName(cmbUserName.getValue());
-                viewUtil.changeWindow(event, "home/Dashboard");
-
+                //viewUtil.changeWindow(event, "home/Dashboard");
+                viewUtil.changeWindow(event, "home/Home");
 
 
             } else {

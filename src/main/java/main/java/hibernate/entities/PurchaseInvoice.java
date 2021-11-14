@@ -30,9 +30,18 @@ public class PurchaseInvoice {
 	public PurchaseInvoice() {
 		super();
 	}
-	public PurchaseInvoice(String invoiceNo,PurchaseParty party, LocalDate date, float nettotal, float gst,
-						   float othercharges, float transportcharges, float grandtotal, List<PurchaseTransaction> transaction,
-						   Bank bank, String bankreffno, float paid) {
+	public PurchaseInvoice(String invoiceNo,
+						   PurchaseParty party,
+						   LocalDate date,
+						   float nettotal,
+						   float gst,
+						   float othercharges,
+						   float transportcharges,
+						   float grandtotal,
+						   List<PurchaseTransaction> transaction,
+						   Bank bank,
+						   String bankreffno,
+						   float paid) {
 		super();
 		this.invoiceNo = invoiceNo;
 		this.party = party;

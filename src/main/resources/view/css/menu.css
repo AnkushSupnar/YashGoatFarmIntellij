@@ -1,0 +1,8 @@
+.root{
+-fx-background-color:white;
+}
+.box{
+        -fx-background-color:linear-gradient(to bottom, #2262C6,CDF2CA);
+        -fx-background-radius :  30 30 30 30;
+        -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 5, 5);
+}

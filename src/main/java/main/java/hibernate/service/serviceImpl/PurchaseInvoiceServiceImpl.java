@@ -79,4 +79,17 @@ public class PurchaseInvoiceServiceImpl implements PurchaseInvoiceService {
 		return dao.getAllPaidAmountByparty(partyId);
 	}
 
+	@Override
+	public List<PurchaseInvoice> getPartyPeriodPurchaseInvoice(int partyid, LocalDate start, LocalDate end) {
+		return dao.getPartyPeriodPurchaseInvoice(partyid,start,end);
+	}
+	@Override
+	public List<PurchaseInvoice> getPeriodPurchaseInvoice(LocalDate start, LocalDate end) {
+		return dao.getPeriodPurchaseInvoice(start,end);
+	}
+	@Override
+	public List<PurchaseInvoice> getPartyAllPurchaseInvoice(int partyid) {
+		return dao.getPartyAllPurchaseInvoice(partyid);
+	}
+
 }

@@ -21,6 +21,7 @@ public class Main extends Application {
        // pagename = "report/labourcharges/YearlyLabourChargesReport";
        // pagename = "report/labourcharges/PeriodLabourChargesReport";
         //pagename = "report/CommisionFrame";
+       // pagename="home/Home";
 
        // pagename = "report/labourcharges/WeeklyLabourChargesReport";
       try {

@@ -1,11 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" prefHeight="691.0" prefWidth="981.0" styleClass="root" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
    <children>
-      <StackPane layoutX="58.0" layoutY="50.0" prefHeight="214.0" prefWidth="200.0" styleClass="box" />
+      <VBox layoutX="92.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
+         <children>
+            <StackPane prefHeight="88.0" prefWidth="264.0">
+               <children>
+                  <FontAwesomeIcon glyphName="BTC" size="5em" StackPane.alignment="TOP_CENTER" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SALES REPORT" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+            <HBox fx:id="menuDailySales" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="DAILY SALES REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="menuWeeklySales" layoutX="10.0" layoutY="98.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="WEEKLY SALES REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="menuMonthlySales" layoutX="10.0" layoutY="141.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="MONTHLY SALES REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="menuPeriodSales" layoutX="10.0" layoutY="184.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PERIOD SALES REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="397.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
+         <children>
+            <StackPane prefHeight="88.0" prefWidth="264.0">
+               <children>
+                  <FontAwesomeIcon glyphName="BTC" size="5em" StackPane.alignment="TOP_CENTER" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PURCHASE REPORT" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+            <HBox fx:id="menuPurchase" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PURCHASE REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="397.0" layoutY="334.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
+         <children>
+            <StackPane prefHeight="88.0" prefWidth="264.0">
+               <children>
+                  <FontAwesomeIcon glyphName="USER" size="5em" StackPane.alignment="TOP_CENTER" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SALESMAN REPORT" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+            <HBox fx:id="menuSalesman" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="SALESMAN REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="92.0" layoutY="334.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
+         <children>
+            <StackPane prefHeight="88.0" prefWidth="264.0">
+               <children>
+                  <FontAwesomeIcon glyphName="USER_PLUS" size="5em" StackPane.alignment="TOP_CENTER" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="LABOUR REPORT" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+            <HBox fx:id="menuWeeklyLabour" layoutX="10.0" layoutY="98.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="WEEKLY LABOUR REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="menuMonthlyLabour" layoutX="10.0" layoutY="141.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="MONTHLY LABOUR REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="menuPeriodLabour" layoutX="10.0" layoutY="184.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PERIOD LABOUR REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

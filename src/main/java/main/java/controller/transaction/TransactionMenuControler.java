@@ -35,9 +35,6 @@ public class TransactionMenuControler implements Initializable {
 			purchaseMenu.setVisible(false);
 			menuBankTransaction.setVisible(false);
 		}
-		// billing = viewUtil.getPage("transaction/BillingFrame");
-		// purchase = viewUtil.getPage("transaction/PurchaseInviceFrame");
-
 	}
 
 	@FXML

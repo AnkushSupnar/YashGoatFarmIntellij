@@ -52,5 +52,10 @@ public class HomeController implements Initializable {
             mainPane.setCenter(centerPane);
         });
 
+        menuMaster.setOnMouseClicked(e->{
+            centerPane = viewUtil.getPage("masterreport/MasterReportMenu");
+            txtTitle.setText("Master Report");
+            mainPane.setCenter(centerPane);
+        });
     }
 }

@@ -1,8 +1,25 @@
 .root{
--fx-background-color:white;
+    -fx-background-color:white;
 }
 .box{
         -fx-background-color:linear-gradient(to bottom, #2262C6,CDF2CA);
         -fx-background-radius :  30 30 30 30;
         -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 5, 5);
+}
+.box .glyph-icon{
+    -fx-fill:white;
+
+}
+.menu{
+    -fx-padding-top:10 10 30 10;
+}
+.text-menu{
+    -fx-fill:white;
+    -fx-font-size:16px;
+}
+.menu:hover{
+    -fx-border-color:#0fbcf9;
+    -fx-border-width:0px 0px 0px 4px;
+    -fx-background-color:#34e7e4e0;
+    -fx-cursor:hand;
 }

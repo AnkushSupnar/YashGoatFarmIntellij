@@ -19,4 +19,5 @@ public interface CommisionDao {
 	public long getNewCommisionId();
 	public Commision getCommisionById(long id);
 	public void deleteTransaction(long id);
+	public List<Commision>getEmployeeDatePeriodCommision(int empid,LocalDate fromDate,LocalDate toDate);
 }

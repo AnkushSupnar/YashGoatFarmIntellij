@@ -52,5 +52,10 @@ public class CommisionServiceImpl implements CommisionService {
 		dao.deleteTransaction(id);
 		
 	}
-	
+
+	@Override
+	public List<Commision> getEmployeeDatePeriodCommision(int empid, LocalDate fromDate, LocalDate toDate) {
+		return dao.getEmployeeDatePeriodCommision(empid,fromDate,toDate);
+	}
+
 }

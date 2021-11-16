@@ -161,5 +161,22 @@ public class CommiosionDaoImpl implements CommisionDao {
 			e.printStackTrace();
 		}	
 	}
-	
+
+	@Override
+	public List<Commision> getEmployeeDatePeriodCommision(int empid, LocalDate fromDate, LocalDate toDate) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+			session.beginTransaction();
+			String hql = "from Commision where employeeId=:empid and date>=:fdate and date<=:tdate";
+			List<Commision>list = session.createQuery(hql,Commision.class)
+					.setParameter("empid",empid)
+					.setParameter("fdate", fromDate)
+					.setParameter("tdate", toDate)
+					.list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

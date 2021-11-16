@@ -9,7 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="691.0" prefWidth="981.0" styleClass="root" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
+<AnchorPane fx:id="mainPane" prefHeight="691.0"
+            prefWidth="981.0" styleClass="root"
+            stylesheets="@../css/menu.css"
+            xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
    <children>
       <VBox layoutX="92.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
          <children>

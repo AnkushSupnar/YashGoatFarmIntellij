@@ -86,7 +86,8 @@ public class WeeklyLabourChargesReportController implements Initializable {
                 notify.showErrorMessage("No Data To Print");
             else
             {
-                if(txtLabourName.getText().isEmpty())
+                System.out.println(txtLabourName.getText());
+                if(txtLabourName.getText().isEmpty()||txtLabourName.getText().equals(""))
                 {
                     new PrintWeeklyAllLabourReport(date.getValue().with(previousOrSame(MONDAY)),
                             date.getValue().with(nextOrSame(SUNDAY)));

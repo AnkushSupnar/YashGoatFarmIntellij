@@ -13,8 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane fx:id="mainPane" prefHeight="533.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.SalesmanCommisionReportController">
+<AnchorPane fx:id="mainPane" prefHeight="570.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.SalesmanCommisionReportController">
    <children>
       <StackPane layoutX="217.0" layoutY="14.0" prefHeight="39.0" prefWidth="717.0" style="-fx-background-color: #2262C6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -83,7 +82,7 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="table" layoutX="20.0" layoutY="152.0" prefHeight="335.0" prefWidth="772.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="152.0">
+      <TableView fx:id="table" layoutX="20.0" layoutY="152.0" prefHeight="331.0" prefWidth="772.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="152.0">
         <columns>
           <TableColumn fx:id="colsrno" prefWidth="54.0" text="Sr.No" />
           <TableColumn fx:id="colDate" prefWidth="112.0" text="Date" />
@@ -92,11 +91,11 @@
             <TableColumn fx:id="colBank" prefWidth="219.0" text="Bank Name" />
         </columns>
       </TableView>
-      <TextField fx:id="txtCommission" layoutX="118.0" layoutY="488.0" prefHeight="25.0" prefWidth="190.0" AnchorPane.bottomAnchor="10.0">
+      <TextField fx:id="txtCommission" layoutX="118.0" layoutY="507.0" prefHeight="25.0" prefWidth="190.0" AnchorPane.bottomAnchor="33.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="20.0" layoutY="494.0" text="Total Commision" AnchorPane.bottomAnchor="15.0" />
+      <Label layoutX="20.0" layoutY="515.0" text="Total Commision" AnchorPane.bottomAnchor="38.0" />
    </children>
 </AnchorPane>

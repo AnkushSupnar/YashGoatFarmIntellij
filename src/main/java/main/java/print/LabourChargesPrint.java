@@ -1,5 +1,4 @@
 package main.java.main.java.print;
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -12,7 +11,6 @@ import main.java.main.java.hibernate.service.serviceImpl.LabourChargesServiceImp
 
 import java.io.FileOutputStream;
 import java.time.LocalDate;
-
 public class LabourChargesPrint {
 	public static String filename = "D:\\Software\\Prints\\LabouCharges.pdf";
 	 float[] columnWidths = new float[]{8f,35f,8f,12f,10f,10f,10f,10f};
@@ -20,7 +18,6 @@ public class LabourChargesPrint {
 	 private Employee labour;
 	 private LabourCharges lc;
 	 Document doc;
-	 
 	 private static Font head = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
 	 private static Font subhead = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL);
 	 private static Font footerFont = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
@@ -32,13 +29,10 @@ public class LabourChargesPrint {
 				service = new LabourChargesServiceImpl();
 				lc = service.getLabourChargesById(id);
 				labour = lc.getLabour();
-
 				float left = 0, right = 0, top = 20, bottom = 0;
 				doc = new Document(PageSize.A4, left, right, top, bottom);
-
 				PdfWriter.getInstance(doc, new FileOutputStream(filename));
 				doc.open();
-				
 				addData();
 				doc.close();
 				System.out.println("Writting Done");

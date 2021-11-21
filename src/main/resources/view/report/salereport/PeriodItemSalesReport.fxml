@@ -11,7 +11,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainFrame" prefHeight="554.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.itemsalereport.PeriodItemSalesReport">
+<AnchorPane fx:id="mainFrame"
+            prefHeight="554.0"
+            prefWidth="870.0"
+            xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.report.itemsalereport.PeriodItemSalesReport">
    <children>
       <HBox layoutX="14.0" layoutY="35.0" spacing="10.0">
          <children>
@@ -26,7 +31,7 @@
       </HBox>
       <HBox layoutX="15.0" layoutY="74.0" spacing="10.0">
          <children>
-            <Button fx:id="btnLoad" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="SHOW" textFill="WHITE">
+            <Button fx:id="btnLoad" mnemonicParsing="false" stylesheets="@../../transaction/button.css" text="SHOW" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="14.0" />
                </font>
@@ -34,7 +39,7 @@
                   <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
                </graphic>
             </Button>
-            <Button fx:id="btnShowAll" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="SHOW ALL" textFill="WHITE">
+            <Button fx:id="btnShowAll" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" stylesheets="@../../transaction/button.css" text="SHOW ALL" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="14.0" />
                </font>
@@ -42,7 +47,7 @@
                   <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
                </graphic>
             </Button>
-            <Button fx:id="btnPrint" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="PRINT" textFill="WHITE">
+            <Button fx:id="btnPrint" mnemonicParsing="false" stylesheets="@../../transaction/button.css" text="PRINT" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="14.0" />
                </font>
@@ -50,7 +55,7 @@
                   <FontAwesomeIcon glyphName="PRINT" />
                </graphic>
             </Button>
-            <Button fx:id="btnReset" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
+            <Button fx:id="btnReset" mnemonicParsing="false" stylesheets="@../../transaction/button.css" text="RESET" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="14.0" />
                </font>
@@ -58,7 +63,7 @@
                   <FontAwesomeIcon glyphName="RECYCLE" />
                </graphic>
             </Button>
-            <Button fx:id="btnExit" mnemonicParsing="false" stylesheets="@../transaction/button.css" text="BACK" textFill="WHITE">
+            <Button fx:id="btnExit" mnemonicParsing="false" stylesheets="@../../transaction/button.css" text="BACK" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="14.0" />
                </font>

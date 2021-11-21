@@ -109,7 +109,7 @@ public class ReportMenuControler implements Initializable {
 	    		new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();
 	    		return;
 	    	}
-			centerPane = viewUtil.getPage("report/PeriodItemSalesReport");
+			centerPane = viewUtil.getPage("report/salereport/PeriodItemSalesReport");
 	    	pane = (BorderPane)reportMenuPanel.getParent();
 	    	pane.setCenter(centerPane);
 	    }
@@ -229,7 +229,7 @@ public class ReportMenuControler implements Initializable {
 	    		new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();
 	    		return;
 	    	}
-			centerPane = viewUtil.getPage("report/WeeklyItemSalesReport");
+			centerPane = viewUtil.getPage("report/salereport/WeeklyItemSalesReport");
 	    	pane =(BorderPane) reportMenuPanel.getParent();
 	    	pane.setCenter(centerPane);
 	    }

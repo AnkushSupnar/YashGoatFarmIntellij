@@ -242,22 +242,10 @@ public class SalesmanCommisionReportController implements Initializable {
             }
         };
         Thread t = new Thread(task);
-
-
         Thread t2 = new Thread(task2);
-
        // t2.isDaemon();
         t.start();
         t2.start();
-
-
-
-
-
-
-
-
-
-
+        calculateTotal();
     }
 }

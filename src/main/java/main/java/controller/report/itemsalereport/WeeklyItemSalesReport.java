@@ -137,6 +137,10 @@ public class WeeklyItemSalesReport implements Initializable {
 	    	}
 	    	list.clear();
 	    	billList.clear();
+			txtKG.setText(""+0.0f);
+			txtAmount.setText(""+0.0f);
+			txtNos.setText(""+0.0f);
+			txtQyt.setText(""+0.0f);
 	    	CommonData.weeklyItemSaleStickList.clear();
 	    	billList.addAll(billService.getPeriodWiseBills(date.getValue().with(DayOfWeek.MONDAY),date.getValue().with(DayOfWeek.SUNDAY)));
 	    	int sr=0;
@@ -170,6 +174,10 @@ public class WeeklyItemSalesReport implements Initializable {
 	    		date.requestFocus();
 	    		return;
 	    	}
+			txtAmount.setText(""+0.0f);
+			txtKG.setText(""+0.0f);
+			txtNos.setText(""+0);
+			txtQyt.setText(""+0.0f);
 	    	list.clear();
 	    	billList.clear();
 	    	CommonData.weeklyItemSaleStickList.clear();
@@ -181,8 +189,25 @@ public class WeeklyItemSalesReport implements Initializable {
 	    	}
 	    	int sr=0;
 	    	WeeklyItemSales week =null;
-			float amount = 0,kg=0,nos=0;
 
+
+			for(Bill bill:billList)
+			{
+				for(Transaction tr:bill.getTransaction())
+				{
+					addInList(new WeeklyItemSales(
+							++sr,
+							date.getValue(),
+							0,
+							tr.getItemname(),
+							tr.getQuantity(),
+							tr.getUnit(),
+							tr.getRate(),
+							tr.getAmount()
+					));
+				}
+			}
+			/*
 	    	for(Item item:itemService.getAllItems())
 	    	{
 				float qty = getItemAllSale(item.getItemname());
@@ -213,9 +238,56 @@ public class WeeklyItemSalesReport implements Initializable {
 			txtKG.setText(String.valueOf(kg));
 			txtNos.setText(String.valueOf(nos));
 			txtAmount.setText(String.valueOf(amount));
+
+			 */
 	    }
 
-	    @FXML
+	private void addInList(WeeklyItemSales sale) {
+		int index=-1;
+		for(WeeklyItemSales tr:list)
+		{
+			if(tr.getItemName().equalsIgnoreCase(sale.getItemName())&& tr.getRate()==sale.getRate())
+			{
+				index=list.indexOf(tr);
+				break;
+			}
+		}
+		if(index==-1)
+		{
+			sale.setSrno(list.size()+1);
+			list.add(sale);
+			table.refresh();
+		}
+		else{
+			list.get(index).setQty(list.get(index).getQty()+sale.getQty());
+			list.get(index).setAmount(list.get(index).getAmount()+sale.getAmount());
+		}
+
+		if(sale.getUnit().equalsIgnoreCase("KG"))
+			txtKG.setText(String.valueOf(Float.parseFloat(txtKG.getText())+sale.getQty()));
+		else
+			txtNos.setText(String.valueOf(Float.parseFloat(txtNos.getText())+sale.getQty()));
+
+		txtAmount.setText(String.valueOf(Float.parseFloat(txtAmount.getText())+sale.getAmount()));
+
+		//list.add(week);
+
+		Item item = itemService.getItemByName(sale.getItemName());
+		if(item.getLabourCharges()>0)
+		{
+			CommonData.weeklyItemSaleStickList.add(sale);
+		}
+		else
+		{
+			CommonData.weeklyItemSaleList.add(sale);
+		}
+
+
+
+
+	}
+
+	@FXML
 	    void btnShowChartAction(ActionEvent event) {
 	    	if(CommonData.weeklyItemSaleStickList.isEmpty())
 	    	{

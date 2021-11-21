@@ -13,16 +13,8 @@ public class Main extends Application {
     static Logger log = Logger.getLogger(Main.class.getName());
     @Override
     public void start(Stage primaryStage) throws Exception{
-       // pagename="home/LoginFrame";
-        pagename="masterreport/SalesmanCommisionReport";
-       // pagename="report/YearItemSalesReport";
-       // pagename="report/YearItemSalesReport";
-       // pagename = "report/labourcharges/WeeklyLabourChargesReport";
-        //pagename = "report/labourcharges/MonthlyLabourChargesReport";
-       // pagename = "report/labourcharges/YearlyLabourChargesReport";
-       // pagename = "report/labourcharges/PeriodLabourChargesReport";
-        //pagename = "report/CommisionFrame";
-       // pagename="home/Home";
+       pagename="home/LoginFrame";
+        pagename="report/salereport/WeeklyItemSalesReport";
 
        // pagename = "report/labourcharges/WeeklyLabourChargesReport";
       try {

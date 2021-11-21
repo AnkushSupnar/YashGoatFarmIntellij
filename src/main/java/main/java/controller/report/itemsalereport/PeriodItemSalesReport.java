@@ -110,26 +110,52 @@ public class PeriodItemSalesReport implements Initializable {
 		}
 		list.clear();
 		txtQuantity.setText("");
-		txtAmount.setText("");
+		txtAmount.setText(""+0.0f);
 		List<Bill>billList = billService.getPeriodWiseBills(startDate.getValue(),endDate.getValue());
 		int sr=0;
 		float amount=0;
-		for(String name:itemService.getAllItemNames())
+
+		for(Bill bill:billList)
 		{
-			float qty = getItemQty(billList,name);
-			float rate = itemService.getItemByName(name).getRate();
-			list.add(new ItemSaleReportPojo(
-					++sr,
-					0,
-					startDate.getValue(),
-					name,
-					itemService.getItemByName(name).getUnit(),
-					qty,
-					rate,
-					qty*rate));
-			amount+=(qty*rate);
+			for(Transaction tr:bill.getTransaction())
+			{
+				addInList(new ItemSaleReportPojo(
+						++sr,
+						0,
+						startDate.getValue(),
+						tr.getItemname(),
+						tr.getUnit(),
+						tr.getQuantity(),
+						tr.getRate(),
+						tr.getAmount()
+				));
+
+			}
 		}
-		txtAmount.setText(""+amount);
+	}
+	void addInList(ItemSaleReportPojo sale)
+	{
+		int index=-1;
+		for(ItemSaleReportPojo tr:list)
+		{
+			if(tr.getItemName().equalsIgnoreCase(sale.getItemName())&& tr.getRate()==sale.getRate())
+			{
+				index=list.indexOf(tr);
+				break;
+			}
+		}
+		if(index==-1)
+		{
+			sale.setId(list.size()+1);
+			list.add(sale);
+			table.refresh();
+		}
+		else{
+			list.get(index).setQty(list.get(index).getQty()+sale.getQty());
+			list.get(index).setAmount(list.get(index).getAmount()+sale.getAmount());
+			table.refresh();
+		}
+		txtAmount.setText(String.valueOf(Float.parseFloat(txtAmount.getText())+sale.getAmount()));
 	}
 
 	private float getItemQty(List<Bill> billList, String name) {

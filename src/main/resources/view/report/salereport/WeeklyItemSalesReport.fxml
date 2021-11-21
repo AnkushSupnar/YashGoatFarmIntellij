@@ -14,7 +14,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.itemsalereport.WeeklyItemSalesReport">
+<AnchorPane fx:id="mainPane"
+            maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="652.0" prefWidth="964.0"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.main.java.controller.report.itemsalereport.WeeklyItemSalesReport">
    <children>
       <Pane layoutY="14.0" prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #1976d2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -31,7 +38,7 @@
       <Label layoutX="171.0" layoutY="57.0" text="Select Item Name" />
       <HBox layoutX="31.0" layoutY="110.0" spacing="10.0">
          <children>
-            <Button fx:id="btnShow" mnemonicParsing="false" onAction="#btnShowAction" stylesheets="@../transaction/button.css" text="SHOW" textFill="WHITE">
+            <Button fx:id="btnShow" mnemonicParsing="false" onAction="#btnShowAction" stylesheets="@../../transaction/button.css" text="SHOW" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -42,7 +49,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnShowAll" mnemonicParsing="false" onAction="#btnShowAllAction" stylesheets="@../transaction/button.css" text="SHOW ALL" textFill="WHITE">
+            <Button fx:id="btnShowAll" mnemonicParsing="false" onAction="#btnShowAllAction" stylesheets="@../../transaction/button.css" text="SHOW ALL" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -53,7 +60,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnPrint" layoutX="99.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnShowAllAction" stylesheets="@../transaction/button.css" text="PRINT" textFill="WHITE">
+            <Button fx:id="btnPrint" layoutX="99.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnShowAllAction" stylesheets="@../../transaction/button.css" text="PRINT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -61,7 +68,7 @@
                   <FontAwesomeIcon fill="WHITE" glyphName="PRINT" />
                </graphic>
             </Button>
-            <Button fx:id="btnShowChart" mnemonicParsing="false" onAction="#btnShowChartAction" stylesheets="@../transaction/button.css" text="SHOW CHART" textFill="WHITE">
+            <Button fx:id="btnShowChart" mnemonicParsing="false" onAction="#btnShowChartAction" stylesheets="@../../transaction/button.css" text="SHOW CHART" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -72,7 +79,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnClear" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@../transaction/button.css" text="CLEAR" textFill="WHITE">
+            <Button fx:id="btnClear" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@../../transaction/button.css" text="CLEAR" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -83,7 +90,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnExit" layoutX="442.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@../transaction/button.css" text="EXIT" textFill="WHITE">
+            <Button fx:id="btnExit" layoutX="442.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnClearAction" stylesheets="@../../transaction/button.css" text="EXIT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

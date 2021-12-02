@@ -18,9 +18,7 @@ import main.java.main.java.hibernate.service.serviceImpl.EmployeeServiceImpl;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class TodayDashboardController implements Initializable {
 
@@ -43,7 +41,9 @@ public class TodayDashboardController implements Initializable {
     private EmployeeService employeeService;
 
     private ObservableList<Bill>billList = FXCollections.observableArrayList();
-
+    HashMap<Integer,Float>kgMap = new HashMap<>();
+    HashMap<Integer,Float>nosMap = new HashMap<>();
+    HashMap<Integer,List<Float>>piMap = new HashMap<>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         billService = new BillServiceImpl();
@@ -53,10 +53,12 @@ public class TodayDashboardController implements Initializable {
         lblCustomer.setText(""+0);
         lblKG.setText(""+0.0f);
         lblNos.setText(""+0.0f);
-        LocalDate date = LocalDate.of(2021,10,20);
+        LocalDate date = LocalDate.of(2021,10,19);
         billList.addAll(billService.getDateWiseBill(date));
 
         loadLineChart();
+        loadData();
+        loadChart();
 
     }
 
@@ -64,8 +66,6 @@ public class TodayDashboardController implements Initializable {
     void loadLineChart()
     {
         XYChart.Series series = new XYChart.Series();
-        XYChart.Series salesmanKg = new XYChart.Series();
-        XYChart.Series salesmannos = new XYChart.Series();
         int i=0,customer=0;
         Set<Customer> set = new HashSet<>();
         float amt=0.0f,kg=0.0f,nos=0.0f;
@@ -79,23 +79,6 @@ public class TodayDashboardController implements Initializable {
                             (
                                     bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges()
                                     )));
-            pichartData.add(new PieChart.Data(""+bill.getEmployee().getFname()+"("+kg+"kg,"+nos+"nos"+")",(kg+nos)
-
-            ));
-
-            salesmannos.getData().add(
-                    new XYChart.Data<>(
-                            bill.getEmployee().getFname(),
-                            nos
-                    )
-            );
-            salesmanKg.getData().add(
-                    new XYChart.Data<>(
-                            bill.getEmployee().getFname(),
-                            kg
-                    )
-            );
-
 
             set.add(bill.getCustomer());
             i++;
@@ -108,9 +91,9 @@ public class TodayDashboardController implements Initializable {
         lblNos.setText(String.valueOf(nos));
         lblKG.setText(String.valueOf(kg));
         lineChart.getData().add(series);
-        pichart.getData().addAll(pichartData);
-        lineChartNos.getData().add(salesmannos);
-        lineChartKg.getData().add(salesmanKg);
+
+
+
 
     }
     float[] getQty(Bill bill)
@@ -128,5 +111,59 @@ public class TodayDashboardController implements Initializable {
         qty[0]=kg;
         qty[1]=nos;
         return qty;
+    }
+    void loadData(){
+
+
+        for(Bill bill:billList)
+        {
+           for(Transaction tr:bill.getTransaction())
+           {
+               addInMap(tr,bill.getEmployee().getId());
+           }
+        }
+    }
+
+    private void addInMap(Transaction tr,int emp) {
+
+        if(tr.getUnit().equalsIgnoreCase("kg"))
+        {
+            if(kgMap.containsKey(emp))
+                kgMap.put(emp,kgMap.get(emp)+tr.getQuantity());
+            else
+                kgMap.put(emp,tr.getQuantity());
+        }
+        else{
+            if(nosMap.containsKey(emp))
+                nosMap.put(emp,nosMap.get(emp)+tr.getQuantity());
+            else
+                nosMap.put(emp,tr.getQuantity());
+        }
+
+    }
+    private void loadChart(){
+        XYChart.Series salesmanKg = new XYChart.Series();
+        XYChart.Series salesmannos = new XYChart.Series();
+        for(Map.Entry<Integer,Float>entry:kgMap.entrySet())
+        {
+            salesmanKg.getData().add(
+                    new XYChart.Data<>(
+                            employeeService.getEmployeeById(entry.getKey()).getFname(),
+                            entry.getValue()
+                    )
+            );
+        }
+        for(Map.Entry<Integer,Float>entry:nosMap.entrySet())
+        {
+            salesmannos.getData().add(
+                    new XYChart.Data<>(
+                            employeeService.getEmployeeById(entry.getKey()).getFname(),
+                            entry.getValue()
+                    )
+            );
+        }
+
+        lineChartKg.getData().add(salesmanKg);
+        lineChartNos.getData().add(salesmannos);
     }
 }

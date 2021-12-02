@@ -33,7 +33,7 @@ public class TransactionMenuControler implements Initializable {
 		viewUtil = new ViewUtil();
 		if (ViewUtil.login.getId() != 1) {
 			purchaseMenu.setVisible(false);
-			menuBankTransaction.setVisible(false);
+			//menuBankTransaction.setVisible(false);
 		}
 	}
 

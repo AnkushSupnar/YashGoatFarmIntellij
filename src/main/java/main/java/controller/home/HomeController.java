@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 public class HomeController implements Initializable {
     @FXML private BorderPane mainPane;
     @FXML private HBox menuTransaction;
+    @FXML private HBox menuDashboard;
     @FXML private HBox menuCreate;
     @FXML private HBox menuInventary;
     @FXML private HBox menuMaster;
@@ -55,6 +56,11 @@ public class HomeController implements Initializable {
         menuMaster.setOnMouseClicked(e->{
             centerPane = viewUtil.getPage("masterreport/MasterReportMenu");
             txtTitle.setText("Master Report");
+            mainPane.setCenter(centerPane);
+        });
+        menuDashboard.setOnMouseClicked(e->{
+            centerPane = viewUtil.getPage("masterreport/DashboardReport");
+            txtTitle.setText("Dashboard");
             mainPane.setCenter(centerPane);
         });
     }

@@ -1,3 +1,31 @@
-.tile{
-    -fx-background-color:white;
+.root{
+   -fx-background-color:#ffffff;
 }
+.title{
+   -fx-background-color:#ffffff;
+  -fx-border-color: transparent transparent red transparent;
+}
+.button{
+    -fx-background-color:#ffffff;
+    -fx-text-fill:black;
+}
+.button:hover{
+ -fx-background-color:#ffffff;
+    -fx-text-fill:blue;
+}
+.button:pressed{
+ -fx-background-color:#ffffff;
+    -fx-text-fill:black;
+}
+.tile{
+    -fx-background-radius: 0px 10px 10px 0px;
+    -fx-text-fill:white;
+}
+.icon{
+    -fx-background-color: #0275d8;
+}
+.icon .glyph-icon{
+    -fx-fill:white;
+}
+
+

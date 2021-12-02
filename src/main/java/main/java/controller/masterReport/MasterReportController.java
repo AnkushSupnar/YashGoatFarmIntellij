@@ -72,5 +72,10 @@ public class MasterReportController implements Initializable {
             pane =(BorderPane) mainPane.getParent();
             pane.setCenter(centerPane);
         });
+        menuSalesman.setOnMouseClicked(e->{
+            centerPane = viewUtil.getPage("masterreport/SalesmanCommisionReport");
+            pane =(BorderPane) mainPane.getParent();
+            pane.setCenter(centerPane);
+        });
     }
 }

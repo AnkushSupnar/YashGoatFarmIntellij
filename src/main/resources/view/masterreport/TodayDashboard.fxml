@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="709.0" prefWidth="1114.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/dashboardreport.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.TodayDashboardController">
+   <children>
+      <HBox layoutX="14.0" layoutY="25.0" spacing="35.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" styleClass="icon">
+                     <children>
+                        <FontAwesomeIcon glyphName="CART_PLUS" size="5em" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="108.0" style="-fx-background-color: #5cb85c;" styleClass="tile">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="BILLS" StackPane.alignment="BOTTOM_CENTER">
+                           <font>
+                              <Font name="Book Antiqua Bold" size="14.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="5.0" />
+                           </StackPane.margin>
+                        </Text>
+                        <Label fx:id="lblBills" contentDisplay="CENTER" text="1000000" textFill="WHITE" StackPane.alignment="CENTER">
+                           <font>
+                              <Font name="Georgia" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #f0ad4e;" styleClass="icon">
+                     <children>
+                        <FontAwesomeIcon glyphName="USD" size="5em" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="108.0" style="-fx-background-color: #5cb85c;" styleClass="tile">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="AMOUNT" StackPane.alignment="BOTTOM_CENTER">
+                           <font>
+                              <Font name="Book Antiqua Bold" size="14.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="5.0" />
+                           </StackPane.margin>
+                        </Text>
+                        <Label fx:id="lblAmount" contentDisplay="CENTER" text="1000000" textFill="WHITE" StackPane.alignment="CENTER">
+                           <font>
+                              <Font name="Georgia" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #5bc0de;" styleClass="icon">
+                     <children>
+                        <FontAwesomeIcon glyphName="USER" size="5em" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="108.0" style="-fx-background-color: #5cb85c;" styleClass="tile">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CUSTOMER" StackPane.alignment="BOTTOM_CENTER">
+                           <font>
+                              <Font name="Book Antiqua Bold" size="14.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="5.0" />
+                           </StackPane.margin>
+                        </Text>
+                        <Label fx:id="lblCustomer" contentDisplay="CENTER" text="1000000" textFill="WHITE" StackPane.alignment="CENTER">
+                           <font>
+                              <Font name="Georgia" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #d9534f;" styleClass="icon">
+                     <children>
+                        <FontAwesomeIcon glyphName="LEAF" size="5em" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="108.0" style="-fx-background-color: #5cb85c;" styleClass="tile">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="KG" StackPane.alignment="BOTTOM_CENTER">
+                           <font>
+                              <Font name="Book Antiqua Bold" size="14.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="5.0" />
+                           </StackPane.margin>
+                        </Text>
+                        <Label fx:id="lblKG" contentDisplay="CENTER" text="1000000" textFill="WHITE" StackPane.alignment="CENTER">
+                           <font>
+                              <Font name="Georgia" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="736.0" layoutY="10.0" prefHeight="68.0" prefWidth="192.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #d9534f;" styleClass="icon">
+                     <children>
+                        <FontAwesomeIcon glyphName="LEAF" size="5em" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="108.0" style="-fx-background-color: #5cb85c;" styleClass="tile">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NOS" StackPane.alignment="BOTTOM_CENTER">
+                           <font>
+                              <Font name="Book Antiqua Bold" size="14.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="5.0" />
+                           </StackPane.margin>
+                        </Text>
+                        <Label fx:id="lblNos" contentDisplay="CENTER" text="1000000" textFill="WHITE" StackPane.alignment="CENTER">
+                           <font>
+                              <Font name="Georgia" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <SplitPane dividerPositions="0.5213849287169042" layoutY="85.0" prefHeight="269.0" prefWidth="1114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <LineChart fx:id="lineChart" layoutX="5.0" layoutY="8.0" style="-fx-background-color: white;" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <PieChart fx:id="pichart" layoutX="-16.0" style="-fx-background-color: white;" title="Bills" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5213849287169042" layoutX="12.0" layoutY="355.0" prefHeight="239.0" prefWidth="1114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <LineChart fx:id="lineChartNos" layoutX="5.0" layoutY="8.0" style="-fx-background-color: white;" title="Saleman Stick Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <LineChart fx:id="lineChartKg" layoutX="29.0" layoutY="-102.0" style="-fx-background-color: white;" title="Salesman KG Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

@@ -2,13 +2,14 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/dashboardreport.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.DashboardReportController">
+<AnchorPane fx:id="mainPane" prefHeight="490.0" prefWidth="674.0" stylesheets="@../css/dashboardreport.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.DashboardReportController">
    <children>
       <StackPane fx:id="titlePane" layoutX="70.0" layoutY="14.0" prefHeight="34.0" prefWidth="600.0" styleClass="title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,39 +26,36 @@
                   <Font name="Georgia" size="20.0" />
                </font>
             </Text>
-            <Button fx:id="btnToday" layoutX="283.0" layoutY="15.0" mnemonicParsing="false" text="TODAY" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets right="175.0" />
-               </StackPane.margin>
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnMonth" mnemonicParsing="false" text="MONTH" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets right="110.0" />
-               </StackPane.margin>
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnYear" layoutX="450.0" layoutY="15.0" mnemonicParsing="false" text="YEAR" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets right="60.0" />
-               </StackPane.margin>
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnAll" layoutX="466.0" layoutY="15.0" mnemonicParsing="false" text="ALL" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets right="10.0" />
-               </StackPane.margin>
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
          </children>
       </StackPane>
+      <TabPane layoutX="125.0" layoutY="99.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="456.0" prefWidth="674.0" stylesheets="@../css/tabbePane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+        <tabs>
+          <Tab text="TODAY">
+            <content>
+              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;" />
+            </content>
+          </Tab>
+          <Tab text="WEEK">
+            <content>
+              <AnchorPane fx:id="paneMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+            </content>
+          </Tab>
+            <Tab text="MONTH">
+               <content>
+                  <AnchorPane fx:id="paneMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: red;" />
+               </content>
+            </Tab>
+            <Tab text="YEAR">
+               <content>
+                  <AnchorPane fx:id="paneYear" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: Black;" />
+               </content>
+            </Tab>
+            <Tab text="ALL">
+               <content>
+                  <AnchorPane fx:id="paneAll" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

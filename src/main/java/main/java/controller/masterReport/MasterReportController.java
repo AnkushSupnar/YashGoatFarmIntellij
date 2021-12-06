@@ -47,7 +47,7 @@ public class MasterReportController implements Initializable {
             pane.setCenter(centerPane);
         });
         menuPeriodSales.setOnMouseClicked(e->{
-            centerPane = viewUtil.getPage("report/PeriodItemSalesReport");
+            centerPane = viewUtil.getPage("report/PeriodSalesReport");
             pane = (BorderPane)mainPane.getParent();
             pane.setCenter(centerPane);
         });

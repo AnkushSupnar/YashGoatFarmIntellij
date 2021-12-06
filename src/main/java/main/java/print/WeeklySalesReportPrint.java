@@ -70,7 +70,7 @@ public class WeeklySalesReportPrint {
         float amount=0.0f,paid=0.0f;
         for(Bill bill:billList)
         {
-            amount=amount+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs());
+            amount+=bill.getNettotal();
             System.out.println(bill.getNettotal());
             System.out.println(bill.getTransportingchrges());
             System.out.println(bill.getOtherchargs());
@@ -93,7 +93,7 @@ public class WeeklySalesReportPrint {
             c1.setBorder(PdfPCell.BOX);
             data.addCell(c1);
 
-            c1 = new PdfPCell(new Paragraph(""+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()), smallfont));
+            c1 = new PdfPCell(new Paragraph(""+(bill.getNettotal()), smallfont));
             c1.setHorizontalAlignment(Element.ALIGN_LEFT);
             c1.setBorder(0);
             c1.setBorder(PdfPCell.BOX);

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="409.0" prefWidth="851.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.labourcharges.MonthlyLabourChargesReportController">
+<AnchorPane fx:id="mainPane" prefHeight="423.0" prefWidth="851.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.labourcharges.MonthlyLabourChargesReportController">
    <children>
       <StackPane layoutX="177.0" layoutY="23.0" prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #007bff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -68,7 +68,7 @@
          </children>
       </HBox>
       <Label layoutX="244.0" layoutY="57.0" text="Date" />
-      <TableView fx:id="table" layoutX="14.0" layoutY="108.0" prefHeight="250.0" prefWidth="831.0" stylesheets="@../../css/table.css" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="108.0">
+      <TableView fx:id="table" layoutX="14.0" layoutY="108.0" prefHeight="265.0" prefWidth="831.0" stylesheets="@../../css/table.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="108.0">
         <columns>
           <TableColumn fx:id="colSr" prefWidth="63.0" text="Sr.No" />
           <TableColumn fx:id="colDate" prefWidth="132.0" text="Date" />

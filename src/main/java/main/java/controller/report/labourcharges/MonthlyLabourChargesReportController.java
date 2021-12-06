@@ -130,11 +130,15 @@ public class MonthlyLabourChargesReportController implements Initializable {
             }
             list.clear();
             txtTotal.setText("");
+            float amount=0.0f;
             list.addAll(labourService.getPeriodWiseLabourCharges(
                     date.getValue().with(firstDayOfMonth()),
                     date.getValue().with(lastDayOfMonth())
             ));
-            
+            for(LabourCharges l:list){
+                amount+=l.getAmount();
+            }
+            txtTotal.setText(String.valueOf(amount));
         }catch(Exception e)
         {
         notify.showErrorMessage("Error in Loading Data "+e.getMessage());

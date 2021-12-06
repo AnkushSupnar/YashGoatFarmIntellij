@@ -18,6 +18,8 @@ import main.java.main.java.hibernate.service.serviceImpl.LabourChargesServiceImp
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -159,6 +161,10 @@ public class PeriodLabourChargesReportController implements Initializable {
                     dateFrom.getValue(),
                     dateTo.getValue()
             ));
+            NumberFormat formatter = new DecimalFormat("#0.00");
+
+            txtTotal.setText(""+formatter.format(list.stream().filter(o -> o.getAmount() > 10).mapToDouble(o -> o.getAmount()).sum()));
+                   //list.stream().filter(o->o.getAmount()>0).mapToDouble(o.getAmount()).sum();
             
         }catch(Exception e)
         {

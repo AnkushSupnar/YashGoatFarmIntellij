@@ -14,6 +14,8 @@ import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.WeeklySalesReportPrint;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -26,6 +28,7 @@ public class PeriodSalesReport implements Initializable {
  @FXML private Button btnPreview;
  @FXML private Button btnReset;
  @FXML private Button btnExit;
+ @FXML private Button btnPrint;
  @FXML private DatePicker startDate;
  @FXML private DatePicker endDate;
  @FXML private TableView<Bill> table;
@@ -54,6 +57,11 @@ public class PeriodSalesReport implements Initializable {
 		colBankName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedby"));
 		colSalesmanName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedreff"));
 		table.setItems(billList);
+
+		btnPrint.setOnAction(e->{
+			new WeeklySalesReportPrint(billList,startDate.getValue(),endDate.getValue());
+			new PrintFile().openFile("D:\\Software\\Prints\\WeeklySalesReport.pdf");
+		});
 	}
 @FXML
 void btnExitAction(ActionEvent event) {

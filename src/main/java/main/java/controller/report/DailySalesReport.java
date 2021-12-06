@@ -14,6 +14,8 @@ import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.DailySalesReportPrint;
+import main.java.main.java.print.PrintFile;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -39,8 +41,10 @@ public class DailySalesReport implements Initializable {
 	  @FXML private Button btnPreview;
 	  @FXML private Button btnReset;
 	  @FXML private Button btnExit;
-	  
-	  private ObservableList<Bill>billList =FXCollections.observableArrayList(); 
+	  @FXML private Button btnPrint;
+
+
+	private ObservableList<Bill>billList =FXCollections.observableArrayList();
 	  private BillService billService;
 	  boolean cash;
 	  @Override
@@ -64,6 +68,12 @@ public class DailySalesReport implements Initializable {
 				{
 					cash=false;
 				}
+			});
+
+			btnPrint.setOnAction(e->{
+				if(billList.size()==0) return;
+				new DailySalesReportPrint(billList);
+				new PrintFile().openFile("D:\\Software\\Prints\\DailySalesReport.pdf");
 			});
 		}
 	  @FXML void btnExitAction(ActionEvent event) {

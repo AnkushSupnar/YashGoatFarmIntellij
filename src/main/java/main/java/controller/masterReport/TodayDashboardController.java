@@ -31,7 +31,7 @@ public class TodayDashboardController implements Initializable {
     @FXML private LineChart<?, ?> lineChart;
     @FXML private PieChart pichart;
     ObservableList<PieChart.Data>pichartData = FXCollections.observableArrayList();
-
+    @FXML private Label pichartLabel;
     @FXML private LineChart<?, ?> lineChartNos;
 
     @FXML private LineChart<?, ?> lineChartKg;
@@ -56,9 +56,11 @@ public class TodayDashboardController implements Initializable {
         LocalDate date = LocalDate.of(2021,10,19);
         billList.addAll(billService.getDateWiseBill(date));
 
+
         loadLineChart();
         loadData();
         loadChart();
+
 
     }
 
@@ -144,6 +146,7 @@ public class TodayDashboardController implements Initializable {
     private void loadChart(){
         XYChart.Series salesmanKg = new XYChart.Series();
         XYChart.Series salesmannos = new XYChart.Series();
+
         for(Map.Entry<Integer,Float>entry:kgMap.entrySet())
         {
             salesmanKg.getData().add(
@@ -152,6 +155,8 @@ public class TodayDashboardController implements Initializable {
                             entry.getValue()
                     )
             );
+            pichartData.add(new PieChart.Data(employeeService.getEmployeeById(entry.getKey()).getFname()+"("+entry.getValue()+")",
+                    entry.getValue()));
         }
         for(Map.Entry<Integer,Float>entry:nosMap.entrySet())
         {
@@ -161,9 +166,12 @@ public class TodayDashboardController implements Initializable {
                             entry.getValue()
                     )
             );
+            pichartData.add(new PieChart.Data(employeeService.getEmployeeById(entry.getKey()).getFname()+"("+entry.getValue()+")",
+                    entry.getValue()));
         }
 
         lineChartKg.getData().add(salesmanKg);
         lineChartNos.getData().add(salesmannos);
+        pichart.getData().setAll(pichartData);
     }
 }

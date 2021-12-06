@@ -14,19 +14,23 @@ import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.WeeklySalesReportPrint;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
-
 public class MonthlySalesReport implements Initializable {
  @FXML private AnchorPane mainFrame;
  @FXML private Button btnLoad;
  @FXML private Button btnPreview;
  @FXML private Button btnReset;
  @FXML private Button btnExit;
- @FXML private DatePicker date;
+ @FXML private Button btnPrint;
+
+	@FXML private DatePicker date;
  @FXML private TableView<Bill> table;
  @FXML private TableColumn<Bill,Double> colSrNo;//otherchargs
  @FXML private TableColumn<Bill,LocalDate> colDate;
@@ -41,6 +45,7 @@ public class MonthlySalesReport implements Initializable {
  @FXML private CheckBox checkCash;
 
 	private ObservableList<Bill>billList =FXCollections.observableArrayList();
+	private List<Bill> originalbillList =new ArrayList<>();
  private BillService billService;
  @Override
  public void initialize(URL location, ResourceBundle resources) {
@@ -50,10 +55,17 @@ public class MonthlySalesReport implements Initializable {
 		colDate.setCellValueFactory(new PropertyValueFactory<Bill,LocalDate>("date"));
 		colBillNo.setCellValueFactory(new PropertyValueFactory<Bill,Long>("billno"));
 		colBillAmount.setCellValueFactory(new PropertyValueFactory<Bill,Double>("nettotal"));
+
 		colPaidAmount.setCellValueFactory(new PropertyValueFactory<Bill,Double>("recivedamount"));
 		colBankName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedby"));
 		colSalesmanName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedreff"));
 		table.setItems(billList);
+		btnPrint.setOnAction(e->{
+			if(billList.size()==0)return;
+			System.out.println("Print from monthly Report");
+			new WeeklySalesReportPrint(originalbillList,date.getValue().withDayOfMonth(1),date.getValue().withDayOfMonth(date.getValue().lengthOfMonth()));
+			new PrintFile().openFile("D:\\Software\\Prints\\WeeklySalesReport.pdf");
+		});
 	}
 @FXML
 void btnExitAction(ActionEvent event) {
@@ -68,6 +80,7 @@ void btnLoadAction(ActionEvent event) {
 		return;
 	}
 	billList.clear();
+	originalbillList.clear();
 	if(!checkCash.isSelected())
 	{
 		for(Bill bill:billService.getMonthWiseBill(date.getValue()))
@@ -75,15 +88,19 @@ void btnLoadAction(ActionEvent event) {
 			if(bill.getBank().getId()!=1 && bill.getBank().getId()!=5)
 			{
 				billList.add(bill);
+				originalbillList.add(bill);
 			}
 		}
 	}
 	else
 	{
 		billList.addAll(billService.getMonthWiseBill(date.getValue()));
+		originalbillList.addAll(billService.getMonthWiseBill(date.getValue()));
 	}
 	int sr=0;
 	double totalAmount=0,totalPaid=0,totalUnpaid=0;
+
+
 	//billList.addAll(billService.getPeriodWiseBills(date.getValue().with(DayOfWeek.MONDAY),date.getValue().with(DayOfWeek.SUNDAY)));
 
 	//billList.addAll(billService.getPeriodWiseBills(startD, null));

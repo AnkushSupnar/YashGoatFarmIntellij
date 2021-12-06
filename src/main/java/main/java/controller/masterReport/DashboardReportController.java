@@ -2,6 +2,7 @@ package main.java.main.java.controller.masterReport;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -24,12 +25,22 @@ public class DashboardReportController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewUtil = new ViewUtil();
-        paneToday.getChildren().add(viewUtil.getPage("masterreport/TodayDashboard"));
-//        btnToday.setOnAction(e->{
-//            pane = viewUtil.getPage("masterreport/TodayDashboard");
-//            pane.setLayoutY(35);
-//
-//            mainPane.getChildren().add(1,pane);
-//        });
+
+
+        //pane.setSi);
+
+        paneToday.getChildren().setAll(getNode("masterreport/TodayDashboard"));
+        //paneToday.getChildren().add(pane);
+
+    }
+    private Node getNode(String filePath)
+    {
+        //Node node = viewUtil.getPage("masterreport/TodayDashboard");
+        Node node = viewUtil.getPage(filePath);
+        AnchorPane.setTopAnchor(node,0.0);
+        AnchorPane.setLeftAnchor(node,0.0);
+        AnchorPane.setBottomAnchor(node,0.0);
+        AnchorPane.setRightAnchor(node,0.0);
+        return node;
     }
 }

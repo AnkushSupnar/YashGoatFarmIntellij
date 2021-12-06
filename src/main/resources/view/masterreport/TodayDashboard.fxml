@@ -14,11 +14,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="709.0" prefWidth="1114.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/dashboardreport.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.TodayDashboardController">
+<AnchorPane prefHeight="709.0" prefWidth="1114.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/dashboardreport.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.TodayDashboardController">
    <children>
-      <HBox layoutX="14.0" layoutY="25.0" spacing="35.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+      <HBox layoutX="14.0" layoutY="25.0" prefHeight="50.0" prefWidth="1100.0" spacing="35.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="192.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" styleClass="icon">
                      <children>
@@ -47,7 +47,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="192.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #f0ad4e;" styleClass="icon">
                      <children>
@@ -76,7 +76,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="192.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #5bc0de;" styleClass="icon">
                      <children>
@@ -105,7 +105,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="192.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="192.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #d9534f;" styleClass="icon">
                      <children>
@@ -134,7 +134,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="736.0" layoutY="10.0" prefHeight="68.0" prefWidth="192.0">
+            <HBox alignment="CENTER_LEFT" layoutX="736.0" layoutY="10.0" prefHeight="50.0" prefWidth="192.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="84.0" style="-fx-background-color: #d9534f;" styleClass="icon">
                      <children>
@@ -169,7 +169,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <LineChart fx:id="lineChart" layoutX="5.0" layoutY="8.0" style="-fx-background-color: white;" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <LineChart fx:id="lineChart" layoutX="5.0" layoutY="8.0" legendSide="LEFT" legendVisible="false" style="-fx-background-color: white;" styleClass="default-color5" stylesheets="@../css/linechart.css" title="Day Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -181,7 +181,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <PieChart fx:id="pichart" layoutX="-16.0" style="-fx-background-color: white;" title="Bills" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <PieChart fx:id="pichart" layoutX="-16.0" legendSide="RIGHT" style="-fx-background-color: white;" title="Bills" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="pichartLabel" layoutX="478.0" layoutY="24.0" />
                </children>
             </AnchorPane>
         </items>
@@ -190,7 +191,7 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <LineChart fx:id="lineChartNos" layoutX="5.0" layoutY="8.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: white;" title="Saleman Stick Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <LineChart fx:id="lineChartNos" layoutX="5.0" layoutY="8.0" legendVisible="false" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: white;" stylesheets="@../css/linechart.css" title="Salesman Stick Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <xAxis>
                         <CategoryAxis side="BOTTOM" />
                      </xAxis>
@@ -202,7 +203,7 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <LineChart fx:id="lineChartKg" layoutX="29.0" layoutY="-102.0" style="-fx-background-color: white;" title="Salesman KG Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <LineChart fx:id="lineChartKg" layoutX="29.0" layoutY="-102.0" legendVisible="false" style="-fx-background-color: white;" stylesheets="@../css/linechart.css" title="Salesman KG Sales" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>

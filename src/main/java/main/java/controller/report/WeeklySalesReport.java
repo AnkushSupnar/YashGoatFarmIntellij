@@ -14,6 +14,8 @@ import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.WeeklySalesReportPrint;
 
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -27,7 +29,9 @@ public class WeeklySalesReport implements Initializable {
  @FXML private Button btnPreview;
  @FXML private Button btnReset;
  @FXML private Button btnExit;
- @FXML private DatePicker date;
+ @FXML private Button btnPrint;
+
+	@FXML private DatePicker date;
  @FXML private TableView<Bill> table;
  @FXML private TableColumn<Bill,Double> colSrNo;//otherchargs
  @FXML private TableColumn<Bill,LocalDate> colDate;
@@ -53,6 +57,11 @@ public class WeeklySalesReport implements Initializable {
 		colBankName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedby"));
 		colSalesmanName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedreff"));
 		table.setItems(billList);
+		btnPrint.setOnAction(e->{
+			if(billList.size()==0) return;
+			new WeeklySalesReportPrint(billList,date.getValue().with(DayOfWeek.MONDAY),date.getValue().with(DayOfWeek.SUNDAY));
+			new PrintFile().openFile( "D:\\Software\\Prints\\WeeklySalesReport.pdf");
+		});
 	}
 @FXML
 void btnExitAction(ActionEvent event) {

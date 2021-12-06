@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainFrame" prefHeight="569.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.DailySalesReport">
+<AnchorPane fx:id="mainFrame" prefHeight="569.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.DailySalesReport">
    <children>
       <HBox layoutX="10.0" layoutY="23.0">
          <children>
@@ -59,6 +59,17 @@
                <graphic>
                   <FontAwesomeIcon glyphName="EYE" />
                </graphic>
+            </Button>
+            <Button fx:id="btnPrint" layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnExitAction" stylesheets="@../transaction/button.css" text="PRINT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="PRINT" />
+               </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
             </Button>
             <Button fx:id="btnReset" mnemonicParsing="false" onAction="#btnResetAction" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
                <font>

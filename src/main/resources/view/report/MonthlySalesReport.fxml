@@ -13,68 +13,90 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainFrame" prefHeight="554.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.MonthlySalesReport">
+<AnchorPane fx:id="mainFrame" prefHeight="554.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.MonthlySalesReport">
    <children>
       <HBox layoutX="37.0" layoutY="33.0">
          <children>
-            <Label text="Date">
-               <font>
-                  <Font name="Georgia" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="5.0" />
-               </HBox.margin>
-            </Label>
-            <DatePicker fx:id="date" />
-            <CheckBox fx:id="checkCash" mnemonicParsing="false" text="CASH">
-               <font>
-                  <Font name="Georgia" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" right="10.0" top="5.0" />
-               </HBox.margin>
-            </CheckBox>
-            <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#btnLoadAction" prefWidth="80.0" stylesheets="@../transaction/button.css" text="LOAD" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnPreview" mnemonicParsing="false" onAction="#btnPreviewAction" stylesheets="@../transaction/button.css" text="PRIVIEW" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="EYE" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btnReset" mnemonicParsing="false" onAction="#btnResetAction" prefWidth="80.0" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="REFRESH" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#btnExitAction" prefWidth="80.0" stylesheets="@../transaction/button.css" text="BACK" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="HOME" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
+            <HBox>
+               <children>
+                  <Label text="Date">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <DatePicker fx:id="date" prefHeight="30.0">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </DatePicker>
+                  <CheckBox fx:id="checkCash" mnemonicParsing="false" text="CASH">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#btnLoadAction" prefWidth="80.0" stylesheets="@../transaction/button.css" text="LOAD" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="CLOUD_DOWNLOAD" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnPreview" mnemonicParsing="false" onAction="#btnPreviewAction" stylesheets="@../transaction/button.css" text="PRIVIEW" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="EYE" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnPrint" layoutX="377.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPreviewAction" stylesheets="@../transaction/button.css" text="PRINT" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="PRINT" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnReset" mnemonicParsing="false" onAction="#btnResetAction" prefWidth="80.0" stylesheets="@../transaction/button.css" text="RESET" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="REFRESH" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#btnExitAction" prefWidth="80.0" stylesheets="@../transaction/button.css" text="BACK" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="HOME" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </HBox>
       <TableView fx:id="table" layoutX="10.0" layoutY="75.0" prefHeight="396.0" prefWidth="764.0" stylesheets="@../css/table.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="75.0">

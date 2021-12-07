@@ -15,6 +15,9 @@ import main.java.main.java.hibernate.service.service.EmployeeService;
 import main.java.main.java.hibernate.service.service.LabourChargesService;
 import main.java.main.java.hibernate.service.serviceImpl.EmployeeServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.LabourChargesServiceImpl;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintLabourWeeklyCharges;
+import main.java.main.java.print.PrintWeeklyAllLabourReport;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -33,6 +36,7 @@ public class MonthlyLabourChargesReportController implements Initializable {
     @FXML private Button btnShowAll;
     @FXML private Button btnReset;
     @FXML private Button btnExit;
+    @FXML private Button btnPrint;
     @FXML private TableView<LabourCharges> table;
     @FXML private TableColumn<LabourCharges,Long> colSr;
     @FXML private TableColumn<LabourCharges, LocalDate> colDate;
@@ -74,6 +78,21 @@ public class MonthlyLabourChargesReportController implements Initializable {
             txtTotal.setText("");
         });
         btnExit.setOnAction(e->mainPane.setVisible(false));
+        btnPrint.setOnAction(e->{
+            if(txtLabourName.getText().isEmpty()||txtLabourName.getText().equals("")){//print all
+                new PrintWeeklyAllLabourReport(date.getValue().withDayOfMonth(1),
+                        date.getValue().withDayOfMonth(date.getValue().lengthOfMonth()));
+                new PrintFile().openFile("D:\\Software\\Prints\\WeeklyAllLabouCharges.pdf");
+            }
+            else{
+                new PrintLabourWeeklyCharges(
+                        employeeService.getEmployeeByName(txtLabourName.getText()).getId(),
+                        date.getValue().withDayOfMonth(1),
+                        date.getValue().withDayOfMonth(date.getValue().lengthOfMonth())
+                );
+                new PrintFile().openFile("D:\\Software\\Prints\\WeeklyLabouCharges.pdf");
+            }
+        });
     }
 
     private void show() {

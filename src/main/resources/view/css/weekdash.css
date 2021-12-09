@@ -1,0 +1,10 @@
+.rectangle{
+    -fx-background-radius : 20px;
+    -fx-border-radius: 5,5,0,0;
+    -fx-border-color:#ccdcec;
+    -fx-background-color:transparent;
+
+}
+.tileimg{
+    -fx-background-radius: 5;
+}

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="490.0" prefWidth="674.0" stylesheets="@../css/dashboardreport.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.DashboardReportController">
+<AnchorPane fx:id="mainPane" prefHeight="490.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.DashboardReportController">
    <children>
       <StackPane fx:id="titlePane" layoutX="70.0" layoutY="14.0" prefHeight="34.0" prefWidth="600.0" styleClass="title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,29 +30,29 @@
       </StackPane>
       <TabPane layoutX="125.0" layoutY="99.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="456.0" prefWidth="674.0" stylesheets="@../css/tabbePane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
         <tabs>
-          <Tab text="TODAY">
+          <Tab fx:id="tabToday" text="TODAY">
             <content>
-              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;" />
+              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-          <Tab text="WEEK">
+          <Tab fx:id="tabWeek" text="WEEK">
             <content>
-              <AnchorPane fx:id="paneMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+              <AnchorPane fx:id="paneWeek" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-            <Tab text="MONTH">
+            <Tab fx:id="tabMonth" text="MONTH">
                <content>
-                  <AnchorPane fx:id="paneMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: red;" />
+                  <AnchorPane fx:id="paneMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab text="YEAR">
+            <Tab fx:id="tabYear" text="YEAR">
                <content>
-                  <AnchorPane fx:id="paneYear" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: Black;" />
+                  <AnchorPane fx:id="paneYear" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab text="ALL">
+            <Tab fx:id="tabAll" text="ALL">
                <content>
-                  <AnchorPane fx:id="paneAll" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;" />
+                  <AnchorPane fx:id="paneAll" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
         </tabs>

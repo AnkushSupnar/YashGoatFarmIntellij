@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.entities.Transaction;
@@ -16,23 +19,37 @@ import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class WeekDashboardController implements Initializable {
+
     @FXML private AreaChart<?, ?> areaChart;
     @FXML private BarChart<?, ?> barChart;
+    @FXML private LineChart<?, ?> labourLineChart;
     @FXML private Label lblAmount;
     @FXML private Label lblBills;
     @FXML private Label lblCustomer;
     @FXML private Label lblKg;
     @FXML private Label lblNos;
     @FXML private AnchorPane mainPane;
+    @FXML private LineChart<?, ?> salesmanKgLineChart;
+    @FXML private LineChart<?, ?> salesmanNosLineChart;
+    @FXML private Tab tabLabour;
+    @FXML private Tab tabSalesmanKg;
+    @FXML private Tab tabSalesmanNos;
     private LocalDate date;
     private ObservableList<Bill>billList = FXCollections.observableArrayList();
     private BillService billService;
+    private Map<LocalDate,Float>saleMmap;
+    private Map<String,Float>salesmanMap;
+    private XYChart.Series series;
+    private XYChart.Series seriesSalesMan;
+
+    private Map<String,Float>salesmanKgMap;
+    private Map<String,Float>salesmanNosMap;
+    XYChart.Series seriesKg;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lblBills.setText(""+0);
@@ -41,13 +58,26 @@ public class WeekDashboardController implements Initializable {
         lblCustomer.setText(""+0);
         lblNos.setText(""+0.0f);
 
+        saleMmap = new HashMap<>();
+        salesmanMap = new HashMap<>();
+
+        series = new XYChart.Series();
+        seriesSalesMan = new XYChart.Series();
+        series.setName("Week Sale");
+        seriesSalesMan.setName("Salesman Wise Sale");
 //        date = LocalDate.now();
         LocalDate date = LocalDate.of(2021,10,23);
-        System.out.println("Start Date="+date.with(DayOfWeek.MONDAY)+"\n End Date "+date.with(DayOfWeek.SUNDAY));
         billService = new BillServiceImpl();
         billList.addAll(billService.getPeriodWiseBills(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY)));
-        System.out.println(billList.size());
         setMainData();
+        loadAreaChart();
+        tabSalesmanKg.setOnSelectionChanged(e->{
+            loadSalesmanSoldKg();
+        });
+        tabSalesmanNos.setOnSelectionChanged(e->{
+            loadSalesmanSoldNos();
+        });
+
     }
     private void setMainData()
     {
@@ -90,4 +120,115 @@ public class WeekDashboardController implements Initializable {
         }
         return nos;
     }
+    void loadAreaChart()
+    {
+        saleMmap.clear();
+        salesmanMap.clear();
+        for(Bill bill:billList)
+        {
+         //   series.getData().add(new XYChart.Data<>(""+bill.getDate(),(bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges())));
+        loadSalemap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            loadSalemanMap(bill);
+        }
+        for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
+        {
+            series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+        }
+        for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
+        {
+            seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+        }
+        areaChart.getData().clear();
+        barChart.getData().clear();
+        areaChart.getData().addAll(series);
+        barChart.getData().addAll(seriesSalesMan);
+    }
+    void loadSalemap(LocalDate date,float amount)
+    {
+        if(saleMmap.isEmpty()){
+            saleMmap.put(date,amount);
+        }
+        else if(saleMmap.containsKey(date)) {
+            saleMmap.put(date,saleMmap.get(date)+amount);
+        }
+        else{
+            saleMmap.put(date,amount);
+        }
+    }
+    void loadSalemanMap(Bill bill)
+    {
+        if(salesmanMap.isEmpty())
+        {
+            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+        }
+        else if(salesmanMap.containsKey(bill.getEmployee().getId()))
+        {
+            salesmanMap.put(bill.getEmployee().getFname(),salesmanMap.get(bill.getEmployee().getId())+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+        }
+        else
+        {
+            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+        }
+    }
+    private void loadSalesmanSoldKg() {
+
+        salesmanKgMap = new HashMap<>();
+        for(Bill bill:billList)
+        {
+            addInSalesmanKgMap(bill.getEmployee().getFname(),getKg(bill.getTransaction()));
+        }
+        seriesKg = new XYChart.Series();
+        seriesKg.setName("Salesman Sold KG");
+
+        for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
+        {
+            seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+        }
+        salesmanKgLineChart.getData().clear();
+        salesmanKgLineChart.getData().setAll(seriesKg);
+    }
+    void addInSalesmanKgMap(String fname,float qty)
+    {
+        if(salesmanKgMap.isEmpty())
+        {
+            salesmanKgMap.put(fname,qty);
+        }
+        else if(salesmanKgMap.containsKey(fname))
+        {
+            salesmanKgMap.put(fname,salesmanKgMap.get(fname)+qty);
+        }
+        else{
+            salesmanKgMap.put(fname,qty);
+        }
+    }
+    private void loadSalesmanSoldNos() {
+        salesmanNosMap = new HashMap<>();
+        for(Bill bill:billList)
+        {
+            addInSalesmanNosMap(bill.getEmployee().getFname(),getNos(bill.getTransaction()));
+        }
+        XYChart.Series seriesNos = new XYChart.Series();
+        seriesNos.setName("Salesman Sold Nos");
+        for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
+        {
+            seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+        }
+        salesmanKgLineChart.getData().clear();
+        salesmanNosLineChart.getData().addAll(seriesNos);
+    }
+    private void addInSalesmanNosMap(String fname, float nos) {
+        if(salesmanNosMap.isEmpty())
+        {
+            salesmanNosMap.put(fname,nos);
+        }
+        else if(salesmanNosMap.containsKey(fname))
+        {
+            salesmanNosMap.put(fname,salesmanNosMap.get(fname)+nos);
+        }
+        else{
+            salesmanNosMap.put(fname,nos);
+        }
+    }
+
+
 }

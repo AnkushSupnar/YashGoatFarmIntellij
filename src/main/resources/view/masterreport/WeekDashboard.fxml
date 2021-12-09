@@ -5,13 +5,15 @@
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane fx:id="mainPane" prefHeight="555.0" prefWidth="1091.0" style="-fx-background-color: white;" stylesheets="@../css/weekdash.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.WeekDashboardController">
    <children>
@@ -67,7 +69,7 @@
                <children>
                   <StackPane layoutX="7.0" layoutY="7.0" prefHeight="42.0" prefWidth="65.0" style="-fx-background-color: #5bc0de;" styleClass="tileimg" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="6.0">
                      <children>
-                        <FontAwesomeIcon fill="#f7f7f7" glyphName="USD" size="3em" />
+                        <FontAwesomeIcon fill="#f7f7f7" glyphName="USERS" size="3em" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="123.0" layoutY="32.0" prefHeight="75.0" prefWidth="84.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -158,5 +160,63 @@
             </BarChart>
          </children>
       </AnchorPane>
+      <TabPane layoutX="609.0" layoutY="320.0" prefHeight="200.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@../css/tabbePane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
+        <tabs>
+          <Tab fx:id="tabSalesmanKg" text="SALESMAN SOLD KG">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="salesmanKgLineChart" layoutX="-20.0" layoutY="-124.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <padding>
+                              <Insets left="-5.0" />
+                           </padding>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabSalesmanNos" text="SALESMAN SOLD NOS">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="salesmanNosLineChart" layoutY="-132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <padding>
+                              <Insets left="-5.0" />
+                           </padding>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="tabLabour" text="LABOUR CHARGES">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="labourLineChart" layoutY="-132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

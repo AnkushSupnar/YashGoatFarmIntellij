@@ -8,3 +8,6 @@
 .tileimg{
     -fx-background-radius: 5;
 }
+.chart-bar {
+    -fx-bar-fill: #57f328;
+}

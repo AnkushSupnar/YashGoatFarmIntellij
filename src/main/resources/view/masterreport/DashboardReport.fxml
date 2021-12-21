@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,6 +27,7 @@
                   <Font name="Georgia" size="20.0" />
                </font>
             </Text>
+            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="314.0" progress="0.0" />
          </children>
       </StackPane>
       <TabPane layoutX="125.0" layoutY="99.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="456.0" prefWidth="674.0" stylesheets="@../css/tabbePane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">

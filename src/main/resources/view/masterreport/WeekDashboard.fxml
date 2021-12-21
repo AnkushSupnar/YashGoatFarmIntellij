@@ -160,7 +160,7 @@
             </BarChart>
          </children>
       </AnchorPane>
-      <TabPane layoutX="609.0" layoutY="320.0" prefHeight="200.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@../css/tabbePane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
+      <TabPane fx:id="employeeTabPane" layoutX="609.0" layoutY="320.0" prefHeight="200.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@../css/tabbePane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
         <tabs>
           <Tab fx:id="tabSalesmanKg" text="SALESMAN SOLD KG">
             <content>

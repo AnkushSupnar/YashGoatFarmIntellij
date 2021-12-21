@@ -3,6 +3,7 @@ package main.java.main.java.controller.masterReport;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -16,11 +17,13 @@ public class DashboardReportController implements Initializable {
     @FXML private AnchorPane mainPane;
     @FXML private StackPane titlePane;
 
+    @FXML private ProgressBar progressBar;
     @FXML private AnchorPane paneToday;
     @FXML private AnchorPane paneMonth;
     @FXML private AnchorPane paneYear;
     @FXML private AnchorPane paneAll;
     @FXML private AnchorPane paneWeek;
+
 
     @FXML private Tab tabAll;
     @FXML private Tab tabMonth;
@@ -35,13 +38,14 @@ public class DashboardReportController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewUtil = new ViewUtil();
+        progressBar.setVisible(false);
 
         paneToday.getChildren().setAll(getNode("masterreport/TodayDashboard"));
         //pane.setSi);
         tabWeek.setOnSelectionChanged(e->{
             System.out.println("Select Week");
             paneWeek.getChildren().clear();
-        paneWeek.getChildren().setAll(getNode("masterreport/WeekDashboard"));
+            paneWeek.getChildren().setAll(getNode("masterreport/WeekDashboard"));
         });
         tabToday.setOnSelectionChanged(e->{
             System.out.println("Select Week");

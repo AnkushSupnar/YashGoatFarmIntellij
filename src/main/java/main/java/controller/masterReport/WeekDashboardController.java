@@ -10,11 +10,13 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import main.java.main.java.hibernate.entities.Bill;
-import main.java.main.java.hibernate.entities.Transaction;
+import main.java.main.java.hibernate.entities.*;
 import main.java.main.java.hibernate.service.service.BillService;
+import main.java.main.java.hibernate.service.service.CuttingOrderService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
+import main.java.main.java.hibernate.service.serviceImpl.CuttingOrderServiceImpl;
 
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -37,6 +39,7 @@ public class WeekDashboardController implements Initializable {
     @FXML private Tab tabLabour;
     @FXML private Tab tabSalesmanKg;
     @FXML private Tab tabSalesmanNos;
+    @FXML private TabPane employeeTabPane;
     private LocalDate date;
     private ObservableList<Bill>billList = FXCollections.observableArrayList();
     private BillService billService;
@@ -47,11 +50,16 @@ public class WeekDashboardController implements Initializable {
 
     private Map<String,Float>salesmanKgMap;
     private Map<String,Float>salesmanNosMap;
-    XYChart.Series seriesKg;
+    private XYChart.Series seriesKg;
+    private XYChart.Series seriesNos;
+    private CuttingOrderService cuttingService;
+    private Map<String,Float>labourMap;
+    private XYChart.Series seriesLabour;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        employeeTabPane.getSelectionModel().clearSelection();
         lblBills.setText(""+0);
         lblKg.setText(""+0.0f);
         lblAmount.setText(""+0.0f);
@@ -60,22 +68,34 @@ public class WeekDashboardController implements Initializable {
 
         saleMmap = new HashMap<>();
         salesmanMap = new HashMap<>();
+        labourMap = new HashMap<>();
+
+
 
         series = new XYChart.Series();
         seriesSalesMan = new XYChart.Series();
+        seriesLabour = new XYChart.Series();
         series.setName("Week Sale");
         seriesSalesMan.setName("Salesman Wise Sale");
+
+
+
 //        date = LocalDate.now();
         LocalDate date = LocalDate.of(2021,10,23);
         billService = new BillServiceImpl();
+        cuttingService = new CuttingOrderServiceImpl();
         billList.addAll(billService.getPeriodWiseBills(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY)));
         setMainData();
         loadAreaChart();
+
         tabSalesmanKg.setOnSelectionChanged(e->{
             loadSalesmanSoldKg();
         });
         tabSalesmanNos.setOnSelectionChanged(e->{
             loadSalesmanSoldNos();
+        });
+        tabLabour.setOnSelectionChanged(e->{
+            loadLabourChart(date);
         });
 
     }
@@ -207,13 +227,13 @@ public class WeekDashboardController implements Initializable {
         {
             addInSalesmanNosMap(bill.getEmployee().getFname(),getNos(bill.getTransaction()));
         }
-        XYChart.Series seriesNos = new XYChart.Series();
+        seriesNos = new XYChart.Series();
         seriesNos.setName("Salesman Sold Nos");
         for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
         {
             seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
         }
-        salesmanKgLineChart.getData().clear();
+        salesmanNosLineChart.getData().clear();
         salesmanNosLineChart.getData().addAll(seriesNos);
     }
     private void addInSalesmanNosMap(String fname, float nos) {
@@ -229,6 +249,43 @@ public class WeekDashboardController implements Initializable {
             salesmanNosMap.put(fname,nos);
         }
     }
+    private void loadLabourChart(LocalDate date)
+    {
+        List<CuttingOrder>list = cuttingService.getPeriodWiseCuttingOrder(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY));
+        for(CuttingOrder co:list)
+        {
+            for(CuttingTransaction ct:co.getTransaction())
+            {
+                for(CuttingLabour cl:ct.getLabourList())
+                {
+                    addInLabourmap(cl.getLabour().getFname(),cl.getCuttingCharges());
+                }
+            }
+        }
+        seriesLabour = new XYChart.Series();
+        seriesLabour.setName("Labour Charges");
 
+        for(Map.Entry<String,Float>entry:labourMap.entrySet())
+        {
+            seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+        }
+        labourLineChart.getData().clear();
+        labourLineChart.getData().setAll(seriesLabour);
+    }
+
+    private void addInLabourmap(String fname, float cuttingCharges) {
+        if(labourMap.isEmpty())
+        {
+            labourMap.put(fname,cuttingCharges);
+        }
+        else if(labourMap.containsKey(fname))
+        {
+            labourMap.put(fname,labourMap.get(fname)+cuttingCharges);
+        }
+        else
+        {
+            labourMap.put(fname,cuttingCharges);
+        }
+    }
 
 }

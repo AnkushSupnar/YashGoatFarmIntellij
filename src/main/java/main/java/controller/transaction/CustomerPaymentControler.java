@@ -34,7 +34,7 @@ public class CustomerPaymentControler implements Initializable {
 	@FXML private TextField txtCustomerName;
 	@FXML private Button btnShow;
 	@FXML private Button btnPreview;
-	
+	@FXML private TextField txtBillNo;
 	@FXML private TableView<Bill> table;
 	@FXML private TableColumn<Bill,String> colSrNo;//recievedby
 	@FXML private TableColumn<Bill,LocalDate> colDate;
@@ -89,8 +89,24 @@ public class CustomerPaymentControler implements Initializable {
 	@FXML
 	void btnShowAction(ActionEvent event) {
 		billList.clear();
+		if(txtCustomerName.getText().isEmpty() && !txtBillNo.getText().isEmpty() && isNumber(txtBillNo.getText()))
+		{
+
+			Bill bill = billService.getBillByBillno(Long.parseLong(txtBillNo.getText()));
+			if(bill!=null)
+			{
+				if(bill.getRecivedamount()<(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()))
+				{
+					billList.add(bill);
+					loadBill();
+				}
+				else
+					new Alert(AlertType.ERROR,"this bill is already Paid").showAndWait();
+			}
+				return;
+		}
 		//btnReset.fire();
-		if(txtCustomerName.getText().equals(""))
+		if(txtCustomerName.getText().equals("") )
 		{
 			new Alert(AlertType.ERROR,"Select Customer Name!!!").showAndWait();
 			txtCustomerName.requestFocus();
@@ -102,15 +118,21 @@ public class CustomerPaymentControler implements Initializable {
 			txtCustomerName.requestFocus();
 			return;
 		}
+		txtBillNo.setText("");
 		billList.addAll(billService.getUnpaidBills(customerService.getCustomerByName(txtCustomerName.getText()).getId()));
+
+		loadBill();
+		
+	}
+	void loadBill(){
 		int sr=0;
 		float total=0,paid=0;
 		for(int i=0;i<billList.size();i++)
 		{
 			billList.get(i).setNettotal(
 					billList.get(i).getNettotal()+
-					billList.get(i).getOtherchargs()+
-					billList.get(i).getTransportingchrges());
+							billList.get(i).getOtherchargs()+
+							billList.get(i).getTransportingchrges());
 			billList.get(i).setOtherchargs(billList.get(i).getNettotal()-billList.get(i).getRecivedamount());
 			billList.get(i).setTransportingchrges(0);
 			billList.get(i).setRecievedby(""+(++sr));
@@ -123,8 +145,6 @@ public class CustomerPaymentControler implements Initializable {
 		txtTotalBillAmount.setText(""+total);
 		txtTotalPaid.setText(""+paid);
 		txtTotalRemainig.setText(""+(total-paid));
-		
-		
 	}
 
 	@FXML

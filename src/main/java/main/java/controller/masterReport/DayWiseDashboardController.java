@@ -20,11 +20,10 @@ import main.java.main.java.hibernate.service.serviceImpl.CuttingOrderServiceImpl
 import main.java.main.java.hibernate.util.CommonData;
 
 import java.net.URL;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 
-public class WeekDashboardController implements Initializable {
+public class DayWiseDashboardController implements Initializable {
 
     @FXML private AreaChart<?, ?> areaChart;
     @FXML private BarChart<?, ?> barChart;
@@ -74,13 +73,14 @@ public class WeekDashboardController implements Initializable {
         series = new XYChart.Series();
         seriesSalesMan = new XYChart.Series();
         seriesLabour = new XYChart.Series();
-        series.setName("Week Sale");
+        series.setName("Date Sale");
         seriesSalesMan.setName("Salesman Wise Sale");
         //LocalDate date = LocalDate.of(2021,10,23);
         date = CommonData.dashboardDate;
         billService = new BillServiceImpl();
         cuttingService = new CuttingOrderServiceImpl();
-        billList.addAll(billService.getPeriodWiseBills(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY)));
+        //billList.addAll(billService.getPeriodWiseBills(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY)));
+        billList.addAll(billService.getDateWiseBill(date));
         setMainData();
         loadAreaChart();
 
@@ -142,8 +142,8 @@ public class WeekDashboardController implements Initializable {
         salesmanMap.clear();
         for(Bill bill:billList)
         {
-         //   series.getData().add(new XYChart.Data<>(""+bill.getDate(),(bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges())));
-        loadSalemap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            //   series.getData().add(new XYChart.Data<>(""+bill.getDate(),(bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges())));
+            loadSalemap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
             loadSalemanMap(bill);
         }
         for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
@@ -247,7 +247,8 @@ public class WeekDashboardController implements Initializable {
     }
     private void loadLabourChart(LocalDate date)
     {
-        List<CuttingOrder>list = cuttingService.getPeriodWiseCuttingOrder(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY));
+        //List<CuttingOrder>list = cuttingService.getPeriodWiseCuttingOrder(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY));
+        List<CuttingOrder>list = cuttingService.getDateWiseCuttingOrder(date);
         for(CuttingOrder co:list)
         {
             for(CuttingTransaction ct:co.getTransaction())

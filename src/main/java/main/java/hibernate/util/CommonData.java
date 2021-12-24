@@ -11,10 +11,12 @@ import main.java.main.java.hibernate.service.serviceImpl.CounterStockDataService
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemStockServiceImpl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommonData {
+	public static LocalDate dashboardDate = LocalDate.now();
 	public static long previewBillNo;
 	public static long previewInvoiceno;
 	private static ItemService itemService = new ItemServiceImpl();

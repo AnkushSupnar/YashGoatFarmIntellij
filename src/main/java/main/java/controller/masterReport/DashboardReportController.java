@@ -3,20 +3,24 @@ package main.java.main.java.controller.masterReport;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import main.java.main.java.guiUtil.ViewUtil;
+import main.java.main.java.hibernate.util.CommonData;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class DashboardReportController implements Initializable {
     @FXML private AnchorPane mainPane;
     @FXML private StackPane titlePane;
 
+    @FXML private DatePicker dateReport;
     @FXML private ProgressBar progressBar;
     @FXML private AnchorPane paneToday;
     @FXML private AnchorPane paneMonth;
@@ -39,8 +43,15 @@ public class DashboardReportController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         viewUtil = new ViewUtil();
         progressBar.setVisible(false);
-
-        paneToday.getChildren().setAll(getNode("masterreport/TodayDashboard"));
+        dateReport.setValue(LocalDate.now());
+        CommonData.dashboardDate = dateReport.getValue();
+        dateReport.setOnAction(e->{
+            if(dateReport.getValue()!=null)
+            {
+                CommonData.dashboardDate = dateReport.getValue();
+            }
+        });
+        paneToday.getChildren().setAll(getNode("masterreport/DayWiseDashboard"));
         //pane.setSi);
         tabWeek.setOnSelectionChanged(e->{
             System.out.println("Select Week");
@@ -50,7 +61,17 @@ public class DashboardReportController implements Initializable {
         tabToday.setOnSelectionChanged(e->{
             System.out.println("Select Week");
             paneToday.getChildren().clear();
-            paneToday.getChildren().setAll(getNode("masterreport/TodayDashboard"));
+            paneToday.getChildren().setAll(getNode("masterreport/DayWiseDashboard"));
+        });
+        tabMonth.setOnSelectionChanged(e->{
+            System.out.println("Select Month");
+            paneMonth.getChildren().clear();
+            paneMonth.getChildren().setAll(getNode("masterreport/MonthDashboard"));
+        });
+        tabYear.setOnSelectionChanged(e->{
+            System.out.println("Select Month");
+            paneYear.getChildren().clear();
+            paneYear.getChildren().setAll(getNode("masterreport/YearDashboard"));
         });
 
 

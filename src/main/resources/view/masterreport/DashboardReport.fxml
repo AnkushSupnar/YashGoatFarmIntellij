@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -41,10 +40,7 @@
         <tabs>
           <Tab fx:id="tabToday" text="TODAY">
             <content>
-              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ProgressIndicator layoutX="336.0" layoutY="162.0" prefHeight="40.0" prefWidth="163.0" progress="0.0" />
-                     </children></AnchorPane>
+              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
           <Tab fx:id="tabWeek" text="WEEK">

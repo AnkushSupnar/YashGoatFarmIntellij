@@ -15,10 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" prefHeight="555.0" prefWidth="1091.0"
-            style="-fx-background-color: white;" stylesheets="@../css/weekdash.css"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="main.java.main.java.controller.masterReport.MonthDashboardController">
+<AnchorPane fx:id="mainPane" prefHeight="555.0" prefWidth="1091.0" style="-fx-background-color: white;" stylesheets="@../css/weekdash.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.MonthDashboardController">
    <children>
       <HBox layoutX="23.0" layoutY="26.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
          <children>

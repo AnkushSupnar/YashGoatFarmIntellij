@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
        pagename="home/LoginFrame";
-       //pagename="masterreport/DashboardReport";
+       pagename="masterreport/DashboardReport";
       //  pagename="report/salereport/WeeklyItemSalesReport";
 
        // pagename = "report/labourcharges/WeeklyLabourChargesReport";

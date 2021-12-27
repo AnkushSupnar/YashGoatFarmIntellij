@@ -1,8 +1,8 @@
 package main.java.main.java.controller.masterReport;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -28,6 +28,10 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class MonthDashboardController implements Initializable {
 
@@ -74,28 +78,10 @@ public class MonthDashboardController implements Initializable {
     progressBar.setLayoutX(10);
     progressBar.setLayoutY(100);
     mainPane.getChildren().add(progressBar);
-
-
-
-               loadView();
-
-
-
+        ui();
     }
-    void loadView()
+    void ui()
     {
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                // table.setVisible(false);
-                //  progress.setVisible(true);
-                progressBar.setVisible(true);
-                return null;
-            }
-        };
-        Task<Void> task2 = new Task<Void>() {
-    @Override
-    protected Void call() throws Exception {
         employeeTabPane.getSelectionModel().clearSelection();
         lblBills.setText(""+0);
         lblKg.setText(""+0.0f);
@@ -109,12 +95,20 @@ public class MonthDashboardController implements Initializable {
         weekmap = new HashMap<>();
 
         series = new XYChart.Series();
-        seriesSalesMan = new XYChart.Series();
-        seriesLabour = new XYChart.Series();
         series.setName("Week Sale");
+
+
+        seriesSalesMan = new XYChart.Series();
         seriesSalesMan.setName("Salesman Wise Sale");
 
+
+        seriesLabour = new XYChart.Series();
+
+
+
+
         seriesWeek = new XYChart.Series();
+
         series.setName("Week Sale");
 
 
@@ -137,14 +131,6 @@ public class MonthDashboardController implements Initializable {
         });
 
         progressBar.setVisible(false);
-        return null;
-    }
-        };
-        Thread t = new Thread(task);
-        Thread t2 = new Thread(task2);
-        // t2.isDaemon();
-        t.start();
-        t2.start();
     }
     private void setMainData()
     {
@@ -193,6 +179,7 @@ public class MonthDashboardController implements Initializable {
         saleMmap.clear();
         salesmanMap.clear();
         weekmap.clear();
+
         for(Bill bill:billList)
         {
             //   series.getData().add(new XYChart.Data<>(""+bill.getDate(),(bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges())));
@@ -200,34 +187,44 @@ public class MonthDashboardController implements Initializable {
             loadSalemanMap(bill);
             loadWeekMap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
-        for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
-        {
-            series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
-        int i=0;
-        for(Map.Entry<Integer,Float>entry:weekmap.entrySet())
-        {
-            LocalDate week = LocalDate.now().with(ChronoField.ALIGNED_WEEK_OF_YEAR, entry.getKey());
-            if(i==0)
-            {
-                seriesWeek.getData().add(new XYChart.Data<>(""+
-                        week.with(DayOfWeek.SUNDAY).withDayOfMonth(1)+" to "+
-                        week.with(DayOfWeek.SUNDAY)+"("+entry.getValue()+")",
-                        entry.getValue()));
-            }else {
-                seriesWeek.getData().add(new XYChart.Data<>("" +
-                        week.with(DayOfWeek.MONDAY) + " to " +
-                        week.with(DayOfWeek.SUNDAY) + "(" + entry.getValue() + ")",
-                        entry.getValue()));
 
-            }
-            i++;
-        }
-        for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
-        {
-            seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Integer random = ThreadLocalRandom.current().nextInt(10);
+            Platform.runLater(() -> {
+                Date now = new Date();
+                for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
+                {
+                    series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+                }
+                int i=0;
+                for(Map.Entry<Integer,Float>entry:weekmap.entrySet())
+                {
+                    LocalDate week = LocalDate.now().with(ChronoField.ALIGNED_WEEK_OF_YEAR, entry.getKey());
+                    if(i==0)
+                    {
+                        seriesWeek.getData().add(new XYChart.Data<>(""+
+                                week.with(DayOfWeek.SUNDAY).withDayOfMonth(1)+" to "+
+                                week.with(DayOfWeek.SUNDAY)+"("+entry.getValue()+")",
+                                entry.getValue()));
+                    }else {
+                        seriesWeek.getData().add(new XYChart.Data<>("" +
+                                week.with(DayOfWeek.MONDAY) + " to " +
+                                week.with(DayOfWeek.SUNDAY) + "(" + entry.getValue() + ")",
+                                entry.getValue()));
+                    }
+                    i++;
+                }
+                seriesSalesMan.getData().clear();
 
+                for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
+                {
+                    seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+                }
+
+            });
+        }, 0, 10, TimeUnit.SECONDS);
         areaChart.getData().clear();
         barChart.getData().clear();
         //areaChart.getData().addAll(series);
@@ -290,10 +287,18 @@ public class MonthDashboardController implements Initializable {
         seriesKg = new XYChart.Series();
         seriesKg.setName("Salesman Sold KG");
 
-        for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
-        {
-            seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
+                {
+                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         salesmanKgLineChart.getData().clear();
         salesmanKgLineChart.getData().setAll(seriesKg);
     }

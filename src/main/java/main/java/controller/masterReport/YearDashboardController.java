@@ -219,15 +219,18 @@ public class YearDashboardController implements Initializable {
     {
         if(salesmanMap.isEmpty())
         {
-            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),
+                    (bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
-        else if(salesmanMap.containsKey(bill.getEmployee().getId()))
+        else if(salesmanMap.containsKey(bill.getEmployee().getFname()))
         {
-            salesmanMap.put(bill.getEmployee().getFname(),salesmanMap.get(bill.getEmployee().getId())+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),
+                    salesmanMap.get(bill.getEmployee().getFname())+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
         else
         {
-            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),
+                    (bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
     }
     private void loadSalesmanSoldKg() {

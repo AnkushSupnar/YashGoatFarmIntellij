@@ -58,7 +58,7 @@ public class PrintLabourWeeklyCharges {
         c1.setBorder(PdfPCell.NO_BORDER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Paragraph("Weekly Labour Charges Report", subhead));
+        c1 = new PdfPCell(new Paragraph("Labour Charges Report", subhead));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorder(PdfPCell.BOTTOM);
         table.addCell(c1);

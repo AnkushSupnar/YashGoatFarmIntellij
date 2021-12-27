@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,12 +12,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="490.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.DashboardReportController">
+<AnchorPane fx:id="mainPane" prefHeight="490.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.DashboardReportController">
    <children>
       <StackPane fx:id="titlePane" layoutX="70.0" layoutY="14.0" prefHeight="34.0" prefWidth="600.0" styleClass="title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <FontAwesomeIcon fill="#1e0af8" glyphName="LINE_CHART" size="1.5em" StackPane.alignment="CENTER_LEFT">
+            <FontAwesomeIcon fill="#1e0af8" glyphName="DASHBOARD" size="1.5em" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets left="5.0" />
                </StackPane.margin>
@@ -29,7 +29,7 @@
                   <Font name="Georgia" size="20.0" />
                </font>
             </Text>
-            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="314.0" progress="0.0" />
+            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="216.0" progress="0.0" />
             <DatePicker fx:id="dateReport" prefHeight="25.0" prefWidth="109.0" promptText="Select Date" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                   <Insets right="10.0" />
@@ -41,7 +41,10 @@
         <tabs>
           <Tab fx:id="tabToday" text="TODAY">
             <content>
-              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane fx:id="paneToday" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ProgressIndicator layoutX="336.0" layoutY="162.0" prefHeight="40.0" prefWidth="163.0" progress="0.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab fx:id="tabWeek" text="WEEK">

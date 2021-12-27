@@ -59,6 +59,7 @@ public class DayWiseDashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         employeeTabPane.getSelectionModel().clearSelection();
         lblBills.setText(""+0);
         lblKg.setText(""+0.0f);
@@ -173,17 +174,21 @@ public class DayWiseDashboardController implements Initializable {
     }
     void loadSalemanMap(Bill bill)
     {
+        float amt = bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs();
         if(salesmanMap.isEmpty())
         {
-            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),amt);
+
         }
-        else if(salesmanMap.containsKey(bill.getEmployee().getId()))
+        else if(salesmanMap.containsKey(bill.getEmployee().getFname()))
         {
-            salesmanMap.put(bill.getEmployee().getFname(),salesmanMap.get(bill.getEmployee().getId())+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(
+                    bill.getEmployee().getFname(),
+                    salesmanMap.get(bill.getEmployee().getFname())+amt);
         }
         else
         {
-            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),amt);
         }
     }
     private void loadSalesmanSoldKg() {

@@ -3,11 +3,14 @@ package main.java.main.java.controller.masterReport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import main.java.main.java.controller.home.DashboardController;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.entities.Customer;
 import main.java.main.java.hibernate.entities.Transaction;
@@ -16,6 +19,7 @@ import main.java.main.java.hibernate.service.service.EmployeeService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.EmployeeServiceImpl;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
@@ -46,6 +50,8 @@ public class TodayDashboardController implements Initializable {
     HashMap<Integer,List<Float>>piMap = new HashMap<>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         billService = new BillServiceImpl();
         employeeService = new EmployeeServiceImpl();
         lblAmount.setText(""+0.0f);

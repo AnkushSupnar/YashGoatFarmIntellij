@@ -36,12 +36,19 @@ public class DashboardReportController implements Initializable {
     @FXML private Tab tabYear;
 
 
+    private ProgressBar progress;
     private ViewUtil viewUtil;
     private Pane pane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewUtil = new ViewUtil();
+        progress = new ProgressBar();
+        //progress.setLayoutX(progressBar.getLayoutX());
+       // progress.setLayoutY(progressBar.getLayoutY());
+        progress.setMaxSize(400,20);
+        titlePane.getChildren().add(progress);
+        progress.setVisible(false);
         progressBar.setVisible(false);
         dateReport.setValue(LocalDate.now());
         CommonData.dashboardDate = dateReport.getValue();
@@ -54,6 +61,7 @@ public class DashboardReportController implements Initializable {
         paneToday.getChildren().setAll(getNode("masterreport/DayWiseDashboard"));
         //pane.setSi);
         tabWeek.setOnSelectionChanged(e->{
+          //  progress.setVisible(true);
             System.out.println("Select Week");
             paneWeek.getChildren().clear();
             paneWeek.getChildren().setAll(getNode("masterreport/WeekDashboard"));
@@ -80,6 +88,9 @@ public class DashboardReportController implements Initializable {
         //paneToday.getChildren().add(pane);
 
     }
+
+
+
     private Node getNode(String filePath)
     {
         //Node node = viewUtil.getPage("masterreport/TodayDashboard");
@@ -89,5 +100,14 @@ public class DashboardReportController implements Initializable {
         AnchorPane.setBottomAnchor(node,0.0);
         AnchorPane.setRightAnchor(node,0.0);
         return node;
+    }
+    public void showProgress()
+    {
+        System.out.println("Show Progress");
+        progress.setVisible(true);
+    }
+    public void hideProgress()
+    {
+        progress.setVisible(false);
     }
 }

@@ -2,6 +2,7 @@ package main.java.main.java.controller.masterReport;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -9,6 +10,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
@@ -63,8 +65,37 @@ public class MonthDashboardController implements Initializable {
     private XYChart.Series seriesLabour;
 
     Map<Integer,Float>weekmap;
+    private ProgressBar progressBar;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    progressBar = new ProgressBar();
+    progressBar.setMaxHeight(20);
+    progressBar.setMaxWidth(100);
+    progressBar.setLayoutX(10);
+    progressBar.setLayoutY(100);
+    mainPane.getChildren().add(progressBar);
+
+
+
+               loadView();
+
+
+
+    }
+    void loadView()
+    {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                // table.setVisible(false);
+                //  progress.setVisible(true);
+                progressBar.setVisible(true);
+                return null;
+            }
+        };
+        Task<Void> task2 = new Task<Void>() {
+    @Override
+    protected Void call() throws Exception {
         employeeTabPane.getSelectionModel().clearSelection();
         lblBills.setText(""+0);
         lblKg.setText(""+0.0f);
@@ -105,6 +136,15 @@ public class MonthDashboardController implements Initializable {
             loadLabourChart(date);
         });
 
+        progressBar.setVisible(false);
+        return null;
+    }
+        };
+        Thread t = new Thread(task);
+        Thread t2 = new Thread(task2);
+        // t2.isDaemon();
+        t.start();
+        t2.start();
     }
     private void setMainData()
     {
@@ -227,11 +267,13 @@ public class MonthDashboardController implements Initializable {
     {
         if(salesmanMap.isEmpty())
         {
-            salesmanMap.put(bill.getEmployee().getFname(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),
+                    (bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
-        else if(salesmanMap.containsKey(bill.getEmployee().getId()))
+        else if(salesmanMap.containsKey(bill.getEmployee().getFname()))
         {
-            salesmanMap.put(bill.getEmployee().getFname(),salesmanMap.get(bill.getEmployee().getId())+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            salesmanMap.put(bill.getEmployee().getFname(),
+                    salesmanMap.get(bill.getEmployee().getFname())+(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
         else
         {

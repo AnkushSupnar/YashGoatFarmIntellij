@@ -1,5 +1,6 @@
 package main.java.main.java.controller.masterReport;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,6 +24,9 @@ import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class WeekDashboardController implements Initializable {
 
@@ -83,7 +87,7 @@ public class WeekDashboardController implements Initializable {
         billList.addAll(billService.getPeriodWiseBills(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY)));
         setMainData();
         loadAreaChart();
-
+        loadSalesmanSoldKg();
         tabSalesmanKg.setOnSelectionChanged(e->{
             loadSalesmanSoldKg();
         });
@@ -146,14 +150,22 @@ public class WeekDashboardController implements Initializable {
         loadSalemap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
             loadSalemanMap(bill);
         }
-        for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
-        {
-            series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
-        for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
-        {
-            seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
+                {
+                    series.getData().add(new XYChart.Data<>(""+entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+                for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
+                {
+                    seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
+
         areaChart.getData().clear();
         barChart.getData().clear();
         areaChart.getData().addAll(series);
@@ -200,10 +212,17 @@ public class WeekDashboardController implements Initializable {
         seriesKg = new XYChart.Series();
         seriesKg.setName("Salesman Sold KG");
 
-        for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
-        {
-            seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
+                {
+                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         salesmanKgLineChart.getData().clear();
         salesmanKgLineChart.getData().setAll(seriesKg);
     }
@@ -229,10 +248,17 @@ public class WeekDashboardController implements Initializable {
         }
         seriesNos = new XYChart.Series();
         seriesNos.setName("Salesman Sold Nos");
-        for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
-        {
-            seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
+                {
+                    seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         salesmanNosLineChart.getData().clear();
         salesmanNosLineChart.getData().addAll(seriesNos);
     }
@@ -265,10 +291,17 @@ public class WeekDashboardController implements Initializable {
         seriesLabour = new XYChart.Series();
         seriesLabour.setName("Labour Charges");
 
-        for(Map.Entry<String,Float>entry:labourMap.entrySet())
-        {
-            seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:labourMap.entrySet())
+                {
+                    seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         labourLineChart.getData().clear();
         labourLineChart.getData().setAll(seriesLabour);
     }

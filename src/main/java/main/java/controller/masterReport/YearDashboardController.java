@@ -1,5 +1,6 @@
 package main.java.main.java.controller.masterReport;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,6 +25,9 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class YearDashboardController implements Initializable {
 
@@ -78,7 +82,7 @@ public class YearDashboardController implements Initializable {
         series = new XYChart.Series();
         seriesSalesMan = new XYChart.Series();
         seriesLabour = new XYChart.Series();
-        series.setName("Week Sale");
+        series.setName("Sale");
         seriesSalesMan.setName("Salesman Wise Sale");
 
         seriesWeek = new XYChart.Series();
@@ -96,7 +100,7 @@ public class YearDashboardController implements Initializable {
                         date.withDayOfYear(date.lengthOfYear())));
         setMainData();
         loadAreaChart();
-
+        loadSalesmanSoldKg();
         tabSalesmanKg.setOnSelectionChanged(e->{
             loadSalesmanSoldKg();
         });
@@ -162,23 +166,31 @@ public class YearDashboardController implements Initializable {
             loadSalemanMap(bill);
             loadWeekMap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
         }
-        for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
-        {
-            series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
-        int i=1;
-        for(Map.Entry<Integer,Float>entry:monthMap.entrySet())
-        {
-                seriesWeek.getData().add(new XYChart.Data<>("" +
-                        i,
-                        entry.getValue()));
-            i++;
-        }
-        for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
-        {
-            seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
-
+        seriesWeek.setName("Sale");
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+//                for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
+//                {
+//
+//                    series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+//                }
+                int i=1;
+                for(Map.Entry<Integer,Float>entry:monthMap.entrySet())
+                {
+                    seriesWeek.getData().add(new XYChart.Data<>("" +
+                            i,
+                            entry.getValue()));
+                    i++;
+                }
+                for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
+                {
+                    seriesSalesMan.getData().add(
+                            new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
         areaChart.getData().clear();
         barChart.getData().clear();
         //areaChart.getData().addAll(series);
@@ -195,8 +207,8 @@ public class YearDashboardController implements Initializable {
         {
             monthMap.put(month,amount);
         }
-        else if(monthMap.containsKey(weekNumber)) {
-            monthMap.put(month,monthMap.get(weekNumber)+amount);
+        else if(monthMap.containsKey(month)) {
+            monthMap.put(month,monthMap.get(month)+amount);
         }
         else
             monthMap.put(month,amount);
@@ -243,9 +255,19 @@ public class YearDashboardController implements Initializable {
         seriesKg = new XYChart.Series();
         seriesKg.setName("Salesman Sold KG");
 
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
+                {
+                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
         for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
         {
-            seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+            seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
         }
         salesmanKgLineChart.getData().clear();
         salesmanKgLineChart.getData().setAll(seriesKg);
@@ -272,10 +294,21 @@ public class YearDashboardController implements Initializable {
         }
         seriesNos = new XYChart.Series();
         seriesNos.setName("Salesman Sold Nos");
-        for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
-        {
-            seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
+                {
+                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+                for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
+                {
+                    seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         salesmanNosLineChart.getData().clear();
         salesmanNosLineChart.getData().addAll(seriesNos);
     }
@@ -310,10 +343,17 @@ public class YearDashboardController implements Initializable {
         seriesLabour = new XYChart.Series();
         seriesLabour.setName("Labour Charges");
 
-        for(Map.Entry<String,Float>entry:labourMap.entrySet())
-        {
-            seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:labourMap.entrySet())
+                {
+                    seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         labourLineChart.getData().clear();
         labourLineChart.getData().setAll(seriesLabour);
     }

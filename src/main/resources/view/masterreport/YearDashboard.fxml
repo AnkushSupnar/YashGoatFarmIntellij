@@ -15,12 +15,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" prefHeight="555.0" prefWidth="1091.0"
-            style="-fx-background-color: white;" stylesheets="@../css/weekdash.css"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="main.java.main.java.controller.masterReport.YearDashboardController">
+<AnchorPane fx:id="mainPane" prefHeight="555.0" prefWidth="1115.0" style="-fx-background-color: white;" stylesheets="@../css/weekdash.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.YearDashboardController">
    <children>
-      <HBox layoutX="23.0" layoutY="26.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+      <HBox layoutX="23.0" layoutY="26.0" prefHeight="80.0" prefWidth="1095.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <AnchorPane prefHeight="77.0" prefWidth="168.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
                <children>
@@ -45,21 +42,21 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
+            <AnchorPane prefHeight="80.0" prefWidth="245.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
                <children>
-                  <StackPane layoutX="10.0" layoutY="10.0" prefHeight="62.0" prefWidth="64.0" style="-fx-background-color: #5cb85c;" styleClass="tileimg" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="9.0">
+                  <StackPane layoutX="12.0" layoutY="12.0" prefHeight="58.0" prefWidth="56.0" style="-fx-background-color: #5cb85c;" styleClass="tileimg" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="11.0">
                      <children>
                         <FontAwesomeIcon fill="#f7f7f7" glyphName="USD" size="3em" />
                      </children>
                   </StackPane>
-                  <StackPane layoutX="69.0" layoutY="4.0" prefHeight="75.0" prefWidth="155.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="-11.0" AnchorPane.topAnchor="3.0">
+                  <StackPane layoutX="70.0" layoutY="5.0" prefHeight="75.0" prefWidth="168.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="3.0">
                      <children>
                         <Label text="AMOUNT" textFill="#939699" StackPane.alignment="BOTTOM_CENTER">
                            <StackPane.margin>
                               <Insets bottom="6.0" />
                            </StackPane.margin>
                         </Label>
-                        <Label fx:id="lblAmount" text="50000.00" textFill="#5cb85c" StackPane.alignment="CENTER">
+                        <Label fx:id="lblAmount" prefHeight="45.0" prefWidth="169.0" text="50000000.00" textFill="#5cb85c" StackPane.alignment="CENTER">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -91,9 +88,9 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="77.0" prefWidth="168.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
+            <AnchorPane prefHeight="80.0" prefWidth="228.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
                <children>
-                  <StackPane layoutX="7.0" layoutY="7.0" prefHeight="42.0" prefWidth="65.0" style="-fx-background-color: #f0ad4e;" styleClass="tileimg" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="6.0">
+                  <StackPane layoutX="8.0" layoutY="15.0" prefHeight="52.0" prefWidth="64.0" style="-fx-background-color: #f0ad4e;" styleClass="tileimg" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="6.0">
                      <children>
                         <FontAwesomeIcon fill="#f7f7f7" glyphName="LEAF" size="3em" />
                      </children>
@@ -105,7 +102,7 @@
                               <Insets bottom="6.0" />
                            </StackPane.margin>
                         </Label>
-                        <Label fx:id="lblKg" text="10000" textFill="#f0ad4e" StackPane.alignment="CENTER">
+                        <Label fx:id="lblKg" text="24173.33" textFill="#f0ad4e" StackPane.alignment="CENTER">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -114,21 +111,21 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="77.0" prefWidth="222.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
+            <AnchorPane prefHeight="80.0" prefWidth="243.0" style="-fx-background-color: #ffffff;" styleClass="rectangle">
                <children>
-                  <StackPane layoutX="9.0" layoutY="9.0" prefHeight="64.0" prefWidth="65.0" style="-fx-background-color: #bf66d0;" styleClass="tileimg" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="8.0">
+                  <StackPane layoutX="11.0" layoutY="10.0" prefHeight="62.0" prefWidth="58.0" style="-fx-background-color: #bf66d0;" styleClass="tileimg" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="9.0">
                      <children>
                         <FontAwesomeIcon fill="#f7f7f7" glyphName="LEAF" size="3em" />
                      </children>
                   </StackPane>
-                  <StackPane layoutX="78.0" layoutY="2.0" prefHeight="75.0" prefWidth="144.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane layoutX="68.0" layoutY="2.0" prefHeight="78.0" prefWidth="175.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <children>
                         <Label text="SOLD NOS" textFill="#939699" StackPane.alignment="BOTTOM_CENTER">
                            <StackPane.margin>
                               <Insets bottom="6.0" />
                            </StackPane.margin>
                         </Label>
-                        <Label fx:id="lblNos" text="500000.00" textFill="#bf66d0" StackPane.alignment="CENTER">
+                        <Label fx:id="lblNos" text="5000000.00" textFill="#bf66d0" StackPane.alignment="CENTER">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -139,9 +136,9 @@
             </AnchorPane>
          </children>
       </HBox>
-      <AnchorPane layoutX="20.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" styleClass="rectangle" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="107.0">
+      <AnchorPane layoutX="20.0" layoutY="96.0" prefHeight="222.0" prefWidth="1083.0" styleClass="rectangle" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0">
          <children>
-            <AreaChart fx:id="areaChart" layoutX="65.0" layoutY="-106.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AreaChart fx:id="areaChart" layoutX="-32.0" layoutY="-3.0" prefHeight="200.0" prefWidth="1069.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>

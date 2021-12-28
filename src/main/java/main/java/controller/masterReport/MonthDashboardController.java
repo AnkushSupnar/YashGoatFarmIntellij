@@ -72,12 +72,12 @@ public class MonthDashboardController implements Initializable {
     private ProgressBar progressBar;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    progressBar = new ProgressBar();
-    progressBar.setMaxHeight(20);
-    progressBar.setMaxWidth(100);
-    progressBar.setLayoutX(10);
-    progressBar.setLayoutY(100);
-    mainPane.getChildren().add(progressBar);
+//    progressBar = new ProgressBar();
+//    progressBar.setMaxHeight(20);
+//    progressBar.setMaxWidth(100);
+//    progressBar.setLayoutX(10);
+//    progressBar.setLayoutY(100);
+//    mainPane.getChildren().add(progressBar);
         ui();
     }
     void ui()
@@ -119,7 +119,7 @@ public class MonthDashboardController implements Initializable {
         billList.addAll(billService.getPeriodWiseBills(date.withDayOfMonth(1),date.withDayOfMonth(date.lengthOfMonth())));
         setMainData();
         loadAreaChart();
-
+        loadSalesmanSoldKg();
         tabSalesmanKg.setOnSelectionChanged(e->{
             loadSalesmanSoldKg();
         });
@@ -130,7 +130,7 @@ public class MonthDashboardController implements Initializable {
             loadLabourChart(date);
         });
 
-        progressBar.setVisible(false);
+
     }
     private void setMainData()
     {
@@ -196,7 +196,7 @@ public class MonthDashboardController implements Initializable {
                 Date now = new Date();
                 for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
                 {
-                    series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+                    series.getData().add(new XYChart.Data<>(""+entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
                 }
                 int i=0;
                 for(Map.Entry<Integer,Float>entry:weekmap.entrySet())
@@ -206,12 +206,12 @@ public class MonthDashboardController implements Initializable {
                     {
                         seriesWeek.getData().add(new XYChart.Data<>(""+
                                 week.with(DayOfWeek.SUNDAY).withDayOfMonth(1)+" to "+
-                                week.with(DayOfWeek.SUNDAY)+"("+entry.getValue()+")",
+                                week.with(DayOfWeek.SUNDAY)+"\n("+entry.getValue()+")",
                                 entry.getValue()));
                     }else {
                         seriesWeek.getData().add(new XYChart.Data<>("" +
                                 week.with(DayOfWeek.MONDAY) + " to " +
-                                week.with(DayOfWeek.SUNDAY) + "(" + entry.getValue() + ")",
+                                week.with(DayOfWeek.SUNDAY) + "\n(" + entry.getValue() + ")",
                                 entry.getValue()));
                     }
                     i++;
@@ -220,7 +220,7 @@ public class MonthDashboardController implements Initializable {
 
                 for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
                 {
-                    seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+                    seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
                 }
 
             });
@@ -289,12 +289,11 @@ public class MonthDashboardController implements Initializable {
 
         ScheduledExecutorService scheduledExecutorService;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             Platform.runLater(() -> {
                 for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
                 {
-                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
+                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
                 }
             });
         }, 0, 10, TimeUnit.SECONDS);
@@ -324,10 +323,18 @@ public class MonthDashboardController implements Initializable {
         }
         seriesNos = new XYChart.Series();
         seriesNos.setName("Salesman Sold Nos");
-        for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
-        {
-            seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
+                {
+                    seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
+
         salesmanNosLineChart.getData().clear();
         salesmanNosLineChart.getData().addAll(seriesNos);
     }
@@ -360,10 +367,17 @@ public class MonthDashboardController implements Initializable {
         seriesLabour = new XYChart.Series();
         seriesLabour.setName("Labour Charges");
 
-        for(Map.Entry<String,Float>entry:labourMap.entrySet())
-        {
-            seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:labourMap.entrySet())
+                {
+                    seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         labourLineChart.getData().clear();
         labourLineChart.getData().setAll(seriesLabour);
     }

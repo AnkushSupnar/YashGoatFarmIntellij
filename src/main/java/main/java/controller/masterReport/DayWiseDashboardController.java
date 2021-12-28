@@ -1,5 +1,6 @@
 package main.java.main.java.controller.masterReport;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +23,9 @@ import main.java.main.java.hibernate.util.CommonData;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DayWiseDashboardController implements Initializable {
 
@@ -43,7 +47,7 @@ public class DayWiseDashboardController implements Initializable {
     private LocalDate date;
     private ObservableList<Bill>billList = FXCollections.observableArrayList();
     private BillService billService;
-    private Map<LocalDate,Float>saleMmap;
+    private Map<Long,Float>saleMmap;
     private Map<String,Float>salesmanMap;
     private XYChart.Series series;
     private XYChart.Series seriesSalesMan;
@@ -81,10 +85,12 @@ public class DayWiseDashboardController implements Initializable {
         billService = new BillServiceImpl();
         cuttingService = new CuttingOrderServiceImpl();
         //billList.addAll(billService.getPeriodWiseBills(date.with(DayOfWeek.MONDAY),date.with(DayOfWeek.SUNDAY)));
+
         billList.addAll(billService.getDateWiseBill(date));
+
         setMainData();
         loadAreaChart();
-
+        loadSalesmanSoldKg();
         tabSalesmanKg.setOnSelectionChanged(e->{
             loadSalesmanSoldKg();
         });
@@ -144,32 +150,40 @@ public class DayWiseDashboardController implements Initializable {
         for(Bill bill:billList)
         {
             //   series.getData().add(new XYChart.Data<>(""+bill.getDate(),(bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges())));
-            loadSalemap(bill.getDate(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
+            loadSalemap(bill.getBillno(),(bill.getNettotal()+bill.getTransportingchrges()+bill.getOtherchargs()));
             loadSalemanMap(bill);
         }
-        for(Map.Entry<LocalDate,Float>entry:saleMmap.entrySet())
-        {
-            series.getData().add(new XYChart.Data<>(""+entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
-        for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
-        {
-            seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<Long,Float>entry:saleMmap.entrySet())
+                {
+                    series.getData().add(new XYChart.Data<>(""+entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+                for(Map.Entry<String,Float>entry:salesmanMap.entrySet())
+                {
+                    seriesSalesMan.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
+
         areaChart.getData().clear();
         barChart.getData().clear();
         areaChart.getData().addAll(series);
         barChart.getData().addAll(seriesSalesMan);
     }
-    void loadSalemap(LocalDate date,float amount)
+    void loadSalemap(Long billno,float amount)
     {
         if(saleMmap.isEmpty()){
-            saleMmap.put(date,amount);
+            saleMmap.put(billno,amount);
         }
-        else if(saleMmap.containsKey(date)) {
-            saleMmap.put(date,saleMmap.get(date)+amount);
+        else if(saleMmap.containsKey(billno)) {
+            saleMmap.put(billno,saleMmap.get(billno)+amount);
         }
         else{
-            saleMmap.put(date,amount);
+            saleMmap.put(billno,amount);
         }
     }
     void loadSalemanMap(Bill bill)
@@ -201,10 +215,16 @@ public class DayWiseDashboardController implements Initializable {
         seriesKg = new XYChart.Series();
         seriesKg.setName("Salesman Sold KG");
 
-        for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
-        {
-            seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanKgMap.entrySet())
+                {
+                    seriesKg.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
         salesmanKgLineChart.getData().clear();
         salesmanKgLineChart.getData().setAll(seriesKg);
     }
@@ -230,10 +250,17 @@ public class DayWiseDashboardController implements Initializable {
         }
         seriesNos = new XYChart.Series();
         seriesNos.setName("Salesman Sold Nos");
-        for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
-        {
-            seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:salesmanNosMap.entrySet())
+                {
+                    seriesNos.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         salesmanNosLineChart.getData().clear();
         salesmanNosLineChart.getData().addAll(seriesNos);
     }
@@ -267,10 +294,17 @@ public class DayWiseDashboardController implements Initializable {
         seriesLabour = new XYChart.Series();
         seriesLabour.setName("Labour Charges");
 
-        for(Map.Entry<String,Float>entry:labourMap.entrySet())
-        {
-            seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"("+entry.getValue()+")",entry.getValue()));
-        }
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                for(Map.Entry<String,Float>entry:labourMap.entrySet())
+                {
+                    seriesLabour.getData().add(new XYChart.Data<>(entry.getKey()+"\n("+entry.getValue()+")",entry.getValue()));
+                }
+            });
+        }, 0, 10, TimeUnit.SECONDS);
+
         labourLineChart.getData().clear();
         labourLineChart.getData().setAll(seriesLabour);
     }

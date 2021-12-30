@@ -91,5 +91,9 @@ public class PurchaseInvoiceServiceImpl implements PurchaseInvoiceService {
 	public List<PurchaseInvoice> getPartyAllPurchaseInvoice(int partyid) {
 		return dao.getPartyAllPurchaseInvoice(partyid);
 	}
+	@Override
+	public double getAveragePurchaseRate(String itemname) {
+		return dao.getAveragePurchaseRate(itemname);
+	}
 
 }

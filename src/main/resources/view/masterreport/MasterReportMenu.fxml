@@ -9,12 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="691.0"
-            prefWidth="981.0" styleClass="root"
-            stylesheets="@../css/menu.css"
-            xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
+<AnchorPane fx:id="mainPane" prefHeight="691.0" prefWidth="981.0" styleClass="root" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
    <children>
       <VBox layoutX="92.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
          <children>
@@ -240,6 +235,47 @@
                <padding>
                   <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="697.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
+         <children>
+            <StackPane prefHeight="88.0" prefWidth="264.0">
+               <children>
+                  <FontAwesomeIcon glyphName="CALCULATOR" size="5em" StackPane.alignment="TOP_CENTER">
+                     <StackPane.margin>
+                        <Insets top="2.0" />
+                     </StackPane.margin>
+                  </FontAwesomeIcon>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PROFIT AND LOSS" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+            <HBox fx:id="menuPL" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
+               <children>
+                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIcon>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PROFIT AND LOSS REPORT">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

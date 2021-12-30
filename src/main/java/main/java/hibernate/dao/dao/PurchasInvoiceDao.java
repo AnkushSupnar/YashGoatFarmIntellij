@@ -25,4 +25,6 @@ public interface PurchasInvoiceDao {
 	public List<PurchaseInvoice>getPartyPeriodPurchaseInvoice(int partyid,LocalDate start,LocalDate end);
 	public List<PurchaseInvoice>getPeriodPurchaseInvoice(LocalDate start,LocalDate end);
 	public List<PurchaseInvoice>getPartyAllPurchaseInvoice(int partyid);
+
+	public double getAveragePurchaseRate(String itemname);
 }

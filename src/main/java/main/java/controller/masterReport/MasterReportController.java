@@ -25,6 +25,8 @@ public class MasterReportController implements Initializable {
     @FXML private HBox menuMonthlyLabour;
     @FXML private HBox menuPeriodLabour;
 
+    @FXML private HBox menuPL;
+
     private BorderPane pane;
     private Pane centerPane;
     private ViewUtil viewUtil;
@@ -74,6 +76,11 @@ public class MasterReportController implements Initializable {
         });
         menuSalesman.setOnMouseClicked(e->{
             centerPane = viewUtil.getPage("masterreport/SalesmanCommisionReport");
+            pane =(BorderPane) mainPane.getParent();
+            pane.setCenter(centerPane);
+        });
+        menuPL.setOnMouseClicked(e->{
+            centerPane = viewUtil.getPage("masterreport/PLReport");
             pane =(BorderPane) mainPane.getParent();
             pane.setCenter(centerPane);
         });

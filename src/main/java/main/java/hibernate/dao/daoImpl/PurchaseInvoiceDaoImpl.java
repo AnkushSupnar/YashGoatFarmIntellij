@@ -270,5 +270,24 @@ public class PurchaseInvoiceDaoImpl implements PurchasInvoiceDao {
 		}
 	}
 
+	@Override
+	public double getAveragePurchaseRate(String itemname) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
+		{
+			session.beginTransaction();
+			String query="select sum(rate*quantity)/sum(quantity) from PurchaseTransaction where itemname=:itemname";
+			if(session.createQuery(query,Double.class)
+					.setParameter("itemname",itemname).uniqueResult()==null)
+				return 0;
+			else
+			return session.createQuery(query,Double.class)
+					.setParameter("itemname",itemname).uniqueResult();
+		}catch (Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 
 }

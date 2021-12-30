@@ -308,7 +308,6 @@ public class DayWiseDashboardController implements Initializable {
         labourLineChart.getData().clear();
         labourLineChart.getData().setAll(seriesLabour);
     }
-
     private void addInLabourmap(String fname, float cuttingCharges) {
         if(labourMap.isEmpty())
         {

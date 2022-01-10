@@ -103,7 +103,7 @@ public class PurchaseInvoiceController implements Initializable {
 			colAmount.setCellValueFactory(new PropertyValueFactory<PurchaseTransaction, Float>("amount"));
 			table.setItems(transactionList);
 
-			cmbpaymentFrom.getItems().addAll(bankService.getBankById(2).getBankname());
+			cmbpaymentFrom.getItems().addAll(bankService.getAllBankNames());
 			cmbpaymentFrom.getSelectionModel().selectFirst();
 			
 

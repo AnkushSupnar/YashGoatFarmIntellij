@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="500.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.SalesmanItemSalesReportController">
+<AnchorPane fx:id="mainPane" prefHeight="500.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.SalesmanItemSalesReportController">
    <children>
       <StackPane layoutX="97.0" layoutY="29.0" prefHeight="46.0" prefWidth="500.0" style="-fx-background-color: #2196f3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -128,25 +128,49 @@
             <TableColumn fx:id="colAmount" prefWidth="102.0" text="Amount" />
         </columns>
       </TableView>
-      <Label layoutX="24.0" layoutY="428.0" text="Total Quantity" AnchorPane.bottomAnchor="56.0">
+      <Label layoutX="268.0" layoutY="444.0" text="Total Quantity" AnchorPane.bottomAnchor="42.0">
          <font>
             <Font name="Georgia" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtQty" layoutX="24.0" layoutY="416.0" prefHeight="30.0" prefWidth="110.0" AnchorPane.bottomAnchor="20.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </TextField>
-      <Label layoutX="140.0" layoutY="428.0" text="Total Amount" AnchorPane.bottomAnchor="56.0">
+      <HBox layoutX="23.0" layoutY="444.0" spacing="10.0" AnchorPane.bottomAnchor="10.0">
+         <children>
+            <TextField fx:id="txtTotalKg" prefHeight="30.0" prefWidth="110.0" text="0.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtTotalNos" prefHeight="30.0" prefWidth="110.0" text="0.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtQty" prefHeight="30.0" prefWidth="110.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtAmount" prefHeight="30.0" prefWidth="110.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <Label layoutX="384.0" layoutY="444.0" text="Total Amount" AnchorPane.bottomAnchor="40.0">
          <font>
             <Font name="Georgia" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtAmount" layoutX="140.0" layoutY="416.0" prefHeight="30.0" prefWidth="110.0" AnchorPane.bottomAnchor="20.0">
+      <Label layoutX="23.0" layoutY="444.0" text="Total KG" AnchorPane.bottomAnchor="40.0">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Georgia" size="14.0" />
          </font>
-      </TextField>
+      </Label>
+      <Label layoutX="139.0" layoutY="444.0" text="Total NOS" AnchorPane.bottomAnchor="40.0">
+         <font>
+            <Font name="Georgia" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

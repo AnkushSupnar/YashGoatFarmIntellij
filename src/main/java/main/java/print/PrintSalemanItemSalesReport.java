@@ -81,9 +81,15 @@ public class PrintSalemanItemSalesReport {
 
         addHeader(data);
         int i=0;
-        float qty=0,amount=0;
+        float qty=0,amount=0,totalkg=0.0f,totalNos=0.0f;
         for(Transaction tr:list)
         {
+            if(tr.getUnit().equalsIgnoreCase("kg"))
+                totalkg +=tr.getQuantity();
+            else
+                totalNos+=tr.getQuantity();
+
+
             c1 = new PdfPCell(new Paragraph(""+(++i), smallfont));
             c1.setHorizontalAlignment(Element.ALIGN_LEFT);
             c1.setBorder(0);
@@ -134,14 +140,30 @@ public class PrintSalemanItemSalesReport {
         {
             qty=0;
         }
-            c1 = new PdfPCell(new Paragraph(" ",smallBold));
-            c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-            c1.setBorder(0);
-            c1.setColspan(7);
-            c1.setBorder(PdfPCell.BOX);
-            data.addCell(c1);
+//            c1 = new PdfPCell(new Paragraph(" ",smallBold));
+//            c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+//            c1.setBorder(0);
+//            c1.setColspan(7);
+//            c1.setBorder(PdfPCell.BOX);
+//            data.addCell(c1);
 
-            c1 = new PdfPCell(new Paragraph("Total",smallBold));
+
+
+        c1 = new PdfPCell(new Paragraph("Total KG= "+String.format("%.2f",totalkg),smallBold));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        c1.setBorder(0);
+        c1.setColspan(3);
+        c1.setBorder(PdfPCell.BOX);
+        data.addCell(c1);
+
+        c1 = new PdfPCell(new Paragraph("Total NOS= "+String.format("%.2f",totalNos),smallBold));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        c1.setBorder(0);
+        c1.setColspan(4);
+        c1.setBorder(PdfPCell.BOX);
+        data.addCell(c1);
+
+        c1 = new PdfPCell(new Paragraph("Total",smallBold));
             c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
             c1.setBorder(0);
             c1.setColspan(4);

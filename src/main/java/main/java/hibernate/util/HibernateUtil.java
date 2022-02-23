@@ -22,6 +22,7 @@ public class HibernateUtil {
 				Properties setting = new Properties();
 				FileReader read = new FileReader("D:\\Software\\yash2022.properties");
 				setting.load(read);
+				System.out.println(setting);
 				setting.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
 //				setting.put(Environment.URL, "jdbc:mysql://localhost:3306/yash");
 //				setting.put(Environment.USER, "root");
@@ -75,6 +76,7 @@ public class HibernateUtil {
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
 				System.out.println("java hibernate config service registry created from File:- "+"D:\\Software\\yash2022.properties");
+				System.out.println(serviceRegistry);
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 				return sessionFactory;
 			} catch (Exception e) {

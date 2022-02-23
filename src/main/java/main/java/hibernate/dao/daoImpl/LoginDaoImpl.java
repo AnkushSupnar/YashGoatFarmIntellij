@@ -53,7 +53,7 @@ public class LoginDaoImpl implements LoginDao {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
 			String hql = "select username from Login";
-			@SuppressWarnings("unchecked")
+			//@SuppressWarnings("unchecked")
 			List<String> list = session.createQuery(hql).list();
 			return list;
 		} catch (Exception e) {

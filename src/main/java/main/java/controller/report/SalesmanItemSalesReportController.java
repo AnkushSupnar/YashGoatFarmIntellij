@@ -56,7 +56,8 @@ public class SalesmanItemSalesReportController implements Initializable {
     @FXML private TableColumn<Transaction,Float> colQuantity;
     @FXML private TableColumn<Transaction,Float> colRate;
     @FXML private TableColumn<Transaction,Float> colAmount;
-    
+	@FXML private TextField txtTotalKg;
+	@FXML private TextField txtTotalNos;
     @FXML private TextField txtQty;
     @FXML private TextField txtAmount;
 
@@ -127,7 +128,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 
     private void show(ActionEvent e) {
 		Button button = (Button) e.getSource();
-		
+		txtQty.setText(""+0.0f);
 		if(button.getId().equals("btnShow"))
 		{
 			if(!validate())
@@ -138,6 +139,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 			{
 				notify.showErrorMessage("Select Start date");
 				dateStart.requestFocus();
+				calculateNosKg();
 				return;
 			}
 			if(dateStart.getValue()!=null && dateEnd.getValue()==null)
@@ -158,6 +160,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 				}else {
 					showTable(billList);
 				}
+				calculateNosKg();
 				return;
 			}
 			if(dateStart.getValue()!=null && dateEnd.getValue()!=null)
@@ -172,8 +175,10 @@ public class SalesmanItemSalesReportController implements Initializable {
                 }else {
                     showTable(billList);
                 }
+				calculateNosKg();
 				return;
 			}
+
 		}
 		if(button.getId().equals("btnWeek"))
 		{
@@ -196,6 +201,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 			}else {
 				showTable(billList);
 			}
+			calculateNosKg();
 			return;
 		}
 		if(button.getId().equals("btnMonth"))
@@ -219,6 +225,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 			}else {
 				showTable(billList);
 			}
+			calculateNosKg();
 			return;
 		}
 		if(button.getId().equals("btnYear"))
@@ -242,6 +249,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 			}else {
 				showTable(billList);
 			}
+			calculateNosKg();
 			return;
 		}
 		if(button.getId().equals("btnAll"))
@@ -261,6 +269,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 			}else {
 				showTable(billList);
 			}
+			calculateNosKg();
 			return;
 		}
 		
@@ -285,6 +294,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 		Transaction t = new Transaction();
 		float qty=0;
 		float amt=0;
+
         Item item = itemService.getItemByName(name);
 		for(Bill bill :billList)
 		{
@@ -295,6 +305,7 @@ public class SalesmanItemSalesReportController implements Initializable {
 					qty+=tr.getQuantity();
 					amt+=tr.getAmount();
 				}
+
 			}
 		}
 		Bill b = new Bill();
@@ -310,6 +321,7 @@ public class SalesmanItemSalesReportController implements Initializable {
         t.setUnit(item.getUnit());
 		if(txtAmount.getText().isEmpty()) txtAmount.setText(""+0.0);
 		txtAmount.setText(String.valueOf(Float.parseFloat(txtAmount.getText())+t.getAmount()));
+
         return t;
 	}
 
@@ -355,4 +367,23 @@ public class SalesmanItemSalesReportController implements Initializable {
 		return true;
 	}
 
+	void calculateNosKg()
+	{
+		txtTotalNos.setText(""+0.0f);
+		txtTotalKg.setText(""+0.0f);
+		if(!list.isEmpty()){
+			for(Transaction tr:list)
+			{
+				if(tr.getUnit().equalsIgnoreCase("kg"))
+				 txtTotalKg.setText(
+						 String.valueOf(Float.parseFloat(txtTotalKg.getText())+tr.getQuantity())
+				 );
+				else
+					txtTotalNos.setText(
+							String.valueOf(Float.parseFloat(txtTotalNos.getText())+tr.getQuantity())
+					);
+			}
+		}
+
+	}
 }

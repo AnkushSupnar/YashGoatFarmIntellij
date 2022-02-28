@@ -31,6 +31,11 @@
             <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="216.0" progress="0.0" />
             <DatePicker fx:id="dateReport" prefHeight="25.0" prefWidth="109.0" promptText="Select Date" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
+                  <Insets right="130.0" />
+               </StackPane.margin>
+            </DatePicker>
+            <DatePicker fx:id="dateReportTo" layoutX="688.0" layoutY="14.0" prefHeight="25.0" prefWidth="109.0" promptText="Select Date" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
                   <Insets right="10.0" />
                </StackPane.margin>
             </DatePicker>
@@ -58,7 +63,7 @@
                   <AnchorPane fx:id="paneYear" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab fx:id="tabAll" text="ALL">
+            <Tab fx:id="tabAll" text="PERIOD">
                <content>
                   <AnchorPane fx:id="paneAll" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>

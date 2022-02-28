@@ -21,6 +21,7 @@ public class DashboardReportController implements Initializable {
     @FXML private StackPane titlePane;
 
     @FXML private DatePicker dateReport;
+    @FXML private DatePicker dateReportTo;
     @FXML private ProgressBar progressBar;
     @FXML private AnchorPane paneToday;
     @FXML private AnchorPane paneMonth;
@@ -58,6 +59,9 @@ public class DashboardReportController implements Initializable {
                 CommonData.dashboardDate = dateReport.getValue();
             }
         });
+        dateReportTo.setOnAction(e->{
+            CommonData.dashboardDateTo = dateReportTo.getValue();
+        });
         paneToday.getChildren().setAll(getNode("masterreport/DayWiseDashboard"));
         //pane.setSi);
         tabWeek.setOnSelectionChanged(e->{
@@ -72,7 +76,6 @@ public class DashboardReportController implements Initializable {
             paneToday.getChildren().setAll(getNode("masterreport/DayWiseDashboard"));
         });
         tabMonth.setOnSelectionChanged(e->{
-            System.out.println("Select Month");
             paneMonth.getChildren().clear();
             paneMonth.getChildren().setAll(getNode("masterreport/MonthDashboard"));
         });
@@ -80,6 +83,11 @@ public class DashboardReportController implements Initializable {
             System.out.println("Select Month");
             paneYear.getChildren().clear();
             paneYear.getChildren().setAll(getNode("masterreport/YearDashboard"));
+        });
+        tabAll.setOnSelectionChanged(e->{
+            System.out.println(dateReportTo.getValue());
+            paneAll.getChildren().clear();
+            paneAll.getChildren().setAll(getNode("masterreport/PeriodDashboard"));
         });
 
 

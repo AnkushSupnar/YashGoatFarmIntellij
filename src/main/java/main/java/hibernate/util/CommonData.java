@@ -17,6 +17,7 @@ import java.util.List;
 
 public class CommonData {
 	public static LocalDate dashboardDate = LocalDate.now();
+	public static LocalDate dashboardDateTo = LocalDate.now();
 	public static long previewBillNo;
 	public static long previewInvoiceno;
 	private static ItemService itemService = new ItemServiceImpl();

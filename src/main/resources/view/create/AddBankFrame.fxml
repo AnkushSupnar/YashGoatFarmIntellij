@@ -1,123 +1,222 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane"
-            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="main.java.main.java.controller.create.AddBankControler">
+<AnchorPane fx:id="mainPane" minHeight="500.0" minWidth="780.0" prefHeight="720.0" prefWidth="980.0" style="-fx-background-color: #ECEFF1;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.AddBankControler">
    <children>
-      <Pane layoutX="38.0" layoutY="29.0" prefHeight="609.0" prefWidth="769.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="100.0">
-         <children>
-            <Label layoutX="21.0" layoutY="24.0" text="Bank Name">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="417.0" layoutY="24.0" text="IFSC Code">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="213.0" layoutY="24.0" text="Account Type">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="21.0" layoutY="104.0" text="Account No">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="213.0" layoutY="104.0" text="Branch Name">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="417.0" layoutY="104.0" text="Present Balance">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtBalance" layoutX="417.0" layoutY="124.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtBankName" layoutX="21.0" layoutY="48.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtIfsc" layoutX="417.0" layoutY="50.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtAccountno" layoutX="21.0" layoutY="122.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtBanch" layoutX="213.0" layoutY="124.0" prefHeight="28.0" prefWidth="197.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Button fx:id="btnSave" graphicTextGap="10.0" layoutX="17.0" layoutY="183.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@../home/home.css" text="SAVE" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
-               </graphic>
-            </Button>
-            <TableView fx:id="table" layoutX="8.0" layoutY="230.0" prefHeight="362.0" prefWidth="756.0" stylesheets="@../css/table.css">
-              <columns>
-                <TableColumn fx:id="colSrno" prefWidth="55.0" text="Sr.No" />
-                <TableColumn fx:id="colBankname" prefWidth="185.0" text="Bank Name" />
-                  <TableColumn fx:id="colIfsc" prefWidth="93.0" text="IFSC" />
-                  <TableColumn fx:id="colAccountno" prefWidth="106.0" text="Account No" />
-                  <TableColumn fx:id="colAccountType" prefWidth="106.0" text="Account Type" />
-                  <TableColumn fx:id="colBranch" prefWidth="124.0" text="Branch" />
-                  <TableColumn fx:id="colBalance" prefWidth="107.0" text="Balance" />
-                  <TableColumn fx:id="calAcountno1" prefWidth="106.0" text="Account No" />
-              </columns>
-            </TableView>
-            <ComboBox fx:id="cmbAcountType" layoutX="213.0" layoutY="50.0" prefHeight="26.0" prefWidth="197.0" promptText="Select Account Type" />
-            <Button fx:id="btnClear" graphicTextGap="10.0" layoutX="149.0" layoutY="183.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="CLEAR" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEdit" graphicTextGap="10.0" layoutX="283.0" layoutY="183.0" mnemonicParsing="false" onAction="#edit" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EDIT" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnExit" graphicTextGap="10.0" layoutX="417.0" layoutY="183.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #2196f3;" stylesheets="@home.css" text="EXIT" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="14.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+
+                  <!-- Header -->
+                  <HBox alignment="CENTER_LEFT" spacing="12.0">
+                     <children>
+                        <StackPane prefHeight="44.0" prefWidth="44.0" style="-fx-background-color: linear-gradient(to bottom right, #2E7D32, #66BB6A); -fx-background-radius: 10;">
+                           <children>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BANK" size="22" />
+                           </children>
+                        </StackPane>
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label text="Add Bank Account" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Register a bank account or cash mode used in transactions" textFill="#546E7A">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+
+                  <!-- Bank details card -->
+                  <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.12), 8, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="16.0" left="18.0" right="18.0" top="14.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <FontAwesomeIcon fill="#2E7D32" glyphName="BANK" size="18" />
+                              <Label text="Bank Details" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <GridPane hgap="14.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" percentWidth="33.4" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <VBox spacing="3.0">
+                                 <children>
+                                    <Label text="Bank Name" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtBankName" promptText="Bank name">
+                                       <font><Font size="14.0" /></font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Label text="Account Type" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <ComboBox fx:id="cmbAcountType" maxWidth="Infinity" promptText="Select Account Type" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="KEY" size="12" />
+                                          <Label text="IFSC Code" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="txtIfsc" promptText="IFSC">
+                                       <font><Font size="14.0" /></font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="Account No" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtAccountno" promptText="Account number">
+                                       <font><Font size="14.0" /></font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="Branch Name" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtBanch" promptText="Branch">
+                                       <font><Font size="14.0" /></font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="USD" size="12" />
+                                          <Label text="Present Balance" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="txtBalance" promptText="0.00">
+                                       <font><Font size="14.0" /></font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+
+                  <!-- Action bar -->
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <padding>
+                        <Insets top="2.0" />
+                     </padding>
+                     <children>
+                        <Button fx:id="btnSave" graphicTextGap="10.0" mnemonicParsing="false" onAction="#save" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #43A047; -fx-background-radius: 8; -fx-cursor: hand;" text="SAVE" textFill="WHITE">
+                           <font><Font name="System Bold" size="14.0" /></font>
+                           <graphic><FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="18" /></graphic>
+                        </Button>
+                        <Button fx:id="btnEdit" graphicTextGap="10.0" mnemonicParsing="false" onAction="#edit" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #1976D2; -fx-background-radius: 8; -fx-cursor: hand;" text="EDIT" textFill="WHITE">
+                           <font><Font name="System Bold" size="14.0" /></font>
+                           <graphic><FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="18" /></graphic>
+                        </Button>
+                        <Button fx:id="btnClear" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #757575; -fx-background-radius: 8; -fx-cursor: hand;" text="CLEAR" textFill="WHITE">
+                           <font><Font name="System Bold" size="14.0" /></font>
+                           <graphic><FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="18" /></graphic>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnExit" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exit" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #E53935; -fx-background-radius: 8; -fx-cursor: hand;" text="EXIT" textFill="WHITE">
+                           <font><Font name="System Bold" size="14.0" /></font>
+                           <graphic><FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="18" /></graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+
+                  <!-- Existing bank accounts table card -->
+                  <VBox spacing="8.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.12), 8, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="14.0" left="14.0" right="14.0" top="12.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <FontAwesomeIcon fill="#37474F" glyphName="LIST" size="16" />
+                              <Label text="Existing Bank Accounts" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="table" prefHeight="320.0" stylesheets="@../css/table.css" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colSrno" prefWidth="55.0" text="Sr.No" />
+                              <TableColumn fx:id="colBankname" prefWidth="185.0" text="Bank Name" />
+                              <TableColumn fx:id="colIfsc" prefWidth="100.0" text="IFSC" />
+                              <TableColumn fx:id="colAccountno" prefWidth="120.0" text="Account No" />
+                              <TableColumn fx:id="colAccountType" prefWidth="120.0" text="Account Type" />
+                              <TableColumn fx:id="colBranch" prefWidth="130.0" text="Branch" />
+                              <TableColumn fx:id="colBalance" prefWidth="110.0" text="Balance" />
+                              <TableColumn fx:id="calAcountno1" prefWidth="120.0" text="Account No" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </VBox>
+
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

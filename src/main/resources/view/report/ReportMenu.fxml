@@ -3,479 +3,449 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="reportMenuPanel" prefHeight="619.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.ReportMenuControler">
+<AnchorPane fx:id="reportMenuPanel" prefHeight="620.0" prefWidth="1149.0" styleClass="root-bg" stylesheets="@ReportMenuCard.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.report.ReportMenuControler">
    <children>
-      <HBox layoutX="50.0" layoutY="42.0" spacing="10.0">
-         <children>
-            <Pane prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sales Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="20.0" layoutY="95.0">
-                     <children>
-                        <Button fx:id="btnDailySalesReport" mnemonicParsing="false" onAction="#btnDailySalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Daily Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnWeeklySalesReport" mnemonicParsing="false" onAction="#btnWeeklySalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Weekly Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnMonthlySalesReport" mnemonicParsing="false" onAction="#btnMonthlySalesReport" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Monthly Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnPeriodSalesReport" mnemonicParsing="false" onAction="#btnPeriodSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Period Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="brnYearSalesReport" mnemonicParsing="false" onAction="#brnYearSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Year Sales Rport" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="menu-scroll" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="20.0">
                <padding>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="28.0" left="32.0" right="32.0" top="28.0" />
                </padding>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-            <Pane prefHeight="262.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
                <children>
-                  <Text fill="WHITE" layoutX="31.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="5.0" layoutY="95.0">
+                  <VBox spacing="4.0">
                      <children>
-                        <Button fx:id="btnCommisionReport" mnemonicParsing="false" onAction="#btnCommisionReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Commision Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnSalesReport" mnemonicParsing="false" onAction="#btnSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnLabourCharges" mnemonicParsing="false" onAction="#btnLabourChargesAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Labour Charges" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#btnSalesmanLabourChargesAction" prefWidth="192.0" stylesheets="@../transaction/MenuCard.css" text="Salesman Labour Chargs" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="115.0" mnemonicParsing="false" onAction="#btnSalesmanItemReportAction" prefWidth="192.0" stylesheets="@../transaction/MenuCard.css" text="Salesman Item Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
+                        <Label styleClass="section-title" text="Reports" />
+                        <Label styleClass="section-subtitle" text="Sales, customer, item, labour, bank, purchase and statement reports." />
                      </children>
                   </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-               <effect>
-                  <Blend />
-               </effect>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-            <Pane prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="31.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="34.0" layoutY="103.0">
+                  <FlowPane hgap="22.0" prefWrapLength="1080.0" vgap="22.0">
                      <children>
-                        <Button fx:id="btnCustomerBills" mnemonicParsing="false" onAction="#btnCustomerBillsAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Customer Bills" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnUnpaidBills" mnemonicParsing="false" onAction="#btnUnpaidBillsAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Unpaid Bills" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnAllUnpaidBills" mnemonicParsing="false" onAction="#allUnpaidBillAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="All Unpaid Bills" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="USD" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
+
+                        <!-- Sales Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-sales">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LINE_CHART" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Sales Report" />
+                                          <Label styleClass="card-subtitle" text="Daily, weekly, period" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnDailySalesReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnDailySalesReportAction" styleClass="card-button" text="Daily Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnWeeklySalesReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnWeeklySalesReportAction" styleClass="card-button" text="Weekly Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnMonthlySalesReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnMonthlySalesReport" styleClass="card-button" text="Monthly Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnPeriodSalesReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnPeriodSalesReportAction" styleClass="card-button" text="Period Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="brnYearSalesReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#brnYearSalesReportAction" styleClass="card-button" text="Year Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Employee Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-employee">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USER" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Employee Report" />
+                                          <Label styleClass="card-subtitle" text="Commission &amp; sales" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnCommisionReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnCommisionReportAction" styleClass="card-button" text="Commision Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USD" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnSalesReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnSalesReportAction" styleClass="card-button" text="Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LINE_CHART" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnLabourCharges" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnLabourChargesAction" styleClass="card-button" text="Labour Charges">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="MONEY" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnSalesmanLabourChargesAction" styleClass="card-button" text="Salesman Labour Chargs">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="MONEY" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnSalesmanItemReportAction" styleClass="card-button" text="Salesman Item Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CUBES" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Customer Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-customer">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USERS" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Customer Report" />
+                                          <Label styleClass="card-subtitle" text="Bills &amp; dues" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnCustomerBills" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnCustomerBillsAction" styleClass="card-button" text="Customer Bills">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="FILE_TEXT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnUnpaidBills" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnUnpaidBillsAction" styleClass="card-button" text="Unpaid Bills">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EXCLAMATION_CIRCLE" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnAllUnpaidBills" maxWidth="Infinity" mnemonicParsing="false" onAction="#allUnpaidBillAction" styleClass="card-button" text="All Unpaid Bills">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Item Stock Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-stock">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CUBES" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Item Stock" />
+                                          <Label styleClass="card-subtitle" text="Inventory levels" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnViewAllStock" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnViewAllStockAction" styleClass="card-button" text="Godown Stock">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="ARCHIVE" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnStickReportAction" styleClass="card-button" text="Stick Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="BAR_CHART" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnCounterStock" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnCounterStockAction" styleClass="card-button" text="Counter Stock">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Labour Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-labour">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="WRENCH" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Labour Report" />
+                                          <Label styleClass="card-subtitle" text="Cutting charges" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnWeeklyLabourChargesAction" styleClass="card-button" text="Weekly Labour Charges">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnMonthlyLabouChargesAction" styleClass="card-button" text="Monthly Labour Charges">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnCounterStock1" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnPeriodLabourChargesAction" styleClass="card-button" text="Period Labour Charges">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnCounterStock11" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnYearlyLabourChargesAction" styleClass="card-button" text="Yearly Labour Charges">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Item Sales Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-itemsales">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="DIAMOND" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Item Sales" />
+                                          <Label styleClass="card-subtitle" text="Item-wise sales" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnDailyItemSalesReportAction" styleClass="card-button" text="Daily Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#weeklyItemSalesReportAction" styleClass="card-button" text="Weekly Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnMonthlyItemSalesReportAction" styleClass="card-button" text="Monthly Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnPeriodItemSalesReportAction" styleClass="card-button" text="Period Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#brnYearItemSalesReportAction" styleClass="card-button" text="Year Sales Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Bank Report -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-bank">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="BANK" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Bank Report" />
+                                          <Label styleClass="card-subtitle" text="Statements &amp; receipts" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnBankStatement" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnBankStatementAction" styleClass="card-button" text="Bank Statement">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="FILE_TEXT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnBankStatement1" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnCashReceiptreportAction" styleClass="card-button" text="Cash Reciept Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="MONEY" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Purchase Statement -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-purchase">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="TRUCK" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Purchase Statement" />
+                                          <Label styleClass="card-subtitle" text="Party-wise summary" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnPartyStatementAction" styleClass="card-button" text="Party Statement">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="FILE_TEXT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnPartyReport" maxWidth="Infinity" mnemonicParsing="false" onAction="#btnPartyStatementAction" styleClass="card-button" text="Party Report">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Customer Statement -->
+                        <VBox prefHeight="360.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-statement">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USERS" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Customer Statement" />
+                                          <Label styleClass="card-subtitle" text="Account ledger" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#btnCustomerStatementAction" styleClass="card-button" text="Customer Statement">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="FILE_TEXT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
                      </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
+                  </FlowPane>
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-            <Pane prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="17.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Stock Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="33.0" layoutY="103.0">
-                     <children>
-                        <Button fx:id="btnViewAllStock" mnemonicParsing="false" onAction="#btnViewAllStockAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Godown Stock" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#btnStickReportAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Stick Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnCounterStock" mnemonicParsing="false" onAction="#btnCounterStockAction" prefWidth="150.0" stylesheets="@../transaction/MenuCard.css" text="Counter Stock" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-            <Pane layoutX="640.0" layoutY="10.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="42.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Labour Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="3.0" layoutY="103.0" prefHeight="110.0" prefWidth="192.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnWeeklyLabourChargesAction" prefHeight="30.0" prefWidth="194.0" stylesheets="@../transaction/MenuCard.css" text="Weekly Labour Charges" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#btnMonthlyLabouChargesAction" prefHeight="30.0" prefWidth="195.0" stylesheets="@../transaction/MenuCard.css" text="Monthly Labour Charges" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnCounterStock1" mnemonicParsing="false" onAction="#btnPeriodLabourChargesAction" prefHeight="30.0" prefWidth="195.0" stylesheets="@../transaction/MenuCard.css" text="Period Labour Charges" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnCounterStock11" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnYearlyLabourChargesAction" prefHeight="30.0" prefWidth="195.0" stylesheets="@../transaction/MenuCard.css" text="Yearly Labour Charges" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-            </Pane>
-         </children>
-      </HBox>
-      <HBox layoutX="50.0" layoutY="330.0" spacing="10.0">
-         <children>
-            <Pane prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="20.0" layoutY="95.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnDailyItemSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Daily Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#weeklyItemSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Weekly Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#btnMonthlyItemSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Monthly Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#btnPeriodSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Period Sales Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#brnYearSalesReportAction" prefWidth="175.0" stylesheets="@../transaction/MenuCard.css" text="Year Sales Rport" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="JOOMLA" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-            <Pane prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="51.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Report">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="20.0" layoutY="95.0">
-                     <children>
-                        <Button fx:id="btnBankStatement" mnemonicParsing="false" onAction="#btnBankStatementAction" stylesheets="@../transaction/MenuCard.css" text="Bank Statement" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnBankStatement1" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCashReceiptreportAction" stylesheets="@../transaction/MenuCard.css" text="Cash Reciept Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-            <Pane layoutX="250.0" layoutY="10.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="18.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Statement">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="20.0" layoutY="95.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnPartyStatementAction" stylesheets="@../transaction/MenuCard.css" text="Party Statement" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnPartyReport" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPartyStatementAction" stylesheets="@../transaction/MenuCard.css" text="Party Report" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="LAPTOP" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-            </Pane>
-            <Pane layoutX="490.0" layoutY="10.0" prefWidth="200.0" styleClass="pane" stylesheets="@../transaction/MenuCard.css">
-               <children>
-                  <Text fill="WHITE" layoutX="7.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Statement">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="20.0" layoutY="95.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnCustomerStatementAction" stylesheets="@../transaction/MenuCard.css" text="Customer Statement" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="BITCOIN" size="20" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="81.0" layoutY="53.0" size="50" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Pane>
-         </children>
-      </HBox>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

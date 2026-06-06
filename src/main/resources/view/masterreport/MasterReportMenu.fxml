@@ -2,282 +2,244 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="691.0" prefWidth="981.0" styleClass="root" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
+<AnchorPane fx:id="mainPane" prefHeight="691.0" prefWidth="981.0" styleClass="root-bg" stylesheets="@MasterMenuCard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.masterReport.MasterReportController">
    <children>
-      <VBox layoutX="92.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
-         <children>
-            <StackPane prefHeight="88.0" prefWidth="264.0">
-               <children>
-                  <FontAwesomeIcon glyphName="BTC" size="5em" StackPane.alignment="TOP_CENTER" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SALES REPORT" StackPane.alignment="BOTTOM_CENTER">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <HBox fx:id="menuDailySales" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="DAILY SALES REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="menu-scroll" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="20.0">
                <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                  <Insets bottom="28.0" left="32.0" right="32.0" top="28.0" />
                </padding>
-            </HBox>
-            <HBox fx:id="menuWeeklySales" layoutX="10.0" layoutY="98.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
                <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="WEEKLY SALES REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
+                  <VBox spacing="4.0">
+                     <children>
+                        <Label styleClass="section-title" text="Master Reports" />
+                        <Label styleClass="section-subtitle" text="Sales, purchase, salesman, labour and profit &amp; loss summaries." />
+                     </children>
+                  </VBox>
+                  <FlowPane hgap="22.0" prefWrapLength="920.0" vgap="22.0">
+                     <children>
+
+                        <!-- Sales Report -->
+                        <VBox prefWidth="280.0" spacing="14.0" styleClass="card,card-sales">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LINE_CHART" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Sales Report" />
+                                          <Label styleClass="card-subtitle" text="Daily, weekly, monthly, period" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <HBox fx:id="menuDailySales" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="DAILY SALES REPORT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="menuWeeklySales" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="WEEKLY SALES REPORT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="menuMonthlySales" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="MONTHLY SALES REPORT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="menuPeriodSales" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="PERIOD SALES REPORT" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Purchase Report -->
+                        <VBox prefWidth="280.0" spacing="14.0" styleClass="card,card-purchase">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="TRUCK" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Purchase Report" />
+                                          <Label styleClass="card-subtitle" text="Vendor summary" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <HBox fx:id="menuPurchase" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="FILE_TEXT" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="PURCHASE REPORT" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Salesman Report -->
+                        <VBox prefWidth="280.0" spacing="14.0" styleClass="card,card-salesman">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USER" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Salesman Report" />
+                                          <Label styleClass="card-subtitle" text="Commission summary" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <HBox fx:id="menuSalesman" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="USD" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="SALESMAN REPORT" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Labour Report -->
+                        <VBox prefWidth="280.0" spacing="14.0" styleClass="card,card-labour">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="WRENCH" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Labour Report" />
+                                          <Label styleClass="card-subtitle" text="Cutting charges" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <HBox fx:id="menuWeeklyLabour" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="WEEKLY LABOUR REPORT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="menuMonthlyLabour" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="MONTHLY LABOUR REPORT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="menuPeriodLabour" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="CALENDAR" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="PERIOD LABOUR REPORT" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Profit and Loss -->
+                        <VBox prefWidth="280.0" spacing="14.0" styleClass="card,card-pl">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CALCULATOR" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Profit and Loss" />
+                                          <Label styleClass="card-subtitle" text="Overall P&amp;L" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <HBox fx:id="menuPL" alignment="CENTER_LEFT" spacing="12.0" styleClass="menu-row">
+                                       <children>
+                                          <FontAwesomeIcon glyphName="BAR_CHART" size="1.2em" />
+                                          <Text styleClass="menu-row-text" text="PROFIT AND LOSS REPORT" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                     </children>
+                  </FlowPane>
                </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="menuMonthlySales" layoutX="10.0" layoutY="141.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="MONTHLY SALES REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="menuPeriodSales" layoutX="10.0" layoutY="184.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PERIOD SALES REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox layoutX="397.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
-         <children>
-            <StackPane prefHeight="88.0" prefWidth="264.0">
-               <children>
-                  <FontAwesomeIcon glyphName="BTC" size="5em" StackPane.alignment="TOP_CENTER" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PURCHASE REPORT" StackPane.alignment="BOTTOM_CENTER">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <HBox fx:id="menuPurchase" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PURCHASE REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox layoutX="397.0" layoutY="334.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
-         <children>
-            <StackPane prefHeight="88.0" prefWidth="264.0">
-               <children>
-                  <FontAwesomeIcon glyphName="USER" size="5em" StackPane.alignment="TOP_CENTER" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SALESMAN REPORT" StackPane.alignment="BOTTOM_CENTER">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <HBox fx:id="menuSalesman" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="SALESMAN REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox layoutX="92.0" layoutY="334.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
-         <children>
-            <StackPane prefHeight="88.0" prefWidth="264.0">
-               <children>
-                  <FontAwesomeIcon glyphName="USER_PLUS" size="5em" StackPane.alignment="TOP_CENTER" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="LABOUR REPORT" StackPane.alignment="BOTTOM_CENTER">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <HBox fx:id="menuWeeklyLabour" layoutX="10.0" layoutY="98.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="WEEKLY LABOUR REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="menuMonthlyLabour" layoutX="10.0" layoutY="141.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="MONTHLY LABOUR REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="menuPeriodLabour" layoutX="10.0" layoutY="184.0" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PERIOD LABOUR REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox layoutX="697.0" layoutY="25.0" prefHeight="289.0" prefWidth="264.0" styleClass="box">
-         <children>
-            <StackPane prefHeight="88.0" prefWidth="264.0">
-               <children>
-                  <FontAwesomeIcon glyphName="CALCULATOR" size="5em" StackPane.alignment="TOP_CENTER">
-                     <StackPane.margin>
-                        <Insets top="2.0" />
-                     </StackPane.margin>
-                  </FontAwesomeIcon>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PROFIT AND LOSS" StackPane.alignment="BOTTOM_CENTER">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <HBox fx:id="menuPL" prefHeight="43.0" prefWidth="200.0" styleClass="menu">
-               <children>
-                  <FontAwesomeIcon fill="#485460" glyphName="BTC" size="1.5em" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksan;" styleClass="text-menu" text="PROFIT AND LOSS REPORT">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

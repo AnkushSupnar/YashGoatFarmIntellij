@@ -109,6 +109,18 @@ public class ReportMenuControler implements Initializable {
 	    		new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();
 	    		return;
 	    	}
+			centerPane = viewUtil.getPage("report/PeriodSalesReport");
+	    	pane = (BorderPane)reportMenuPanel.getParent();
+	    	pane.setCenter(centerPane);
+	    }
+
+	    @FXML
+	    void btnPeriodItemSalesReportAction(ActionEvent event) {
+	    	if(ViewUtil.login.getId()!=1)
+	    	{
+	    		new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();
+	    		return;
+	    	}
 			centerPane = viewUtil.getPage("report/salereport/PeriodItemSalesReport");
 	    	pane = (BorderPane)reportMenuPanel.getParent();
 	    	pane.setCenter(centerPane);
@@ -135,6 +147,18 @@ public class ReportMenuControler implements Initializable {
 	    }
 	    @FXML
 	    void brnYearSalesReportAction(ActionEvent event) {
+	    	if(ViewUtil.login.getId()!=1)
+	    	{
+	    		new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();
+	    		return;
+	    	}
+			centerPane = viewUtil.getPage("report/YearSalesReport");
+	    	pane = (BorderPane)reportMenuPanel.getParent();
+	    	pane.setCenter(centerPane);
+	    }
+
+	    @FXML
+	    void brnYearItemSalesReportAction(ActionEvent event) {
 	    	if(ViewUtil.login.getId()!=1)
 	    	{
 	    		new Alert(AlertType.ERROR,"You are not authorised to view this report!!!").showAndWait();

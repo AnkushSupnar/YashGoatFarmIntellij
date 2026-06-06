@@ -2,6 +2,7 @@ package main.java.main.java.hibernate.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Bill {
@@ -31,7 +32,10 @@ public class Bill {
 	
 	@OneToMany(mappedBy = "bill",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<Transaction>transaction;
-	
+
+	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<BillPayment> payments;
+
 	private float recivedamount;
 	private float paidcommision;
 	public Bill() {
@@ -125,6 +129,12 @@ public class Bill {
 	}
 	public void setTransaction(List<Transaction> transaction) {
 		this.transaction = transaction;
+	}
+	public Set<BillPayment> getPayments() {
+		return payments;
+	}
+	public void setPayments(Set<BillPayment> payments) {
+		this.payments = payments;
 	}
 
 	public float getRecivedamount() {

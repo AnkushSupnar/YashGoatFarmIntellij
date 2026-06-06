@@ -1,163 +1,304 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="createMenuPanel" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.CreateMenuControler">
+<AnchorPane fx:id="createMenuPanel" prefHeight="620.0" prefWidth="1080.0" styleClass="root-bg" stylesheets="@MenuCard.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.CreateMenuControler">
    <children>
-      <Pane layoutX="41.0" layoutY="32.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
-         <children>
-            <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="80.0" layoutY="50.0" size="50" />
-            <Text fill="WHITE" layoutX="50.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAddEmployee" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#addEmployee" stylesheets="@MenuCard.css" text="Add Employee" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEditEmployee" layoutX="34.0" layoutY="144.0" mnemonicParsing="false" onAction="#addEmployee" stylesheets="@MenuCard.css" text="Edit Employee" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnViewEmployee" layoutX="34.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewEmployee" stylesheets="@MenuCard.css" text="View Employees" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="300.0" layoutY="32.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
-         <children>
-            <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="80.0" layoutY="50.0" size="50" />
-            <Text fill="WHITE" layoutX="81.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAddUser" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#AddUser" stylesheets="@MenuCard.css" text="Add User" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEditUser" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#AddUser" stylesheets="@MenuCard.css" text="Edit User" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnViewUser" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewUser" stylesheets="@MenuCard.css" text="View Users" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="560.0" layoutY="32.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
-         <children>
-            <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="80.0" layoutY="50.0" size="50" />
-            <Text fill="WHITE" layoutX="56.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAddCustomer" layoutX="34.0" layoutY="103.0" mnemonicParsing="false" onAction="#addCustomer" stylesheets="@MenuCard.css" text="Add Customer" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEditCustomer" layoutX="34.0" layoutY="144.0" mnemonicParsing="false" onAction="#addCustomer" stylesheets="@MenuCard.css" text="Edit Customer" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnViewCustomer" layoutX="34.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewCustomer" stylesheets="@MenuCard.css" text="View Customers" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="41.0" layoutY="317.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
-         <children>
-            <FontAwesomeIcon fill="WHITE" glyphName="DIAMOND" layoutX="73.0" layoutY="50.0" size="50" />
-            <Text fill="WHITE" layoutX="78.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAddItem" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#addItem" stylesheets="@MenuCard.css" text="Add Item" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEditItem" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#addItem" stylesheets="@MenuCard.css" text="Edit Item" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnVIewItem" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewItem" stylesheets="@MenuCard.css" text="View Items" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="300.0" layoutY="317.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
-         <children>
-            <FontAwesomeIcon fill="WHITE" glyphName="BUS" layoutX="81.0" layoutY="50.0" size="50" />
-            <Text fill="WHITE" layoutX="29.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Party">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAddParty" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#addParty" stylesheets="@MenuCard.css" text="Add Party" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEditParty" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#addParty" stylesheets="@MenuCard.css" text="Edit Party" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnViewParty" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewParty" stylesheets="@MenuCard.css" text="View Parties" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="560.0" layoutY="317.0" prefHeight="236.0" prefWidth="200.0" styleClass="pane" stylesheets="@MenuCard.css">
-         <children>
-            <FontAwesomeIcon fill="WHITE" glyphName="BANK" layoutX="80.0" layoutY="50.0" size="50" />
-            <Text fill="WHITE" layoutX="31.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Accounts">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAddBank" layoutX="45.0" layoutY="103.0" mnemonicParsing="false" onAction="#addBank" stylesheets="@MenuCard.css" text="Add Bank" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnEditBank" layoutX="45.0" layoutY="144.0" mnemonicParsing="false" onAction="#addBank" stylesheets="@MenuCard.css" text="Edit Bank" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-               </graphic>
-            </Button>
-            <Button fx:id="btnViewBank" layoutX="45.0" layoutY="180.0" mnemonicParsing="false" onAction="#viewBank" stylesheets="@MenuCard.css" text="View Banks" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="20" />
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="menu-scroll" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="20.0">
+               <padding>
+                  <Insets bottom="28.0" left="32.0" right="32.0" top="28.0" />
+               </padding>
+               <children>
+                  <VBox spacing="4.0">
+                     <children>
+                        <Label styleClass="section-title" text="Create Master" />
+                        <Label styleClass="section-subtitle" text="Add and manage employees, users, customers, items, parties and bank accounts." />
+                     </children>
+                  </VBox>
+                  <FlowPane hgap="22.0" prefWrapLength="1000.0" vgap="22.0">
+                     <children>
+
+                        <!-- Employee -->
+                        <VBox prefHeight="290.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-employee">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USER" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Employee" />
+                                          <Label styleClass="card-subtitle" text="Staff &amp; salesmen" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnAddEmployee" maxWidth="Infinity" mnemonicParsing="false" onAction="#addEmployee" styleClass="card-button" text="Add Employee">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditEmployee" maxWidth="Infinity" mnemonicParsing="false" onAction="#addEmployee" styleClass="card-button" text="Edit Employee">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnViewEmployee" maxWidth="Infinity" mnemonicParsing="false" onAction="#viewEmployee" styleClass="card-button" text="View Employees">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- User -->
+                        <VBox prefHeight="290.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-user">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USER_PLUS" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="User" />
+                                          <Label styleClass="card-subtitle" text="Login accounts" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnAddUser" maxWidth="Infinity" mnemonicParsing="false" onAction="#AddUser" styleClass="card-button" text="Add User">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditUser" maxWidth="Infinity" mnemonicParsing="false" onAction="#AddUser" styleClass="card-button" text="Edit User">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnViewUser" maxWidth="Infinity" mnemonicParsing="false" onAction="#viewUser" styleClass="card-button" text="View Users">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Customer -->
+                        <VBox prefHeight="290.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-customer">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="USERS" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Customer" />
+                                          <Label styleClass="card-subtitle" text="Buyers &amp; clients" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnAddCustomer" maxWidth="Infinity" mnemonicParsing="false" onAction="#addCustomer" styleClass="card-button" text="Add Customer">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditCustomer" maxWidth="Infinity" mnemonicParsing="false" onAction="#addCustomer" styleClass="card-button" text="Edit Customer">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnViewCustomer" maxWidth="Infinity" mnemonicParsing="false" onAction="#viewCustomer" styleClass="card-button" text="View Customers">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Item -->
+                        <VBox prefHeight="290.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-item">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="DIAMOND" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Item" />
+                                          <Label styleClass="card-subtitle" text="Catalog products" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnAddItem" maxWidth="Infinity" mnemonicParsing="false" onAction="#addItem" styleClass="card-button" text="Add Item">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditItem" maxWidth="Infinity" mnemonicParsing="false" onAction="#addItem" styleClass="card-button" text="Edit Item">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnVIewItem" maxWidth="Infinity" mnemonicParsing="false" onAction="#viewItem" styleClass="card-button" text="View Items">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Purchase Party -->
+                        <VBox prefHeight="290.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-party">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="TRUCK" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Purchase Party" />
+                                          <Label styleClass="card-subtitle" text="Vendors &amp; suppliers" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnAddParty" maxWidth="Infinity" mnemonicParsing="false" onAction="#addParty" styleClass="card-button" text="Add Party">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditParty" maxWidth="Infinity" mnemonicParsing="false" onAction="#addParty" styleClass="card-button" text="Edit Party">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnViewParty" maxWidth="Infinity" mnemonicParsing="false" onAction="#viewParty" styleClass="card-button" text="View Parties">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <!-- Bank Accounts -->
+                        <VBox prefHeight="290.0" prefWidth="240.0" spacing="14.0" styleClass="card,card-bank">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="BANK" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Bank Accounts" />
+                                          <Label styleClass="card-subtitle" text="Accounts &amp; cash" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button fx:id="btnAddBank" maxWidth="Infinity" mnemonicParsing="false" onAction="#addBank" styleClass="card-button" text="Add Bank">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditBank" maxWidth="Infinity" mnemonicParsing="false" onAction="#addBank" styleClass="card-button" text="Edit Bank">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnViewBank" maxWidth="Infinity" mnemonicParsing="false" onAction="#viewBank" styleClass="card-button" text="View Banks">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="LIST" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

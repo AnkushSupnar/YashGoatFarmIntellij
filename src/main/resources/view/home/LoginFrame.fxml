@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
@@ -10,66 +11,164 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.home.LoginController">
+<AnchorPane prefHeight="560.0" prefWidth="900.0" style="-fx-background-color: #ECEFF1;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.home.LoginController">
    <children>
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="500.0" prefWidth="264.0" style="-fx-background-color: white; -fx-border-color: blue;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/YashLogo.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="21.0" layoutY="232.0" text="Yash Goat Farm &amp; Seeds" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Text layoutX="21.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed By Ankush Supnar" wrappingWidth="217.13671875" />
-            <Text layoutX="21.0" layoutY="495.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact No 8329394603 / 9960855742" wrappingWidth="217.13671875" />
-            <Text fill="#2196f3" layoutX="66.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management System">
-               <font>
-                  <Font name="Bell MT" size="16.0" />
-               </font>
-            </Text>
-            <ProgressIndicator fx:id="loding" layoutX="21.0" layoutY="332.0" prefHeight="100.0" prefWidth="200.0" visible="false" />
+
+            <!-- Brand / hero panel -->
+            <VBox alignment="CENTER" prefWidth="430.0" spacing="22.0" style="-fx-background-color: linear-gradient(to bottom right, #1A237E, #1976D2 60%, #42A5F5);">
+               <padding>
+                  <Insets bottom="36.0" left="36.0" right="36.0" top="36.0" />
+               </padding>
+               <children>
+                  <StackPane prefHeight="190.0" prefWidth="190.0" style="-fx-background-color: rgba(255,255,255,0.92); -fx-background-radius: 95; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 18, 0, 0, 6);">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/YashLogo.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <VBox alignment="CENTER" spacing="4.0">
+                     <children>
+                        <Label text="Yash Goat Farm &amp; Seeds" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <Label text="Management System" textFill="#BBDEFB">
+                           <font>
+                              <Font name="Bell MT" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Region prefHeight="6.0" />
+                  <ProgressIndicator fx:id="loding" prefHeight="56.0" prefWidth="56.0" style="-fx-progress-color: white;" visible="false" />
+                  <Region VBox.vgrow="ALWAYS" />
+                  <VBox alignment="CENTER" spacing="2.0">
+                     <children>
+                        <Label text="Developed by Ankush Supnar" textFill="rgba(255,255,255,0.85)">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label text="8329394603 / 9960855742" textFill="rgba(255,255,255,0.7)">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+
+            <!-- Login form panel -->
+            <StackPane HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" maxWidth="380.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.18), 18, 0, 0, 6);">
+                     <padding>
+                        <Insets bottom="36.0" left="36.0" right="36.0" top="32.0" />
+                     </padding>
+                     <children>
+
+                        <StackPane prefHeight="64.0" prefWidth="64.0" style="-fx-background-color: linear-gradient(to bottom right, #1976D2, #42A5F5); -fx-background-radius: 16;">
+                           <children>
+                              <FontAwesomeIcon fill="WHITE" glyphName="USER" size="30" />
+                           </children>
+                        </StackPane>
+
+                        <VBox alignment="CENTER" spacing="4.0">
+                           <children>
+                              <Label text="Welcome Back" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Sign in to continue to your dashboard" textFill="#546E7A">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+
+                        <VBox spacing="6.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                 <children>
+                                    <FontAwesomeIcon fill="#1976D2" glyphName="USER" size="13" />
+                                    <Label text="User Name" textFill="#37474F">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <ComboBox fx:id="cmbUserName" maxWidth="Infinity" prefHeight="34.0" promptText="Select user" style="-fx-background-color: transparent; -fx-border-color: #B0BEC5; -fx-border-width: 0 0 2 0;" />
+                           </children>
+                        </VBox>
+
+                        <VBox spacing="6.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                 <children>
+                                    <FontAwesomeIcon fill="#1976D2" glyphName="KEY" size="13" />
+                                    <Label text="Password" textFill="#37474F">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <PasswordField fx:id="txtPassword" maxWidth="Infinity" onAction="#txtPasswordAction" prefHeight="34.0" promptText="Enter password" style="-fx-background-color: transparent; -fx-border-color: #B0BEC5; -fx-border-width: 0 0 2 0;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </PasswordField>
+                           </children>
+                        </VBox>
+
+                        <Hyperlink fx:id="linkAddEmployee" onAction="#addEmployee" text="Add User?" textFill="#1976D2" visible="false" />
+
+                        <HBox alignment="CENTER" spacing="12.0">
+                           <padding>
+                              <Insets top="6.0" />
+                           </padding>
+                           <children>
+                              <Button fx:id="btnLogin" graphicTextGap="10.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#login" prefHeight="40.0" style="-fx-background-color: linear-gradient(to right, #1976D2, #42A5F5); -fx-background-radius: 10; -fx-cursor: hand;" text="LOGIN" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" glyphName="SIGN_IN" size="16" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnCancel" graphicTextGap="10.0" maxWidth="Infinity" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #757575; -fx-background-radius: 10; -fx-cursor: hand;" text="CANCEL" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="16" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+
          </children>
-      </Pane>
-      <ComboBox fx:id="cmbUserName" layoutX="337.0" layoutY="184.0" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-border-color: #2196f3; -fx-border-width: 0px 0px 2px 0px;" />
-      <Label layoutX="337.0" layoutY="155.0" text="Select User Name" textFill="#2196f3">
-         <font>
-            <Font name="Georgia" size="14.0" />
-         </font></Label>
-      <PasswordField fx:id="txtPassword" layoutX="337.0" layoutY="256.0" onAction="#txtPasswordAction" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-border-color: #2196f3; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </PasswordField>
-      <Label layoutX="337.0" layoutY="228.0" text="Enter Your Password" textFill="#2196f3">
-         <font>
-            <Font name="Georgia" size="14.0" />
-         </font></Label>
-      <FontAwesomeIcon fill="#2196f3" glyphName="USER" layoutX="409.0" layoutY="76.0" size="60" />
-      <Text fill="#2196f3" layoutX="383.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Text>
-      <Button fx:id="btnLogin" layoutX="311.0" layoutY="359.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #2196f3;" text="LOGIN" textFill="WHITE">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnCancel" layoutX="456.0" layoutY="359.0" mnemonicParsing="false" style="-fx-background-color: #f44336;;" text="CANCEL" textFill="WHITE">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font>
-      </Button>
-      <Hyperlink fx:id="linkAddEmployee" layoutX="337.0" layoutY="317.0" onAction="#addEmployee" text="Add User?" visible="false" />
-      <FontAwesomeIcon fill="#2196f3" glyphName="USER" layoutX="316.0" layoutY="203.0" size="20" />
-      <FontAwesomeIcon fill="#2196f3" glyphName="KEY" layoutX="316.0" layoutY="284.0" size="20" />
+      </HBox>
    </children>
 </AnchorPane>

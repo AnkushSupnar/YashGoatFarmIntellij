@@ -1,170 +1,420 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPage" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.AddEmployeeControler">
+<AnchorPane fx:id="mainPage" minHeight="500.0" minWidth="780.0" prefHeight="780.0" prefWidth="1060.0" style="-fx-background-color: #ECEFF1;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.create.AddEmployeeControler">
    <children>
-      <TitledPane animated="false" layoutX="20.0" layoutY="5.0" prefHeight="152.0" prefWidth="998.0" text="Employee Personal Details">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="14.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
                <children>
-                  <Label layoutX="16.0" layoutY="16.0" text="First Name" />
-                  <Label layoutX="210.0" layoutY="16.0" text="Middle Name" />
-                  <Label layoutX="402.0" layoutY="16.0" text="Last Name" />
-                  <TextField fx:id="txtFirstName" layoutX="14.0" layoutY="33.0" promptText="First Name">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtMiddleName" layoutX="208.0" layoutY="32.0" promptText="Middle Name">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtLastName" layoutX="402.0" layoutY="32.0" promptText="Last Name">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="210.0" layoutY="65.0" text="Aternate Mobile" />
-                  <Label layoutX="402.0" layoutY="65.0" text="Email" />
-                  <TextField fx:id="txtMobileNo" layoutX="14.0" layoutY="81.0" promptText="Mobile No">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtAlternateMobileNo" layoutX="208.0" layoutY="81.0" promptText="Alternate Mobile No">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtEmail" layoutX="402.0" layoutY="81.0" promptText="Email">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="16.0" layoutY="65.0" text="Mobile" />
+
+                  <!-- Header -->
+                  <HBox alignment="CENTER_LEFT" spacing="12.0">
+                     <children>
+                        <StackPane prefHeight="44.0" prefWidth="44.0" style="-fx-background-color: linear-gradient(to bottom right, #303F9F, #5C6BC0); -fx-background-radius: 10;">
+                           <children>
+                              <FontAwesomeIcon fill="WHITE" glyphName="USER_PLUS" size="22" />
+                           </children>
+                        </StackPane>
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label text="Add Employee" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Capture employee profile, address, role and salary details" textFill="#546E7A">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+
+                  <!-- Personal Details card -->
+                  <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.12), 8, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="16.0" left="18.0" right="18.0" top="14.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <FontAwesomeIcon fill="#303F9F" glyphName="USER" size="18" />
+                              <Label text="Personal Details" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <GridPane hgap="14.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.4" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <VBox spacing="3.0">
+                                 <children>
+                                    <Label text="First Name" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtFirstName" promptText="First name" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Label text="Middle Name" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtMiddleName" promptText="Middle name" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <Label text="Last Name" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtLastName" promptText="Last name" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="PHONE" size="12" />
+                                          <Label text="Mobile" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="txtMobileNo" promptText="Mobile no" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="PHONE" size="12" />
+                                          <Label text="Alternate Mobile" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="txtAlternateMobileNo" promptText="Alternate mobile no" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="ENVELOPE" size="12" />
+                                          <Label text="Email" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="txtEmail" promptText="Email address" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+
+                  <!-- Address card -->
+                  <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.12), 8, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="16.0" left="18.0" right="18.0" top="14.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <FontAwesomeIcon fill="#00897B" glyphName="HOME" size="18" />
+                              <Label text="Address" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <GridPane hgap="14.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.4" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <VBox spacing="3.0">
+                                 <children>
+                                    <Label text="Address Line 1" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtAddress" promptText="Road / Flat no" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Label text="City / Village" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtCity" promptText="City or village" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <Label text="Taluka" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtTaluka" promptText="Taluka" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="District" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtDistrict" promptText="District" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="Pin" textFill="#37474F">
+                                       <font><Font name="System Bold" size="12.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="txtPin" promptText="6-digit Pin" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+
+                  <!-- Salary & Joining card -->
+                  <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.12), 8, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="16.0" left="18.0" right="18.0" top="14.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <FontAwesomeIcon fill="#5E35B1" glyphName="MONEY" size="18" />
+                              <Label text="Salary &amp; Joining" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <GridPane hgap="14.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.3" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" percentWidth="33.4" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <VBox spacing="3.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="CALENDAR" size="12" />
+                                          <Label text="Date Of Joining" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <DatePicker fx:id="dateOfJoin" maxWidth="Infinity" promptText="Date Of Joining" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="USERS" size="12" />
+                                          <Label text="Job Post" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <ComboBox fx:id="cmbJobPost" maxWidth="Infinity" promptText="Select Post" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="CALENDAR" size="12" />
+                                          <Label text="Salary Duration" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <ComboBox fx:id="cmbSalaryDuration" maxWidth="Infinity" promptText="Salary Duration" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="LIST" size="12" />
+                                          <Label text="Salary Type" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <ComboBox fx:id="cmbSalaryType" maxWidth="Infinity" onAction="#selectSalaryType" promptText="Salary Type" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="USD" size="12" />
+                                          <Label text="Salary" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="txtSalary" disable="true" promptText="Salary amount">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                                       <children>
+                                          <FontAwesomeIcon fill="#546E7A" glyphName="CALENDAR" size="12" />
+                                          <Label text="Date Of Exit" textFill="#37474F">
+                                             <font><Font name="System Bold" size="12.0" /></font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <DatePicker fx:id="dateOfExit" maxWidth="Infinity" promptText="Date Of Exit" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+
+                  <!-- Action bar -->
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <padding>
+                        <Insets top="2.0" />
+                     </padding>
+                     <children>
+                        <Button fx:id="btnSave" graphicTextGap="10.0" mnemonicParsing="false" onAction="#save" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #43A047; -fx-background-radius: 8; -fx-cursor: hand;" text="SAVE" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="18" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnEdit" graphicTextGap="10.0" mnemonicParsing="false" onAction="#edit" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #1976D2; -fx-background-radius: 8; -fx-cursor: hand;" text="EDIT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="18" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnClear" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #757575; -fx-background-radius: 8; -fx-cursor: hand;" text="CLEAR" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="ERASER" size="18" />
+                           </graphic>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnExit" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exit" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #E53935; -fx-background-radius: 8; -fx-cursor: hand;" text="EXIT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="18" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+
+                  <!-- Existing employees table card -->
+                  <VBox spacing="8.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(38,50,56,0.12), 8, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="14.0" left="14.0" right="14.0" top="12.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <FontAwesomeIcon fill="#37474F" glyphName="USERS" size="16" />
+                              <Label text="Existing Employees" textFill="#1A237E">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="table" prefHeight="260.0" stylesheets="@../css/table.css" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colSrNo" prefWidth="55.0" text="Sr.No" />
+                              <TableColumn fx:id="colName" prefWidth="200.0" text="Employee Name" />
+                              <TableColumn fx:id="colAddress" minWidth="120.0" prefWidth="200.0" text="Address" />
+                              <TableColumn fx:id="colMobileNo" prefWidth="120.0" text="Mobile No" />
+                              <TableColumn fx:id="colEmail" prefWidth="160.0" text="Email" />
+                              <TableColumn fx:id="colPost" prefWidth="110.0" text="Post" />
+                              <TableColumn fx:id="colSalaryType" prefWidth="110.0" text="Salary Type" />
+                              <TableColumn fx:id="colSalaryDuration" prefWidth="120.0" text="Salary Duration" />
+                              <TableColumn fx:id="colSalary" prefWidth="100.0" text="Salary" />
+                              <TableColumn fx:id="colDoj" prefWidth="100.0" text="DOJ" />
+                              <TableColumn fx:id="colDoe" prefWidth="100.0" text="DOE" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+
                </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-      <TitledPane animated="false" layoutX="20.0" layoutY="160.0" prefHeight="95.0" prefWidth="998.0" text="Address Details">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="7.0" layoutY="4.0" text="Address Line 1" />
-                  <Label layoutX="202.0" layoutY="6.0" text="City / Villae" />
-                  <Label layoutX="394.0" layoutY="6.0" text="Taluka" />
-                  <Label layoutX="592.0" layoutY="6.0" text="District" />
-                  <Label layoutX="805.0" layoutY="6.0" text="Pin" />
-                  <TextField fx:id="txtAddress" layoutX="6.0" layoutY="22.0" promptText="Road Name/FlatNo">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtCity" layoutX="201.0" layoutY="22.0" promptText="City or Village">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtTaluka" layoutX="395.0" layoutY="22.0" promptText="Taluka">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtDistrict" layoutX="591.0" layoutY="22.0" promptText="District">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtPin" layoutX="805.0" layoutY="21.0" promptText="Pin Code">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-      <TitledPane animated="false" layoutX="20.0" layoutY="259.0" prefHeight="95.0" prefWidth="997.0" text="Salary And Joining Details">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="958.0">
-               <children>
-                  <Label layoutX="4.0" layoutY="3.0" text="Date Of Joining" />
-                  <DatePicker fx:id="dateOfJoin" layoutX="3.0" layoutY="21.0" prefHeight="26.0" prefWidth="185.0" promptText="Date Of Joining" />
-                  <Label layoutX="204.0" layoutY="6.0" text="Job Post" />
-                  <ComboBox fx:id="cmbJobPost" layoutX="201.0" layoutY="23.0" prefWidth="150.0" promptText="Select Post" />
-                  <Label layoutX="359.0" layoutY="8.0" text="Salary Duration" />
-                  <ComboBox fx:id="cmbSalaryDuration" layoutX="361.0" layoutY="24.0" prefWidth="150.0" promptText="Salary Duration" />
-                  <ComboBox fx:id="cmbSalaryType" layoutX="526.0" layoutY="24.0" onAction="#selectSalaryType" prefWidth="150.0" promptText="Salary Type" />
-                  <Label layoutX="526.0" layoutY="8.0" text="Salary Type" />
-                  <Label layoutX="686.0" layoutY="8.0" text="Salary" />
-                  <TextField fx:id="txtSalary" disable="true" layoutX="683.0" layoutY="24.0" prefHeight="26.0" prefWidth="104.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextField>
-                  <Label layoutX="803.0" layoutY="8.0" text="Date Of Exit" />
-                  <DatePicker fx:id="dateOfExit" layoutX="800.0" layoutY="24.0" prefHeight="26.0" prefWidth="185.0" promptText="Date Of Exit" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-      <Button fx:id="btnSave" layoutX="20.0" layoutY="360.0" mnemonicParsing="false" onAction="#save" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #2196f3;" stylesheets="@../home/home.css" text="SAVE" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
-         </graphic>
-      </Button>
-      <Button fx:id="btnClear" layoutX="166.0" layoutY="360.0" mnemonicParsing="false" onAction="#clear" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #2196f3;" text="CLEAR" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
-         </graphic>
-      </Button>
-      <Button fx:id="btnEdit" layoutX="320.0" layoutY="360.0" mnemonicParsing="false" onAction="#edit" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #2196f3;" text="EDIT" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
-         </graphic>
-      </Button>
-      <Button fx:id="btnExit" layoutX="475.0" layoutY="360.0" mnemonicParsing="false" onAction="#exit" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #2196f3;" text="EXIT" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
-         </graphic>
-      </Button>
-      <TableView fx:id="table" layoutX="20.0" layoutY="400.0" prefHeight="224.0" prefWidth="998.0" style="-fx-background-color: #e3f2fd;" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="400.0">
-        <columns>
-          <TableColumn fx:id="colSrNo" prefWidth="47.0" text="Sr.No" />
-          <TableColumn fx:id="colName" prefWidth="213.0" text="Employee Name" />
-            <TableColumn fx:id="colAddress" minWidth="9.0" prefWidth="200.0" text="Address" />
-            <TableColumn fx:id="colMobileNo" minWidth="0.0" prefWidth="100.0" text="Mobile No" />
-            <TableColumn fx:id="colEmail" prefWidth="100.0" text="Email" />
-            <TableColumn fx:id="colPost" prefWidth="100.0" text="Post" />
-            <TableColumn fx:id="colSalaryType" prefWidth="100.0" text="Salary Type" />
-            <TableColumn fx:id="colSalaryDuration" prefWidth="100.0" text="Salary Duration" />
-            <TableColumn fx:id="colSalary" prefWidth="100.0" text="Salary" />
-            <TableColumn fx:id="colDoj" prefWidth="100.0" text="DOJ" />
-            <TableColumn fx:id="colDoe" prefWidth="100.0" text="DOE" />
-        </columns>
-      </TableView>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

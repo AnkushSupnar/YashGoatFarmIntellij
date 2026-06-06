@@ -1,4 +1,4 @@
-package main.java.hibernate;
+package main.java.main.java.hibernate;
 
 public class TestClass {
 

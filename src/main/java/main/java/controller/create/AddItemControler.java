@@ -2,6 +2,7 @@ package main.java.main.java.controller.create;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,8 +41,11 @@ public class AddItemControler implements Initializable {
     @FXML private Button btnUpdate;
     @FXML private Button btnClear;
     @FXML private Button btnExit;
+    @FXML private TextField txtSearchItem;
+    @FXML private Button btnClearSearch;
     private ItemService service;
     private ObservableList<Item> itemList = FXCollections.observableArrayList();
+    private FilteredList<Item> filteredItems;
     private int id;
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -55,7 +59,9 @@ public class AddItemControler implements Initializable {
 		colHsnCode.setCellValueFactory(new PropertyValueFactory<Item,String>("hsn"));
 		colLabour.setCellValueFactory(new PropertyValueFactory<Item,Float>("labourCharges"));
 		itemList.addAll(service.getAllItems());
-		table.setItems(itemList);
+		filteredItems = new FilteredList<>(itemList, i -> true);
+		txtSearchItem.textProperty().addListener((obs, oldV, newV) -> applySearchFilter(newV));
+		table.setItems(filteredItems);
 		
 		cmbUnit.getItems().add("Nos");
 		cmbUnit.getItems().add("KG");
@@ -77,6 +83,31 @@ public class AddItemControler implements Initializable {
 		
 		id=0;
 	}
+    private void applySearchFilter(String query) {
+    	String q = query == null ? "" : query.trim().toLowerCase();
+    	if (q.isEmpty()) {
+    		filteredItems.setPredicate(i -> true);
+    		return;
+    	}
+    	filteredItems.setPredicate(i -> {
+    		if (i == null) return false;
+    		StringBuilder sb = new StringBuilder();
+    		if (i.getItemname() != null) sb.append(' ').append(i.getItemname());
+    		if (i.getHsn() != null) sb.append(' ').append(i.getHsn());
+    		if (i.getUnit() != null) sb.append(' ').append(i.getUnit());
+    		if (i.getCommisionrate() != null) sb.append(' ').append(i.getCommisionrate());
+    		sb.append(' ').append(i.getRate());
+    		sb.append(' ').append(i.getCommision());
+    		sb.append(' ').append(i.getLabourCharges());
+    		return sb.toString().toLowerCase().contains(q);
+    	});
+    }
+
+    @FXML
+    void clearSearch(ActionEvent event) {
+    	txtSearchItem.setText("");
+    }
+
     @FXML
     void clear(ActionEvent event) {
     	clear();

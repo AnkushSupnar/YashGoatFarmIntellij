@@ -143,13 +143,16 @@ public class GenerateBill {
 			c1.setBorder(PdfPCell.RIGHT);
 			customer.addCell(c1);
 			
-			c1 = new PdfPCell(new Paragraph("GSTIN-        "));
+			String gst = bill.getCustomer().getGstno();
+			String pan = bill.getCustomer().getPanno();
+			c1 = new PdfPCell(new Paragraph("GSTIN- " + (gst == null || gst.isEmpty() || gst.equals("-") ? "" : gst)
+					+ "    PAN- " + (pan == null || pan.isEmpty() || pan.equals("-") ? "" : pan)));
 			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 			// c1.setBorder(0);
 			//c1.setBorder(PdfPCell.RIGHT);
 			//c1.setColspan(2);
 			customer.addCell(c1);
-			
+
 			c1 = new PdfPCell(new Paragraph("Transport-"));
 			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 			// c1.setBorder(0);

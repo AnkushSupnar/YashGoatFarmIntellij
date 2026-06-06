@@ -5,10 +5,13 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.BillPayment;
 
 import java.io.FileOutputStream;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WeeklySalesReportPrint {
     public static String filename = "D:\\Software\\Prints\\WeeklySalesReport.pdf";
@@ -105,7 +108,7 @@ public class WeeklySalesReportPrint {
             c1.setBorder(PdfPCell.BOX);
             data.addCell(c1);
 
-            c1 = new PdfPCell(new Paragraph(""+bill.getBank().getBankname(), smallfont));
+            c1 = new PdfPCell(new Paragraph(""+(bill.getRecievedby()==null?"":bill.getRecievedby()), smallfont));
             c1.setHorizontalAlignment(Element.ALIGN_LEFT);
             c1.setBorder(0);
             c1.setBorder(PdfPCell.BOX);
@@ -144,6 +147,70 @@ public class WeeklySalesReportPrint {
         data.addCell(c1);
 
         doc.add(data);
+        addBreakdown(doc);
+    }
+
+    private void addBreakdown(Document doc) throws DocumentException {
+        Map<String, Double> modeMap = new LinkedHashMap<>();
+        for (Bill bill : billList) {
+            if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
+                for (BillPayment p : bill.getPayments()) {
+                    if (p.getBank() == null) continue;
+                    modeMap.merge(p.getBank().getBankname(), (double) p.getAmount(), Double::sum);
+                }
+            } else if (bill.getBank() != null && bill.getRecivedamount() > 0) {
+                modeMap.merge(bill.getBank().getBankname(), (double) bill.getRecivedamount(), Double::sum);
+            }
+        }
+        if (modeMap.isEmpty()) return;
+
+        PdfPTable breakdown = new PdfPTable(2);
+        breakdown.setWidthPercentage(50);
+        breakdown.setHorizontalAlignment(Element.ALIGN_LEFT);
+        breakdown.setSpacingBefore(12f);
+        breakdown.setWidths(new float[]{60f, 40f});
+
+        PdfPCell title = new PdfPCell(new Paragraph("Payment Breakdown", smallBold));
+        title.setColspan(2);
+        title.setHorizontalAlignment(Element.ALIGN_CENTER);
+        title.setBorder(PdfPCell.BOX);
+        breakdown.addCell(title);
+
+        PdfPCell h1 = new PdfPCell(new Paragraph("Mode", smallBold));
+        h1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        h1.setBorder(PdfPCell.BOX);
+        breakdown.addCell(h1);
+
+        PdfPCell h2 = new PdfPCell(new Paragraph("Amount", smallBold));
+        h2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        h2.setBorder(PdfPCell.BOX);
+        breakdown.addCell(h2);
+
+        double total = 0;
+        for (Map.Entry<String, Double> e : modeMap.entrySet()) {
+            PdfPCell name = new PdfPCell(new Paragraph(e.getKey(), smallfont));
+            name.setHorizontalAlignment(Element.ALIGN_LEFT);
+            name.setBorder(PdfPCell.BOX);
+            breakdown.addCell(name);
+
+            PdfPCell amt = new PdfPCell(new Paragraph(String.format("%.2f", e.getValue()), smallfont));
+            amt.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            amt.setBorder(PdfPCell.BOX);
+            breakdown.addCell(amt);
+            total += e.getValue();
+        }
+
+        PdfPCell totLabel = new PdfPCell(new Paragraph("Total", smallBold));
+        totLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        totLabel.setBorder(PdfPCell.BOX);
+        breakdown.addCell(totLabel);
+
+        PdfPCell totAmt = new PdfPCell(new Paragraph(String.format("%.2f", total), smallBold));
+        totAmt.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        totAmt.setBorder(PdfPCell.BOX);
+        breakdown.addCell(totAmt);
+
+        doc.add(breakdown);
     }
 
     private void addHeader(PdfPTable data) {

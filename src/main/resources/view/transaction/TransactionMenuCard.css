@@ -1,4 +1,4 @@
-/* Modernised Create-Master menu cards. Palette aligned with Dashboard (#2262C6 -> #B4FE98). */
+/* Material-style cards for the Transaction Menu screen. */
 
 .root-bg {
     -fx-background-color: #ECEFF1;
@@ -28,12 +28,11 @@
     -fx-effect: dropshadow(gaussian, rgba(38, 50, 56, 0.35), 18, 0.0, 0, 8);
 }
 
-.card-employee { -fx-background-color: linear-gradient(to bottom right, #303F9F, #5C6BC0); }
-.card-user     { -fx-background-color: linear-gradient(to bottom right, #1565C0, #2196F3); }
-.card-customer { -fx-background-color: linear-gradient(to bottom right, #00796B, #26A69A); }
-.card-item     { -fx-background-color: linear-gradient(to bottom right, #4527A0, #7E57C2); }
-.card-party    { -fx-background-color: linear-gradient(to bottom right, #D84315, #FF7043); }
-.card-bank     { -fx-background-color: linear-gradient(to bottom right, #2E7D32, #66BB6A); }
+.card-billing  { -fx-background-color: linear-gradient(to bottom right, #303F9F, #5C6BC0); }
+.card-purchase { -fx-background-color: linear-gradient(to bottom right, #00796B, #26A69A); }
+.card-cutting  { -fx-background-color: linear-gradient(to bottom right, #D84315, #FF7043); }
+.card-counter  { -fx-background-color: linear-gradient(to bottom right, #2E7D32, #66BB6A); }
+.card-bank     { -fx-background-color: linear-gradient(to bottom right, #4527A0, #7E57C2); }
 
 .card-icon-bg {
     -fx-background-color: rgba(255, 255, 255, 0.18);

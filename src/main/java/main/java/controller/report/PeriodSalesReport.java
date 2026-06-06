@@ -1,5 +1,7 @@
 package main.java.main.java.controller.report;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import main.java.main.java.guiUtil.ViewUtil;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.BillPayment;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
@@ -19,6 +22,8 @@ import main.java.main.java.print.WeeklySalesReportPrint;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -42,8 +47,20 @@ public class PeriodSalesReport implements Initializable {
  @FXML private TextField txtBillAmount;
  @FXML private TextField txtTotalPaid;
  @FXML private TextField txtUnpaid;
- private ObservableList<Bill>billList =FXCollections.observableArrayList(); 
+ @FXML private TableView<ModeTotal> tableModeBreakdown;
+ @FXML private TableColumn<ModeTotal,String> colModeName;
+ @FXML private TableColumn<ModeTotal,Number> colModeAmount;
+ private ObservableList<Bill>billList =FXCollections.observableArrayList();
+ private ObservableList<ModeTotal> modeBreakdownList = FXCollections.observableArrayList();
  private BillService billService;
+
+	public static class ModeTotal {
+		private final String mode;
+		private final double amount;
+		public ModeTotal(String mode, double amount) { this.mode = mode; this.amount = amount; }
+		public String getMode() { return mode; }
+		public double getAmount() { return amount; }
+	}
  @Override
  public void initialize(URL location, ResourceBundle resources) {
 	 startDate.setValue(LocalDate.now());
@@ -57,6 +74,10 @@ public class PeriodSalesReport implements Initializable {
 		colBankName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedby"));
 		colSalesmanName.setCellValueFactory(new PropertyValueFactory<Bill,String>("recievedreff"));
 		table.setItems(billList);
+
+		colModeName.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getMode()));
+		colModeAmount.setCellValueFactory(p -> new SimpleDoubleProperty(p.getValue().getAmount()));
+		tableModeBreakdown.setItems(modeBreakdownList);
 
 		btnPrint.setOnAction(e->{
 			new WeeklySalesReportPrint(billList,startDate.getValue(),endDate.getValue());
@@ -88,29 +109,59 @@ void btnLoadAction(ActionEvent event) {
 		return;
 	}
 	billList.clear();
+	modeBreakdownList.clear();
 	int sr=0;
 	double totalAmount=0,totalPaid=0,totalUnpaid=0;
-	//billList.addAll(billService.getPeriodWiseBills(date.getValue().with(DayOfWeek.MONDAY),date.getValue().with(DayOfWeek.SUNDAY)));
+	Map<String, Double> modeMap = new LinkedHashMap<>();
 	billList.addAll(billService.getPeriodWiseBills(startDate.getValue(),endDate.getValue()));
 	for(int i=0;i<billList.size();i++)
 	{
-		
-		billList.get(i).setNettotal(
-				billList.get(i).getNettotal()+
-				billList.get(i).getOtherchargs()+
-				billList.get(i).getTransportingchrges());
-		billList.get(i).setOtherchargs((++sr));
-		billList.get(i).setRecievedby(billList.get(i).getBank().getBankname());
-		billList.get(i).setRecievedreff(billList.get(i).getEmployee().getFname()+" "+billList.get(i).getEmployee().getMname()+" "+billList.get(i).getEmployee().getLname());
-		totalAmount = totalAmount+billList.get(i).getNettotal();
-		totalPaid = totalPaid+billList.get(i).getRecivedamount();
-		
+		Bill b = billList.get(i);
+		accumulateModes(b, modeMap);
+		b.setNettotal(b.getNettotal()+b.getOtherchargs()+b.getTransportingchrges());
+		b.setOtherchargs((++sr));
+		b.setRecievedby(buildPaymentModesString(b));
+		b.setRecievedreff(b.getEmployee().getFname()+" "+b.getEmployee().getMname()+" "+b.getEmployee().getLname());
+		totalAmount = totalAmount+b.getNettotal();
+		totalPaid = totalPaid+b.getRecivedamount();
+	}
+	for (Map.Entry<String, Double> e : modeMap.entrySet()) {
+		modeBreakdownList.add(new ModeTotal(e.getKey(), e.getValue()));
 	}
 	totalUnpaid = totalAmount- totalPaid;
 	txtBillAmount.setText(""+totalAmount);
 	txtTotalPaid.setText(""+totalPaid);
 	txtUnpaid.setText(""+totalUnpaid);
  }
+
+	private void accumulateModes(Bill bill, Map<String, Double> modeMap) {
+		if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
+			for (BillPayment p : bill.getPayments()) {
+				if (p.getBank() == null) continue;
+				modeMap.merge(p.getBank().getBankname(), (double) p.getAmount(), Double::sum);
+			}
+		} else if (bill.getBank() != null && bill.getRecivedamount() > 0) {
+			modeMap.merge(bill.getBank().getBankname(), (double) bill.getRecivedamount(), Double::sum);
+		}
+	}
+
+	private String buildPaymentModesString(Bill bill) {
+		if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			boolean first = true;
+			for (BillPayment p : bill.getPayments()) {
+				if (!first) sb.append(", ");
+				first = false;
+				String bn = p.getBank() != null ? p.getBank().getBankname() : "-";
+				sb.append(bn).append(":").append(p.getAmount());
+			}
+			return sb.toString();
+		}
+		if (bill.getBank() != null && bill.getRecivedamount() > 0) {
+			return bill.getBank().getBankname() + ":" + bill.getRecivedamount();
+		}
+		return bill.getBank() != null ? bill.getBank().getBankname() : "";
+	}
 @FXML
 void btnPreviewAction(ActionEvent event) {
 	if(table.getSelectionModel().getSelectedItem()==null)
@@ -131,6 +182,7 @@ void btnResetAction(ActionEvent event) {
 	txtTotalPaid.setText("");
 	txtUnpaid.setText("");
 	billList.clear();
+	modeBreakdownList.clear();
 	startDate.setValue(LocalDate.now());
 	endDate.setValue(LocalDate.now());
     }

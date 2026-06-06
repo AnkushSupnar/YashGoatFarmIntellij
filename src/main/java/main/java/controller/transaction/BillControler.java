@@ -78,7 +78,16 @@ public class BillControler implements Initializable{
     @FXML private TextField txtOtherChargs;
     @FXML private TextField txtGrandTotal;
     @FXML private TextField txtReivedAmount;
-  
+
+    @FXML private Button btnAddPayment;
+    @FXML private Button btnRemovePayment;
+    @FXML private TableView<BillPayment> tablePayments;
+    @FXML private TableColumn<BillPayment, String> colPayBank;
+    @FXML private TableColumn<BillPayment, String> colPayRef;
+    @FXML private TableColumn<BillPayment, Float> colPayAmount;
+    @FXML private TextField txtTotalRecieved;
+    @FXML private TextField txtBalanceDue;
+
     @FXML private TableView<Bill> tableOldBill;
     @FXML private TableColumn<Bill, Long> colBillNo;
     @FXML private TableColumn<Bill,String> colCustomerName;
@@ -96,7 +105,9 @@ public class BillControler implements Initializable{
    
     
     private ObservableList<Bill> oldBillList = FXCollections.observableArrayList();
-    
+
+    private ObservableList<BillPayment> paymentSplits = FXCollections.observableArrayList();
+
     private ObservableList<Transaction>trList = FXCollections.observableArrayList();
     private BillService billService;
     private CustomerService customerService;
@@ -112,6 +123,8 @@ public class BillControler implements Initializable{
     private AlertNotification notification;
 	private Login login;
 	private CustomerAdvancePaymentService advanceService;
+	private QuotationService quotationService;
+	private long sourceQuotationId = 0;
 	// private long billNo;
 
 	@Override
@@ -125,6 +138,7 @@ public class BillControler implements Initializable{
 		//itemStockService = new ItemStockServiceImpl();
 		counterStockDataService = new CounterStockDataServiceImpl();
 		advanceService = new CustomerAdvancePaymentServiceImpl();
+		quotationService = new QuotationServiceImpl();
 		notification = new AlertNotification();
 		// billNo = 0;
 		date.setValue(LocalDate.now());
@@ -161,6 +175,15 @@ public class BillControler implements Initializable{
 		cmbRecievedBy.getItems().add("By Vehicle");
 
 		cmbBankName.getItems().addAll(bankService.getAllBankNames());
+
+		colPayBank.setCellValueFactory(p -> new javafx.beans.property.SimpleStringProperty(
+				p.getValue().getBank() != null ? p.getValue().getBank().getBankname() : ""));
+		colPayRef.setCellValueFactory(p -> new javafx.beans.property.SimpleStringProperty(
+				p.getValue().getRefNo() != null ? p.getValue().getRefNo() : ""));
+		colPayAmount.setCellValueFactory(p -> new javafx.beans.property.SimpleObjectProperty<Float>(p.getValue().getAmount()));
+		tablePayments.setItems(paymentSplits);
+		paymentSplits.addListener((javafx.collections.ListChangeListener<BillPayment>) c -> refreshTotalReceived());
+
 		oldBillList.addAll(billService.getDateWiseBill(LocalDate.now()));
 		colBillNo.setCellValueFactory(new PropertyValueFactory<Bill, Long>("billno"));
 		colCustomerName.setCellValueFactory(new PropertyValueFactory<Bill, String>("recievedby"));
@@ -174,7 +197,57 @@ public class BillControler implements Initializable{
 		}
 		//salemanWiseOlBillList();
 		tableOldBill.setItems(oldBillList);
+
+		if (CommonData.billFromQuotationId != 0) {
+			long qid = CommonData.billFromQuotationId;
+			CommonData.billFromQuotationId = 0;
+			prefillFromQuotation(qid);
+		}
 	}
+
+	private void prefillFromQuotation(long quotationId) {
+		Quotation q = quotationService.getQuotationById(quotationId);
+		if (q == null) {
+			notification.showErrorMessage("Quotation not found: " + quotationId);
+			return;
+		}
+		if (q.isBilled()) {
+			notification.showErrorMessage("Bill is already generated for this quotation");
+			return;
+		}
+		sourceQuotationId = q.getId();
+		if (q.getCustomer() != null) {
+			String cname = (safeStr(q.getCustomer().getFname()) + " " + safeStr(q.getCustomer().getMname()) + " "
+					+ safeStr(q.getCustomer().getLname())).replaceAll(" +", " ").trim();
+			txtCustomerName.setText(cname);
+			searchCustomer(null);
+		}
+		if (q.getEmployee() != null) {
+			String ename = (safeStr(q.getEmployee().getFname()) + " " + safeStr(q.getEmployee().getMname()) + " "
+					+ safeStr(q.getEmployee().getLname())).replaceAll(" +", " ").trim();
+			if (cmbSalesman.getItems().contains(ename)) {
+				cmbSalesman.setValue(ename);
+			}
+		}
+		trList.clear();
+		float netSum = 0f;
+		if (q.getTransaction() != null) {
+			int sr = 1;
+			for (QuotationTransaction qt : q.getTransaction()) {
+				Transaction tr = new Transaction(qt.getItemname(), qt.getUnit(), qt.getRate(),
+						qt.getQuantity(), qt.getAmount(), null, 0f);
+				tr.setId(sr++);
+				trList.add(tr);
+				netSum += qt.getAmount();
+			}
+		}
+		txtNetTotal.setText("" + netSum);
+		txtTransoChrgs.setText("" + q.getTransportingchrges());
+		txtOtherChargs.setText("" + q.getOtherchargs());
+		txtGrandTotal.setText("" + (netSum + q.getTransportingchrges() + q.getOtherchargs()));
+	}
+
+	private static String safeStr(String s) { return s == null ? "" : s; }
 
 	@FXML
 	void customerNameAction(ActionEvent event) {
@@ -419,126 +492,182 @@ public class BillControler implements Initializable{
 	}
 
 	@FXML
+	void btnAddPaymentAction(ActionEvent event) {
+		if (cmbBankName.getValue() == null) {
+			notification.showErrorMessage("Select Bank/Mode for this payment!!!");
+			cmbBankName.requestFocus();
+			return;
+		}
+		if (!isNumber(txtReivedAmount.getText()) || Float.parseFloat(txtReivedAmount.getText()) <= 0) {
+			notification.showErrorMessage("Enter a valid Amount for this payment!!!");
+			txtReivedAmount.requestFocus();
+			return;
+		}
+		Bank bank = bankService.getBankByName(cmbBankName.getValue());
+		if (bank == null) {
+			notification.showErrorMessage("Bank not found!!!");
+			return;
+		}
+		float amount = Float.parseFloat(txtReivedAmount.getText());
+		float grandTotal = isNumber(txtGrandTotal.getText()) ? Float.parseFloat(txtGrandTotal.getText()) : 0f;
+		if (currentSplitsTotal() + amount > grandTotal + 0.001f) {
+			notification.showErrorMessage("Sum of payments cannot exceed Grand Total!!!");
+			return;
+		}
+		paymentSplits.add(new BillPayment(null, bank, amount, txtReffNo.getText(), date.getValue()));
+		cmbBankName.getSelectionModel().clearSelection();
+		txtReffNo.setText("");
+		txtReivedAmount.setText("");
+		cmbBankName.requestFocus();
+	}
+
+	@FXML
+	void btnRemovePaymentAction(ActionEvent event) {
+		BillPayment sel = tablePayments.getSelectionModel().getSelectedItem();
+		if (sel != null) paymentSplits.remove(sel);
+	}
+
+	private float currentSplitsTotal() {
+		float sum = 0f;
+		for (BillPayment p : paymentSplits) sum += p.getAmount();
+		return sum;
+	}
+
+	private void refreshTotalReceived() {
+		float total = currentSplitsTotal();
+		txtTotalRecieved.setText("" + total);
+		float grand = isNumber(txtGrandTotal.getText()) ? Float.parseFloat(txtGrandTotal.getText()) : 0f;
+		txtBalanceDue.setText("" + (grand - total));
+	}
+
+	private void autoAddPendingSplit() {
+		if (paymentSplits.isEmpty()
+				&& cmbBankName.getValue() != null
+				&& isNumber(txtReivedAmount.getText())
+				&& Float.parseFloat(txtReivedAmount.getText()) > 0) {
+			Bank bank = bankService.getBankByName(cmbBankName.getValue());
+			if (bank != null) {
+				paymentSplits.add(new BillPayment(null, bank, Float.parseFloat(txtReivedAmount.getText()),
+						txtReffNo.getText(), date.getValue()));
+			}
+		}
+	}
+
+	private void reverseOldPayments(Bill oldBill) {
+		java.util.Set<BillPayment> oldSplits = oldBill.getPayments();
+		if (oldSplits != null && !oldSplits.isEmpty()) {
+			for (BillPayment op : oldSplits) {
+				if (op.getBank() == null || op.getAmount() <= 0) continue;
+				BankTransaction bt = new BankTransaction();
+				bt.setCredit(op.getAmount());
+				bt.setBankid(op.getBank().getId());
+				bt.setDebit(0.0f);
+				bt.setParticulars("Edit Bill No " + oldBill.getBillno() + " (reverse split)");
+				bt.setReffid(oldBill.getBillno());
+				bt.setDate(date.getValue());
+				if (bankTrService.saveBankTransaction(bt) == 1) {
+					bankService.reduceBankBalance(op.getBank().getId(), op.getAmount());
+				}
+			}
+		} else if (oldBill.getRecivedamount() > 0 && oldBill.getBank() != null) {
+			BankTransaction bt = new BankTransaction();
+			bt.setCredit(oldBill.getRecivedamount());
+			bt.setBankid(oldBill.getBank().getId());
+			bt.setDebit(0.0f);
+			bt.setParticulars("Edit Bill No " + oldBill.getBillno());
+			bt.setReffid(oldBill.getBillno());
+			bt.setDate(date.getValue());
+			if (bankTrService.saveBankTransaction(bt) == 1) {
+				bankService.reduceBankBalance(oldBill.getBank().getId(), oldBill.getRecivedamount());
+			}
+		}
+	}
+
+	private void applyNewPayments(Bill bill) {
+		if (bill.getPayments() == null) return;
+		for (BillPayment p : bill.getPayments()) {
+			if (p.getBank() == null || p.getAmount() <= 0) continue;
+			BankTransaction bt = new BankTransaction(
+					"Bill " + bill.getBillno() + " " + p.getBank().getBankname()
+							+ (p.getRefNo() != null && !p.getRefNo().isEmpty() ? " Ref:" + p.getRefNo() : ""),
+					bill.getBillno(), 0.0f, p.getAmount(), p.getBank().getId(), date.getValue());
+			if (bankTrService.saveBankTransaction(bt) == 1) {
+				bankService.addBankBalance(p.getBank().getId(), p.getAmount());
+			}
+		}
+	}
+
+	@FXML
 	void btnSaveAction(ActionEvent event) {
+		autoAddPendingSplit();
 		if (validateData() != 1) {
 			return;
 		}
-		//btnSearch.fire();
+		float totalReceived = currentSplitsTotal();
+		Bank primaryBank = paymentSplits.isEmpty() ? null : paymentSplits.get(0).getBank();
+		String primaryRef = paymentSplits.isEmpty() ? "" : paymentSplits.get(0).getRefNo();
 
 		Bill bill = new Bill(customerService.getCustomerByName(txtCustomerName.getText()), date.getValue(),
 				Float.parseFloat(txtNetTotal.getText()), Float.parseFloat(txtTransoChrgs.getText()),
-				Float.parseFloat(txtOtherChargs.getText()), bankService.getBankByName(cmbBankName.getValue()),
-				cmbRecievedBy.getValue(), txtReffNo.getText(),
+				Float.parseFloat(txtOtherChargs.getText()), primaryBank,
+				cmbRecievedBy.getValue(), primaryRef,
 				employeeService.getEmployeeByName(cmbSalesman.getValue()), null,
-				Float.parseFloat(txtReivedAmount.getText()), 0.0f);
-        double advance = advanceService.getCustomerTotalAdvance(bill.getCustomer().getId())-billService.getWholeSaleBillAmount(bill.getCustomer().getId());
+				totalReceived, 0.0f);
 		bill.setBillno(Long.parseLong(txtBillNo.getText()));
 		for (Transaction tr : trList) {
 			tr.setBill(bill);
 			tr.setId(0);
 		}
 		bill.setTransaction(trList);
+
+		java.util.Set<BillPayment> splitsCopy = new java.util.LinkedHashSet<>();
+		for (BillPayment p : paymentSplits) {
+			splitsCopy.add(new BillPayment(bill, p.getBank(), p.getAmount(), p.getRefNo(), date.getValue()));
+		}
+		bill.setPayments(splitsCopy);
+
 		Bill oldBill = billService.getBillByBillno(bill.getBillno());
-		// Edit Bill Add Stock In StockMaster
 		if (oldBill != null) {
-			//add Stock in counter
 			for (Transaction tr : oldBill.getTransaction()) {
 				counterStockDataService.saveCounterStockdata(new CounterStockData(tr.getItemname(),tr.getQuantity(),tr.getUnit()));
-			if(advance>0)
-				advance+=oldBill.getRecivedamount();
 			}
-
-
-
-			if(Float.parseFloat(txtGrandTotal.getText())>=advance)
-            {
-                bill.setRecivedamount(Float.parseFloat(txtGrandTotal.getText()));
-            }
-			
-//			ItemStock stock;
-//			for (Transaction tr : oldBill.getTransaction()) {
-//				stock = itemStockService.getItemStockByItemName(tr.getItemname());
-//				
-//				stock.setQuantity(tr.getQuantity());
-//				itemStockService.saveItemStock(stock);
-//				System.out.println("Stock Added" + stock.getQuantity());
-//				stock = null;
-//			}
-//			
-			
+			reverseOldPayments(oldBill);
 		}
-		BankTransaction banktr = new BankTransaction("Add Bill Amount BillNo " + bill.getBillno(), bill.getBillno(),
-				bill.getRecivedamount(), 0.0f, bill.getBank().getId(), date.getValue());
-		int flag = billService.saveBill(bill);
-		if (flag == 1) {
-			if(Float.parseFloat(txtGrandTotal.getText())>=advance)
-			{
-				bill.setRecivedamount(Float.parseFloat(txtGrandTotal.getText()));
 
-			int f = bankTrService.saveBankTransaction(banktr);
-			if (f == 1) {
-				bankService.addBankBalance(bill.getBank().getId(), bill.getRecivedamount());
-			}
-			}
+		int flag = billService.saveBill(bill);
+		if (flag == 1 || flag == 2) {
+			applyNewPayments(bill);
 			reduceStock(bill.getTransaction());
-			notification.showSuccessMessage( "Bill saved Success");
+			if (sourceQuotationId != 0) {
+				quotationService.markBilled(sourceQuotationId);
+				sourceQuotationId = 0;
+			}
 			showPrintBillConfirmation(bill.getBillno());
 			showPrintCouriorConfirmation(bill);
-			// new BillPrint(bill.getBillno());
-			// new PrintFile("D:\\Software\\Prints\\bill.pdf");
 
 			bill.setNettotal(bill.getNettotal() + bill.getTransportingchrges() + bill.getOtherchargs());
 			bill.setRecievedby(bill.getCustomer().getFname() + " " + bill.getCustomer().getMname() + " "
 					+ bill.getCustomer().getLname());
 
-			oldBillList.add(bill);
-			// btnTodaysBills.fire();
-			new GetBackup("D:\\Software\\Backup\\");
-			clearBill();
-		}
-		if (flag == 2) {
-			if (oldBill != null) {
-				BankTransaction bt = new BankTransaction();
-				bt.setCredit(oldBill.getRecivedamount());
-				bt.setBankid(oldBill.getBank().getId());
-				bt.setDebit(0.0f);
-				bt.setParticulars("Edit Bill No " + oldBill.getBillno());
-				bt.setReffid(oldBill.getBillno());
-				bt.setDate(date.getValue());
-				int f = bankTrService.saveBankTransaction(bt);
-				if (f == 1)
-					bankService.reduceBankBalance(oldBill.getBank().getId(), oldBill.getRecivedamount());
-
-			}
-
-			int f = bankTrService.saveBankTransaction(banktr);
-			if (f == 1) {
-				bankService.addBankBalance(bill.getBank().getId(), bill.getRecivedamount());
-			}
-			reduceStock(bill.getTransaction());
-			showPrintBillConfirmation(bill.getBillno());
-			showPrintCouriorConfirmation(bill);
-			int index = -1;
-			for (int i = 0; i < oldBillList.size(); i++) {
-				if (oldBillList.get(i).getBillno() == bill.getBillno()) {
-					index = i;
-					break;
+			if (flag == 1) {
+				oldBillList.add(bill);
+				notification.showSuccessMessage("Bill saved Success");
+			} else {
+				int index = -1;
+				for (int i = 0; i < oldBillList.size(); i++) {
+					if (oldBillList.get(i).getBillno() == bill.getBillno()) {
+						index = i;
+						break;
+					}
 				}
+				if (index != -1) {
+					oldBillList.remove(index);
+					oldBillList.add(index, bill);
+				}
+				notification.showSuccessMessage("Bill Update Success");
 			}
-			// btnTodaysBills.fire();
-			if (index != -1) {
-				bill.setNettotal(bill.getNettotal() + bill.getTransportingchrges() + bill.getOtherchargs());
-				bill.setRecievedby(bill.getCustomer().getFname() + " " + bill.getCustomer().getMname() + " "
-						+ bill.getCustomer().getLname());
-				oldBillList.remove(index);
-				oldBillList.add(index, bill);
-			}
-			notification.showSuccessMessage("Bill Update Success");
-
+			new GetBackup("D:\\Software\\Backup\\");
 			clearBill();
-
-			new GetBackup("D:\\Software\\Backup\\");
-			new GetBackup("D:\\Software\\Backup\\");
 		}
 	}
 
@@ -598,7 +727,7 @@ public class BillControler implements Initializable{
 	void btnPrintAction(ActionEvent event) {
 		if (tableOldBill.getSelectionModel().getSelectedItem() != null) {
 			new GenerateBill(tableOldBill.getSelectionModel().getSelectedItem().getBillno());
-			new PrintFile("D:\\Software\\Prints\\bill.pdf");
+			new PrintFile().openFile("D:\\Software\\Prints\\bill.pdf");
 		}
 	}
 
@@ -632,9 +761,20 @@ public class BillControler implements Initializable{
 			txtOtherChargs.setText("" + bill.getOtherchargs());
 			txtGrandTotal.setText("" + (bill.getNettotal() + bill.getOtherchargs() + bill.getTransportingchrges()));
 			cmbRecievedBy.setValue(bill.getRecievedby());
-			txtReffNo.setText(bill.getRecievedreff());
-			cmbBankName.setValue(bill.getBank().getBankname());
-			txtReivedAmount.setText("" + bill.getRecivedamount());
+			txtReffNo.setText("");
+			cmbBankName.getSelectionModel().clearSelection();
+			txtReivedAmount.setText("");
+
+			paymentSplits.clear();
+			if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
+				for (BillPayment p : bill.getPayments()) {
+					paymentSplits.add(new BillPayment(null, p.getBank(), p.getAmount(), p.getRefNo(), p.getDate()));
+				}
+			} else if (bill.getRecivedamount() > 0 && bill.getBank() != null) {
+				paymentSplits.add(new BillPayment(null, bill.getBank(), bill.getRecivedamount(),
+						bill.getRecievedreff(), bill.getDate()));
+			}
+			refreshTotalReceived();
 		}
 	}
 
@@ -790,24 +930,13 @@ public class BillControler implements Initializable{
 				cmbRecievedBy.requestFocus();
 				return 0;
 			}
-			if (txtReffNo.getText().equals("")) {
-				notification.showErrorMessage("Enter reference!!!");
-				txtReffNo.requestFocus();
-				return 0;
-			}
-			if (cmbBankName.getValue() == null) {
-				notification.showErrorMessage("Select Payment recived Bank!!!");
+			if (paymentSplits.isEmpty()) {
+				notification.showErrorMessage("Add at least one payment (Bank, Amount)!!!");
 				cmbBankName.requestFocus();
 				return 0;
 			}
-			if (txtReivedAmount.getText().equals("")) {
-				notification.showErrorMessage("Enter Recived Amount!!!");
-				txtReivedAmount.requestFocus();
-				return 0;
-			}
-			if (Float.parseFloat(txtReivedAmount.getText()) > Float.parseFloat(txtGrandTotal.getText())) {
-				notification.showErrorMessage("Recived Amount should be \nless than or equal Grand Total!!!");
-				txtReivedAmount.requestFocus();
+			if (currentSplitsTotal() > Float.parseFloat(txtGrandTotal.getText()) + 0.001f) {
+				notification.showErrorMessage("Total Received cannot exceed Grand Total!!!");
 				return 0;
 			}
 
@@ -840,6 +969,10 @@ public class BillControler implements Initializable{
 		txtReivedAmount.setText("");
 		cmbRecievedBy.getSelectionModel().clearSelection();
 		cmbBankName.getSelectionModel().clearSelection();
+		paymentSplits.clear();
+		txtTotalRecieved.setText("0.0");
+		txtBalanceDue.setText("0.0");
+		sourceQuotationId = 0;
 	}
 
 	private void showPrintBillConfirmation(long billno) {
@@ -855,7 +988,7 @@ public class BillControler implements Initializable{
 			// new BillPrint(billno);
 			try {
 				new GenerateBill(billno);
-				new PrintFile("D:\\Software\\Prints\\bill.pdf");
+				new PrintFile().openFile("D:\\Software\\Prints\\bill.pdf");
 			} catch (Exception e) {
 				notification.showErrorMessage( e.getMessage());
 			}

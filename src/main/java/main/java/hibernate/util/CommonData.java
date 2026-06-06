@@ -20,6 +20,7 @@ public class CommonData {
 	public static LocalDate dashboardDateTo = LocalDate.now();
 	public static long previewBillNo;
 	public static long previewInvoiceno;
+	public static long billFromQuotationId;
 	private static ItemService itemService = new ItemServiceImpl();
 	private static ItemStockService stockService = new ItemStockServiceImpl();
 	public static ObservableList<String> stockItemNames = FXCollections.observableArrayList();

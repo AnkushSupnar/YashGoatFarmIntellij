@@ -195,4 +195,13 @@ public class TransactionMenuControler implements Initializable {
 
 	    }
 
+	@FXML
+	void openQuotation(ActionEvent event) {
+		pane = (BorderPane) transactionMenuPanel.getParent();
+		if (billing != null) billing.setVisible(false);
+		cuttingOrder = viewUtil.getPage("transaction/QuotationFrame");
+		pane.setCenter(cuttingOrder);
+		cuttingOrder.setVisible(true);
+	}
+
 }

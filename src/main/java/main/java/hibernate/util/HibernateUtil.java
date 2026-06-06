@@ -20,7 +20,7 @@ public class HibernateUtil {
 			try {
 				Configuration configuration = new Configuration();
 				Properties setting = new Properties();
-				FileReader read = new FileReader("D:\\Software\\yash2022.properties");
+				FileReader read = new FileReader("D:\\Software\\yash2026.properties");
 				setting.load(read);
 				System.out.println(setting);
 				setting.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
@@ -72,10 +72,13 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(AdvancePayment.class);
 				configuration.addAnnotatedClass(CustomerAdvancePayment.class);
 				configuration.addAnnotatedClass(BankTransfer.class);
+				configuration.addAnnotatedClass(Quotation.class);
+				configuration.addAnnotatedClass(QuotationTransaction.class);
+				configuration.addAnnotatedClass(BillPayment.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
-				System.out.println("java hibernate config service registry created from File:- "+"D:\\Software\\yash2022.properties");
+				System.out.println("java hibernate config service registry created from File:- "+"D:\\Software\\yash2026.properties");
 				System.out.println(serviceRegistry);
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 				return sessionFactory;

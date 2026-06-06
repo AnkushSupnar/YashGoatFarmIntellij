@@ -22,11 +22,14 @@ public class Customer {
 	String district;
 	String state;
 	int pin;
+	String gstno;
+	String panno;
 	public Customer() {
 		super();
 	}
 	public Customer(String fname, String mname, String lname, String mobileno, String altermobileno, String email,
-			String address, String city, String taluka, String district, String state, int pin) {
+			String address, String city, String taluka, String district, String state, int pin,
+			String gstno, String panno) {
 		super();
 		this.fname = fname;
 		this.mname = mname;
@@ -40,6 +43,8 @@ public class Customer {
 		this.district = district;
 		this.state = state;
 		this.pin = pin;
+		this.gstno = gstno;
+		this.panno = panno;
 	}
 	public int getId() {
 		return id;
@@ -119,18 +124,30 @@ public class Customer {
 	public void setPin(int pin) {
 		this.pin = pin;
 	}
+	public String getGstno() {
+		return gstno;
+	}
+	public void setGstno(String gstno) {
+		this.gstno = gstno;
+	}
+	public String getPanno() {
+		return panno;
+	}
+	public void setPanno(String panno) {
+		this.panno = panno;
+	}
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", fname=" + fname + ", mname=" + mname + ", lname=" + lname + ", mobileno="
 				+ mobileno + ", altermobileno=" + altermobileno + ", email=" + email + ", address=" + address
 				+ ", city=" + city + ", taluka=" + taluka + ", district=" + district + ", state=" + state + ", pin="
-				+ pin + "]";
+				+ pin + ", gstno=" + gstno + ", panno=" + panno + "]";
 	}
 	public String toString2() {
 		return  id + "|" + fname + "|" + mname + "|" + lname + "|"
 				+ mobileno + "|" + altermobileno + "|" + email + "|" + address
 				+ "|" + city + "|" + taluka + "|" + district + "|" + state + "|"
-				+ pin;
+				+ pin + "|" + gstno + "|" + panno;
 	}
-	
+
 }

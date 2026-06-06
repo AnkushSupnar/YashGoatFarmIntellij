@@ -1,0 +1,117 @@
+/* Modern P&L report styling. Palette aligned with Dashboard (#2262C6 -> #B4FE98). */
+
+.pl-root {
+    -fx-background-color: #ECEFF1;
+}
+
+.pl-toolbar {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 12 14 12 14;
+    -fx-effect: dropshadow(gaussian, rgba(38, 50, 56, 0.18), 10, 0.0, 0, 3);
+}
+
+.pl-title {
+    -fx-text-fill: #1A237E;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.pl-subtitle {
+    -fx-text-fill: #546E7A;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 12px;
+}
+
+.pl-field-label {
+    -fx-text-fill: #37474F;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+.kpi-tile {
+    -fx-background-radius: 14;
+    -fx-padding: 14 18 14 18;
+    -fx-effect: dropshadow(gaussian, rgba(38, 50, 56, 0.22), 12, 0.0, 0, 4);
+}
+
+.kpi-revenue  { -fx-background-color: linear-gradient(to bottom right, #1565C0, #2196F3); }
+.kpi-cost     { -fx-background-color: linear-gradient(to bottom right, #AD1457, #EC407A); }
+.kpi-gross    { -fx-background-color: linear-gradient(to bottom right, #00796B, #26A69A); }
+.kpi-expense  { -fx-background-color: linear-gradient(to bottom right, #D84315, #FF7043); }
+.kpi-net-pos  { -fx-background-color: linear-gradient(to bottom right, #2E7D32, #66BB6A); }
+.kpi-net-neg  { -fx-background-color: linear-gradient(to bottom right, #B71C1C, #E53935); }
+.kpi-cash     { -fx-background-color: linear-gradient(to bottom right, #4527A0, #7E57C2); }
+.kpi-due      { -fx-background-color: linear-gradient(to bottom right, #E65100, #FFA726); }
+
+.kpi-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+.kpi-value {
+    -fx-text-fill: white;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.kpi-icon-bg {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-background-radius: 10;
+    -fx-padding: 6 8 6 8;
+}
+
+.pl-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 14;
+    -fx-effect: dropshadow(gaussian, rgba(38, 50, 56, 0.18), 10, 0.0, 0, 3);
+}
+
+.pl-section-title {
+    -fx-text-fill: #1A237E;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.pl-row-label {
+    -fx-text-fill: #37474F;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 13px;
+}
+
+.pl-row-value {
+    -fx-text-fill: #1A237E;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.pl-row-divider {
+    -fx-background-color: #CFD8DC;
+    -fx-min-height: 1;
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+.pl-row-total {
+    -fx-text-fill: white;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.pl-row-total-bar {
+    -fx-background-color: #1A237E;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+}
+
+.pl-row-total-bar-pos { -fx-background-color: #2E7D32; }
+.pl-row-total-bar-neg { -fx-background-color: #C62828; }

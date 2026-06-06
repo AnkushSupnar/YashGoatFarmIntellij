@@ -2,6 +2,7 @@ package main.java.main.java.controller.create;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +31,8 @@ public class AddCustomerControler implements Initializable {
 	    @FXML private TextField txtDistrict;
 	    @FXML private TextField txtState;
 	    @FXML private TextField txtPin;
+	    @FXML private TextField txtGstNo;
+	    @FXML private TextField txtPanNo;
 	    @FXML private Button btnSave;
 	    @FXML private TableView<Customer> table;
 	    @FXML private TableColumn<Customer, Integer> colId;
@@ -40,7 +43,10 @@ public class AddCustomerControler implements Initializable {
 	    @FXML private Button btnUpdate;
 	    @FXML private Button btnExit;
 		@FXML private Button btnLoadAll;
+	    @FXML private TextField txtSearchCustomer;
+	    @FXML private Button btnClearSearch;
 	    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
+	    private FilteredList<Customer> filteredCustomers;
 	    private CustomerService service;
 	    private int id;
 	    @Override
@@ -62,8 +68,44 @@ public class AddCustomerControler implements Initializable {
 		 });
 
 
-		table.setItems(customerList);
+		filteredCustomers = new FilteredList<>(customerList, c -> true);
+		txtSearchCustomer.textProperty().addListener((obs, oldV, newV) -> applySearchFilter(newV));
+		table.setItems(filteredCustomers);
 		}
+
+	    private void applySearchFilter(String query) {
+	    	String q = query == null ? "" : query.trim().toLowerCase();
+	    	if (q.isEmpty()) {
+	    		filteredCustomers.setPredicate(c -> true);
+	    		return;
+	    	}
+	    	filteredCustomers.setPredicate(c -> {
+	    		if (c == null) return false;
+	    		StringBuilder sb = new StringBuilder();
+	    		appendIfNotNull(sb, c.getFname());
+	    		appendIfNotNull(sb, c.getMname());
+	    		appendIfNotNull(sb, c.getLname());
+	    		appendIfNotNull(sb, c.getMobileno());
+	    		appendIfNotNull(sb, c.getAltermobileno());
+	    		appendIfNotNull(sb, c.getEmail());
+	    		appendIfNotNull(sb, c.getAddress());
+	    		appendIfNotNull(sb, c.getCity());
+	    		appendIfNotNull(sb, c.getTaluka());
+	    		appendIfNotNull(sb, c.getDistrict());
+	    		appendIfNotNull(sb, c.getState());
+	    		sb.append(' ').append(c.getPin());
+	    		return sb.toString().toLowerCase().contains(q);
+	    	});
+	    }
+
+	    private static void appendIfNotNull(StringBuilder sb, String value) {
+	    	if (value != null) sb.append(' ').append(value);
+	    }
+
+	    @FXML
+	    void clearSearch(ActionEvent event) {
+	    	txtSearchCustomer.setText("");
+	    }
 	    @FXML
 	    void clear(ActionEvent event) {
 	    	clear();
@@ -89,11 +131,13 @@ public class AddCustomerControler implements Initializable {
 						txtAlterMobile.getText().trim(),
 						txtEmail.getText().trim(),
 						txtAddress.getText().trim(),
-						txtCity.getText().trim(), 
+						txtCity.getText().trim(),
 						txtTaluka.getText().trim(),
 						txtDistrict.getText().trim(),
-						txtState.getText().trim(), 
-						Integer.parseInt(txtPin.getText().trim()));
+						txtState.getText().trim(),
+						Integer.parseInt(txtPin.getText().trim()),
+						txtGstNo.getText().trim(),
+						txtPanNo.getText().trim());
 				cust.setId(id);
 				int flag = service.saveCustomer(cust);
 				cust.setFname(cust.getFname()+" "+cust.getMname()+" "+cust.getLname());
@@ -153,6 +197,8 @@ public class AddCustomerControler implements Initializable {
 		    txtDistrict.setText(c.getDistrict());
 		    txtState.setText(c.getState());
 		    txtPin.setText(""+c.getPin());
+		    txtGstNo.setText(c.getGstno()==null?"":c.getGstno());
+		    txtPanNo.setText(c.getPanno()==null?"":c.getPanno());
 		    id=c.getId();
 	    	
 	    }
@@ -243,6 +289,8 @@ public class AddCustomerControler implements Initializable {
 		    txtDistrict.setText("");
 		    txtState.setText("");
 		    txtPin.setText("");
+		    txtGstNo.setText("");
+		    txtPanNo.setText("");
 		    id=0;
 	    }
 	    

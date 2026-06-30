@@ -24,6 +24,7 @@ import main.java.main.java.hibernate.service.service.CompanyService;
 import main.java.main.java.hibernate.service.service.QuotationService;
 import main.java.main.java.hibernate.service.serviceImpl.CompanyServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.QuotationServiceImpl;
+import main.java.main.java.hibernate.util.AppSettings;
 
 public class GenerateQuotation {
 
@@ -355,10 +356,30 @@ public class GenerateQuotation {
 		sc.setPadding(4);
 		sig.addCell(sc);
 
-		PdfPCell space = new PdfPCell(new Paragraph(" ", NORMAL));
-		space.setFixedHeight(40);
-		space.setBorder(PdfPCell.NO_BORDER);
-		sig.addCell(space);
+		PdfPCell space;
+		AppSettings.StampConfig stamp = AppSettings.loadStampConfig();
+		boolean stampDrawn = false;
+		if (stamp != null && stamp.isUsable()) {
+			try {
+				Image stampImg = Image.getInstance(stamp.imagePath);
+				stampImg.scaleAbsolute(stamp.widthPt, stamp.heightPt);
+				space = new PdfPCell(stampImg, false);
+				space.setHorizontalAlignment(Element.ALIGN_CENTER);
+				space.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				space.setFixedHeight(Math.max(40f, stamp.heightPt + 6f));
+				space.setBorder(PdfPCell.NO_BORDER);
+				space.setPadding(2);
+				sig.addCell(space);
+				stampDrawn = true;
+			} catch (Exception ignored) {
+			}
+		}
+		if (!stampDrawn) {
+			space = new PdfPCell(new Paragraph(" ", NORMAL));
+			space.setFixedHeight(40);
+			space.setBorder(PdfPCell.NO_BORDER);
+			sig.addCell(space);
+		}
 
 		Paragraph p2 = new Paragraph("Authorised Signatory", SMALL);
 		p2.setAlignment(Element.ALIGN_CENTER);

@@ -12,21 +12,29 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import main.java.main.java.guiUtil.ViewUtil;
+import main.java.main.java.hibernate.entities.Bank;
 import main.java.main.java.hibernate.entities.BankTransaction;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.PaymentReciept;
 import main.java.main.java.hibernate.service.service.BankService;
 import main.java.main.java.hibernate.service.service.BankTransactionService;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.CustomerService;
+import main.java.main.java.hibernate.service.service.PaymentRecieptService;
 import main.java.main.java.hibernate.service.serviceImpl.BankServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.BankTransactionServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.CustomerServiceImpl;
+import main.java.main.java.hibernate.service.serviceImpl.PaymentRecieptServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
+import main.java.main.java.print.PrintFile;
+import main.java.main.java.print.PrintPaymentReceipt;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerPaymentControler implements Initializable {
@@ -54,11 +62,13 @@ public class CustomerPaymentControler implements Initializable {
 	@FXML private Button btnPay;
 	@FXML private Button btnCalculate;
 	@FXML private Button btnReset;
+	@FXML private TextField txtRefNo;
 	private ObservableList<Bill>billList = FXCollections.observableArrayList();
 	private BillService billService;
 	private CustomerService customerService;
 	private BankService bankService;
 	private BankTransactionService bankTransactionService;
+	private PaymentRecieptService paymentRecieptService;
 	private SuggestionProvider<String> customerNameProvider;
     private ObservableList<String> customerNameList = FXCollections.observableArrayList();
     
@@ -68,6 +78,7 @@ public class CustomerPaymentControler implements Initializable {
 		bankService = new BankServiceImpl();
 		billService = new BillServiceImpl();
 		bankTransactionService = new BankTransactionServiceImpl();
+		paymentRecieptService = new PaymentRecieptServiceImpl();
 		
 		colSrNo.setCellValueFactory(new PropertyValueFactory<>("recievedby"));
 		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -85,6 +96,11 @@ public class CustomerPaymentControler implements Initializable {
 		customerNameProvider = SuggestionProvider.create(customerService.getAllCustomerNames());
 		new AutoCompletionTextFieldBinding<>(txtCustomerName, customerNameProvider);
 
+		if (CommonData.paymentCustomerName != null && !CommonData.paymentCustomerName.isEmpty()) {
+			txtCustomerName.setText(CommonData.paymentCustomerName);
+			CommonData.paymentCustomerName = null;
+			javafx.application.Platform.runLater(() -> btnShow.fire());
+		}
 	}
 	@FXML
 	void btnShowAction(ActionEvent event) {
@@ -222,29 +238,61 @@ public class CustomerPaymentControler implements Initializable {
 			cmbBankName.requestFocus();
 			return;
 		}
-		BankTransaction banktr=null;
-		int bankid = bankService.getBankByName(cmbBankName.getValue()).getId();
-		//Bill b=null;
+		Bank bank = bankService.getBankByName(cmbBankName.getValue());
+		int bankid = bank.getId();
+		String refNo = (txtRefNo != null && txtRefNo.getText() != null) ? txtRefNo.getText().trim() : "";
+		LocalDate today = LocalDate.now();
+
+		List<Long> settledBillNos = new ArrayList<>();
+		float totalSettled = 0f;
+
 		for(Bill bill:billList)
 		{
-			if(bill.getTransportingchrges()>0)
-			{
-				if(billService.updateReceivedAmount(bill)!=0) 
-				{
-					banktr = new BankTransaction();
-					banktr.setBankid(bankid);
-					banktr.setCredit(0);
-					banktr.setDebit(bill.getTransportingchrges());
-					banktr.setParticulars("Add Bill Amount BillNo "+bill.getBillno());
-					banktr.setReffid(bill.getBillno());
-					banktr.setDate(LocalDate.now());
-					bankTransactionService.saveBankTransaction(banktr);
-				}
+			float allocated = bill.getTransportingchrges();
+			if (allocated <= 0.001f) continue;
+			if (billService.addPaymentToBill(bill.getBillno(), bank, allocated, refNo, today) == 1) {
+				BankTransaction banktr = new BankTransaction();
+				banktr.setBankid(bankid);
+				banktr.setCredit(0);
+				banktr.setDebit(allocated);
+				banktr.setParticulars("Payment received against BillNo " + bill.getBillno()
+						+ (refNo.isEmpty() ? "" : " Ref:" + refNo));
+				banktr.setReffid(bill.getBillno());
+				banktr.setDate(today);
+				bankTransactionService.saveBankTransaction(banktr);
+				settledBillNos.add(bill.getBillno());
+				totalSettled += allocated;
 			}
-			//System.out.println("Bill to pay"+ bill.getBillno());
 		}
-		bankService.addBankBalance(bankid, Float.parseFloat(txtTodays.getText()));
-		new Alert(AlertType.INFORMATION,"Record Save Success").showAndWait();
+
+		if (totalSettled <= 0f) {
+			new Alert(AlertType.ERROR, "Nothing to pay. Enter Today's Received Amount first.").showAndWait();
+			return;
+		}
+
+		bankService.addBankBalance(bankid, totalSettled);
+
+		// Create a stand-alone PaymentReciept row for the printed receipt + history.
+		String billRefs = "Bills: " + settledBillNos.toString().replaceAll("[\\[\\]]", "");
+		String note = billRefs + (refNo.isEmpty() ? "" : " | Ref " + refNo);
+		PaymentReciept pr = new PaymentReciept(today, txtCustomerName.getText(), note, totalSettled, bank);
+		paymentRecieptService.savePaymentReciept(pr);
+
+		new Alert(AlertType.INFORMATION, "Payment Saved. Total Settled: " + totalSettled).showAndWait();
+
+		Alert printAsk = new Alert(AlertType.CONFIRMATION, "Print receipt?");
+		printAsk.setHeaderText("Payment Received");
+		printAsk.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+		Optional<ButtonType> ans = printAsk.showAndWait();
+		if (ans.isPresent() && ans.get() == ButtonType.YES) {
+			try {
+				new PrintPaymentReceipt(pr.getId());
+				new PrintFile().openFile(PrintPaymentReceipt.filename);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		btnReset.fire();
 	}
 
@@ -265,12 +313,14 @@ public class CustomerPaymentControler implements Initializable {
 
 	@FXML
 	void btnResetAction(ActionEvent event) {
-		
+
 		txtRemaining.setText("");
 		txtTodays.setText("");
 		txtTotalBillAmount.setText("");
 		txtTotalPaid.setText("");
 		txtTotalRemainig.setText("");
+		if (txtRefNo != null) txtRefNo.setText("");
+		txtCustomerName.setText("");
 		billList.clear();
 		cmbBankName.getSelectionModel().clearSelection();
 	}

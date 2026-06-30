@@ -2,6 +2,7 @@ package main.java.main.java.hibernate.service.serviceImpl;
 
 import main.java.main.java.hibernate.dao.dao.BillDao;
 import main.java.main.java.hibernate.dao.daoImpl.BillDaoImpl;
+import main.java.main.java.hibernate.entities.Bank;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.entities.Transaction;
 import main.java.main.java.hibernate.service.service.BillService;
@@ -87,6 +88,10 @@ public class BillServiceImpl implements BillService {
 	@Override
 	public int updateReceivedAmount(Bill bill) {
 		return dao.updateReceivedAmount(bill);
+	}
+	@Override
+	public int addPaymentToBill(long billno, Bank bank, float amount, String refNo, LocalDate date) {
+		return dao.addPaymentToBill(billno, bank, amount, refNo, date);
 	}
 	@Override
 	public List<Bill> getAllUnpaidBills() {

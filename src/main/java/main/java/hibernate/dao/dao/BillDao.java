@@ -1,5 +1,6 @@
 package main.java.main.java.hibernate.dao.dao;
 
+import main.java.main.java.hibernate.entities.Bank;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.entities.Transaction;
 
@@ -25,6 +26,7 @@ public interface BillDao {
 	public int updatePaidCommision(List<Bill>list);
 	public List<Bill>getUnpaidBills(int customer);
 	public int updateReceivedAmount(Bill bill);
+	public int addPaymentToBill(long billno, Bank bank, float amount, String refNo, LocalDate date);
 	public List<Bill>getAllUnpaidBills();
 	double getCustomerTotalPaidBillAmount(int customerId);
 	double getCustomerTotalBillAmount(int customerId);

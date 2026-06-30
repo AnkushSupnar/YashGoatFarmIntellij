@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.BillPayment;
 import main.java.main.java.hibernate.entities.Commision;
 import main.java.main.java.hibernate.entities.CommisionTransaction;
 import main.java.main.java.hibernate.entities.Employee;
@@ -95,10 +96,13 @@ public class CommisionReport {
 			c1.setBorder(PdfPCell.BOX);
 			outer.addCell(c1);
 			
-			c1 = new PdfPCell(transactionTable());
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			c1.setBorder(PdfPCell.BOX);
-			outer.addCell(c1);
+			PdfPTable txTable = transactionTable();
+			if (txTable != null) {
+				c1 = new PdfPCell(txTable);
+				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+				c1.setBorder(PdfPCell.BOX);
+				outer.addCell(c1);
+			}
 			doc.add(outer);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,14 +180,25 @@ public class CommisionReport {
 			tr.addCell(c1);
 			
 			
-			if(t.getBill().getBank().getBankname().equalsIgnoreCase("Cash Account"))
-			{
-				cash=bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges();
-				totalCash = totalCash+cash;
-			}
-			else {
-				bank = bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges();
-				totalBank = totalBank+bank;
+			if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
+				for (BillPayment p : bill.getPayments()) {
+					if (p.getBank() != null && p.getBank().getAccountno().equalsIgnoreCase("cash")) {
+						cash += p.getAmount();
+					} else {
+						bank += p.getAmount();
+					}
+				}
+				totalCash += cash;
+				totalBank += bank;
+			} else if (bill.getBank() != null) {
+				float total = bill.getNettotal() + bill.getOtherchargs() + bill.getTransportingchrges();
+				if (bill.getBank().getAccountno().equalsIgnoreCase("cash")) {
+					cash = total;
+					totalCash += cash;
+				} else {
+					bank = total;
+					totalBank += bank;
+				}
 			}
 			c1 = new PdfPCell(new Paragraph(""+cash));
 			c1.setHorizontalAlignment(Element.ALIGN_LEFT);

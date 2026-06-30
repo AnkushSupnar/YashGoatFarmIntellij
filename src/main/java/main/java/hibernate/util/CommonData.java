@@ -21,6 +21,7 @@ public class CommonData {
 	public static long previewBillNo;
 	public static long previewInvoiceno;
 	public static long billFromQuotationId;
+	public static String paymentCustomerName;
 	private static ItemService itemService = new ItemServiceImpl();
 	private static ItemStockService stockService = new ItemStockServiceImpl();
 	public static ObservableList<String> stockItemNames = FXCollections.observableArrayList();

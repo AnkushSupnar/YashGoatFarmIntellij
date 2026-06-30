@@ -110,8 +110,8 @@
             <TableColumn fx:id="colDebit" prefWidth="129.0" text="Debit" />
         </columns>
       </TableView>
-      <Label layoutX="14.0" layoutY="506.0" text="Total Credit" AnchorPane.bottomAnchor="42.0" />
-      <Label layoutX="154.0" layoutY="506.0" text="Total Debit" AnchorPane.bottomAnchor="42.0" />
+      <Label layoutX="14.0" layoutY="506.0" text="Total Debit" AnchorPane.bottomAnchor="42.0" />
+      <Label layoutX="154.0" layoutY="506.0" text="Total Credit" AnchorPane.bottomAnchor="42.0" />
       <Label layoutX="296.0" layoutY="506.0" text="Total Balance" AnchorPane.bottomAnchor="42.0" />
       <TextField fx:id="txtDebit" editable="false" layoutX="14.0" layoutY="523.0" prefHeight="30.0" prefWidth="120.0" text="0.0" AnchorPane.bottomAnchor="12.0">
          <font>

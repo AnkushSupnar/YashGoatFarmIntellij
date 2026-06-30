@@ -9,8 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import main.java.main.java.hibernate.entities.CounterStockData;
 import main.java.main.java.hibernate.entities.Item;
+import main.java.main.java.hibernate.service.service.CounterStockDataService;
 import main.java.main.java.hibernate.service.service.ItemService;
+import main.java.main.java.hibernate.service.serviceImpl.CounterStockDataServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
 
@@ -44,12 +47,14 @@ public class AddItemControler implements Initializable {
     @FXML private TextField txtSearchItem;
     @FXML private Button btnClearSearch;
     private ItemService service;
+    private CounterStockDataService counterStockDataService;
     private ObservableList<Item> itemList = FXCollections.observableArrayList();
     private FilteredList<Item> filteredItems;
     private int id;
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		service = new ItemServiceImpl();
+		counterStockDataService = new CounterStockDataServiceImpl();
 		colSrNo.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
 		colItemName.setCellValueFactory(new PropertyValueFactory<Item, String>("itemname"));
 		colUnit.setCellValueFactory(new PropertyValueFactory<Item, String>("unit"));
@@ -163,10 +168,14 @@ public class AddItemControler implements Initializable {
 			System.out.println("Item To Save==> "+item);
 			if(flag==1)
 			{
+				if (counterStockDataService.getItemNameWiseCounterStockData(item.getItemname()) == null) {
+					counterStockDataService.saveCounterStockdata(new CounterStockData(item.getItemname(), 0f, item.getUnit()));
+				}
+				CommonData.setStockItemNames();
 				new Alert(Alert.AlertType.INFORMATION,"Item Saved Success").showAndWait();
 				clear();
 				itemList.add(item);
-				
+
 			}
 			if(flag==2)
 			{

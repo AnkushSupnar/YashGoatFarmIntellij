@@ -38,13 +38,12 @@ public class GenerateBill {
 				billService = new BillServiceImpl();
 				itemService = new ItemServiceImpl();
 				bill = billService.getBillByBillno(billno);
-				bankService = new BankServiceImpl();
-				bank = bankService.getBankById(bill.getBank().getId());
-				
 				if(bill==null)
 				{
 					return;
 				}
+				bankService = new BankServiceImpl();
+				bank = bill.getBank() != null ? bankService.getBankById(bill.getBank().getId()) : null;
 				float left = 0;
 		        float right = 0;
 		        float top = 20;
@@ -76,7 +75,31 @@ public class GenerateBill {
 			// c1.setBorder(0);
 			// c1.setBorder(PdfPCell.NO_BORDER);
 			table.addCell(c1);
-			
+
+			// Payment status banner: green CASH if fully paid, red CREDIT/PARTIAL otherwise.
+			float billTotal = bill.getNettotal() + bill.getTransportingchrges() + bill.getOtherchargs();
+			float outstanding = billTotal - bill.getRecivedamount();
+			Font bannerFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.WHITE);
+			String bannerLabel;
+			BaseColor bannerColor;
+			if (outstanding <= 0.01f) {
+				bannerLabel = "CASH";
+				bannerColor = new BaseColor(46, 125, 50);
+			} else if (bill.getRecivedamount() <= 0.01f) {
+				bannerLabel = "CREDIT BILL";
+				bannerColor = new BaseColor(211, 47, 47);
+			} else {
+				bannerLabel = "PARTIAL / CREDIT BILL — Paid Rs. " + String.format("%.2f", bill.getRecivedamount())
+						+ "  |  Outstanding Rs. " + String.format("%.2f", outstanding);
+				bannerColor = new BaseColor(211, 47, 47);
+			}
+			PdfPCell bannerCell = new PdfPCell(new Paragraph(bannerLabel, bannerFont));
+			bannerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			bannerCell.setBackgroundColor(bannerColor);
+			bannerCell.setPadding(6);
+			bannerCell.setBorder(PdfPCell.BOX);
+			table.addCell(bannerCell);
+
 			//costomer Infor and bill no
 			PdfPTable customer = new PdfPTable(2);
 			//1
@@ -629,7 +652,7 @@ public class GenerateBill {
 		c1.setFixedHeight(15);
 		footer.addCell(c1);
 		
-		c1 = new PdfPCell(new Paragraph(bank.getIfsc(),smallfont));
+		c1 = new PdfPCell(new Paragraph(bank != null && bank.getIfsc() != null ? bank.getIfsc() : "-",smallfont));
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
 		c1.setBorder(PdfPCell.RIGHT);
 		c1.setFixedHeight(15);
@@ -646,7 +669,7 @@ public class GenerateBill {
 		c1.setFixedHeight(15);
 		footer.addCell(c1);
 		
-		c1 = new PdfPCell(new Paragraph(bank.getAccountno(),smallfont));
+		c1 = new PdfPCell(new Paragraph(bank != null && bank.getAccountno() != null ? bank.getAccountno() : "-",smallfont));
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
 		c1.setBorder(PdfPCell.RIGHT);
 		c1.setFixedHeight(15);
@@ -665,7 +688,7 @@ public class GenerateBill {
 		c1.setFixedHeight(15);
 		footer.addCell(c1);
 		
-		c1 = new PdfPCell(new Paragraph(bank.getBranch(),smallfont));
+		c1 = new PdfPCell(new Paragraph(bank != null && bank.getBranch() != null ? bank.getBranch() : "-",smallfont));
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
 		c1.setBorder(PdfPCell.RIGHT);
 		c1.setFixedHeight(15);

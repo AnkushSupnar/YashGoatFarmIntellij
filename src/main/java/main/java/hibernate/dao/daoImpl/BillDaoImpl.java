@@ -1,7 +1,9 @@
 package main.java.main.java.hibernate.dao.daoImpl;
 
 import main.java.main.java.hibernate.dao.dao.BillDao;
+import main.java.main.java.hibernate.entities.Bank;
 import main.java.main.java.hibernate.entities.Bill;
+import main.java.main.java.hibernate.entities.BillPayment;
 import main.java.main.java.hibernate.entities.Transaction;
 import main.java.main.java.hibernate.util.HibernateUtil;
 import org.hibernate.Session;
@@ -264,6 +266,28 @@ public class BillDaoImpl implements BillDao {
 			Query query = session.createQuery(hql).setParameter("amt", bill.getTransportingchrges()).
 						setParameter("no", bill.getBillno());
 				query.executeUpdate();
+			session.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	@Override
+	public int addPaymentToBill(long billno, Bank bank, float amount, String refNo, LocalDate date) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			session.beginTransaction();
+			Bill bill = session.get(Bill.class, billno);
+			if (bill == null) {
+				session.getTransaction().rollback();
+				return 0;
+			}
+			BillPayment p = new BillPayment(bill, bank, amount, refNo, date);
+			if (bill.getPayments() == null) bill.setPayments(new java.util.LinkedHashSet<>());
+			bill.getPayments().add(p);
+			bill.setRecivedamount(bill.getRecivedamount() + amount);
+			session.merge(bill);
 			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {

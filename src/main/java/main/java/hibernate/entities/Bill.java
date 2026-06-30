@@ -137,6 +137,21 @@ public class Bill {
 		this.payments = payments;
 	}
 
+	@Transient
+	public String getPaymentStatus() {
+		float total = nettotal + transportingchrges + otherchargs;
+		if (recivedamount >= total - 0.01f) return "PAID";
+		if (recivedamount <= 0.01f) return "UNPAID";
+		return "PARTIAL";
+	}
+
+	@Transient
+	public float getOutstanding() {
+		float total = nettotal + transportingchrges + otherchargs;
+		float out = total - recivedamount;
+		return out < 0 ? 0 : out;
+	}
+
 	public float getRecivedamount() {
 		return recivedamount;
 	}

@@ -94,6 +94,7 @@ public class CommisionControler implements Initializable {
 	    private BankService bankService;
 	    private CommisionService commisionService;
 	    private BankTransactionService bankTrService;
+	    private ItemService itemService;
 	    long id;
 	    private ObservableList<Bill> billList = FXCollections.observableArrayList();
 	    private ObservableList<Commision> commisionList = FXCollections.observableArrayList();
@@ -104,6 +105,7 @@ public class CommisionControler implements Initializable {
 			bankService = new BankServiceImpl();
 			bankTrService = new BankTransactionServiceImpl();
 			commisionService = new CommisionServiceImpl();
+			itemService = new ItemServiceImpl();
 			cmbSalesmanName.getItems().addAll(employeeService.getAllSalesmanNames());
 			colBillNo.setCellValueFactory(new PropertyValueFactory<Bill,Long>("billno"));
 			colDate.setCellValueFactory(new PropertyValueFactory<Bill,LocalDate>("date"));
@@ -540,16 +542,27 @@ public class CommisionControler implements Initializable {
 	   
 	    private float getBillCommision(Bill bill)
 	    {
-	    	System.out.println("Got To Check Commision "+bill.getBillno());
 	    	float commision=0.0f;
 	    	if(bill!=null)
 	    	{
 	    		for(Transaction tr:bill.getTransaction())
 	    		{
-	    			System.out.println(tr.getCommision());
-	    			commision = commision+tr.getCommision();
+	    			float trCom = tr.getCommision();
+	    			if(trCom == 0) {
+	    				Item item = itemService.getItemByName(tr.getItemname());
+	    				if(item != null) {
+	    					float com;
+	    					if("Percentage".equals(item.getCommisionrate())) {
+	    						float comrate = (item.getCommision() * 100 / item.getRate());
+	    						com = (comrate / 100) * tr.getRate();
+	    					} else {
+	    						com = item.getCommision();
+	    					}
+	    					trCom = com * tr.getQuantity();
+	    				}
+	    			}
+	    			commision += trCom;
 	    		}
-	    		
 	    	}
 	    	return commision;
 	    }
@@ -560,20 +573,13 @@ public class CommisionControler implements Initializable {
 	    	for(int i=0;i<billList.size();i++)
 	    	{
 	    		
-	    		
-	    		if(billList.get(i).getBank().getAccountno().equalsIgnoreCase("cash".trim())) {	 
-//	    			cash = cash+billList.get(i).getNettotal()+
-//	    					billList.get(i).getOtherchargs() +
-//	    					billList.get(i).getTransportingchrges() ;
+
+	    		if(billList.get(i).getBank() != null && billList.get(i).getBank().getAccountno().equalsIgnoreCase("cash")) {
 	    			cash = cash+billList.get(i).getRecivedamount();
 	    		}
-	    		else {
-//	    			bank = bank+billList.get(i).getNettotal()+
-//	    					billList.get(i).getOtherchargs() +
-//	    					billList.get(i).getTransportingchrges() ;
+	    		else if(billList.get(i).getBank() != null) {
 	    			bank = bank+billList.get(i).getRecivedamount();
 	    		}
-	    		
 	    		
 	    		tranp = tranp+billList.get(i).getTransportingchrges();
 	    		gtotal = billList.get(i).getNettotal()+

@@ -47,6 +47,14 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
+      <Button fx:id="btnReceivePayment" layoutX="613.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnReceivePaymentAction" prefHeight="25.0" style="-fx-background-color: #43A047;" text="RECEIVE PAYMENT" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="USD" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
       <TableView fx:id="table" layoutX="14.0" layoutY="82.0" prefHeight="332.0" prefWidth="809.0" stylesheets="@../css/table.css" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
         <columns>
           <TableColumn fx:id="colSrNo" prefWidth="58.0" text="Sr.No" />

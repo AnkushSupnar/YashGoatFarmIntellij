@@ -280,7 +280,9 @@ public class SalesmanItemSalesReportController implements Initializable {
 		txtAmount.setText("");
 		for(String name:itemService.getAllItemNames())
 		{
-			list.add(getItemWise(billList,name));
+			Transaction t = getItemWise(billList,name);
+			if(t.getQuantity() > 0)
+				list.add(t);
 		}
 
 	}catch(Exception e)

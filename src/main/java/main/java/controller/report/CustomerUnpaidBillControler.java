@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import main.java.main.java.guiUtil.ViewUtil;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.service.service.BillService;
@@ -34,6 +36,7 @@ public class CustomerUnpaidBillControler implements Initializable {
 	    @FXML private Button btnPreview;
 	    @FXML private Button btnReset;
 	    @FXML private Button btnBack;
+	    @FXML private Button btnReceivePayment;
 
 	    @FXML
 	    private TableView<Bill> table;
@@ -155,7 +158,33 @@ public class CustomerUnpaidBillControler implements Initializable {
 	    	txtTotalBillAmount.setText(""+totalAmount);
 	    	txtTotalPaidAmount.setText(""+paid);
 	    	txtTotalRemainigAmount.setText(""+unpaid);
-	    	
+
+	    }
+
+	    @FXML
+	    void btnReceivePaymentAction(ActionEvent event) {
+	    	if (txtCustomerName.getText() == null || txtCustomerName.getText().isEmpty()
+	    			|| customerService.getCustomerByName(txtCustomerName.getText()) == null) {
+	    		new Alert(AlertType.ERROR, "Select a customer first.").showAndWait();
+	    		txtCustomerName.requestFocus();
+	    		return;
+	    	}
+	    	CommonData.paymentCustomerName = txtCustomerName.getText();
+	    	if (mainFrame == null || !(mainFrame.getParent() instanceof BorderPane)) {
+	    		new Alert(AlertType.ERROR, "Cannot open Payment Received screen").showAndWait();
+	    		CommonData.paymentCustomerName = null;
+	    		return;
+	    	}
+	    	BorderPane parent = (BorderPane) mainFrame.getParent();
+	    	Pane payment = new ViewUtil().getPage("transaction/CustomerPayment");
+	    	if (payment == null) {
+	    		new Alert(AlertType.ERROR, "Cannot load Payment Received screen").showAndWait();
+	    		CommonData.paymentCustomerName = null;
+	    		return;
+	    	}
+	    	mainFrame.setVisible(false);
+	    	parent.setCenter(payment);
+	    	payment.setVisible(true);
 	    }
 
 }

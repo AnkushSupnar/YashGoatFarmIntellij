@@ -79,6 +79,10 @@ public class DashboardController implements Initializable {
     }
     @FXML
     void openSettings(ActionEvent event) {
+        System.out.println("============ SETTINGS BUTTON CLICKED ============");
+        Pane settingsPane = viewUtil.getPage("settings/SettingsMenu");
+        txtWindowTitle.setText("Settings");
+        mainPane.setCenter(settingsPane);
     }
     @FXML
     void openTransaction(ActionEvent event) {

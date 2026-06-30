@@ -234,8 +234,18 @@ public class BillControler implements Initializable{
 		if (q.getTransaction() != null) {
 			int sr = 1;
 			for (QuotationTransaction qt : q.getTransaction()) {
+				float com = 0f;
+				Item flagItem = itemService.getItemByName(qt.getItemname());
+				if (flagItem != null) {
+					if ("Percentage".equals(flagItem.getCommisionrate())) {
+						float comrate = (flagItem.getCommision() * 100 / flagItem.getRate());
+						com = (comrate / 100) * qt.getRate();
+					} else {
+						com = flagItem.getCommision();
+					}
+				}
 				Transaction tr = new Transaction(qt.getItemname(), qt.getUnit(), qt.getRate(),
-						qt.getQuantity(), qt.getAmount(), null, 0f);
+						qt.getQuantity(), qt.getAmount(), null, com * qt.getQuantity());
 				tr.setId(sr++);
 				trList.add(tr);
 				netSum += qt.getAmount();
@@ -537,7 +547,12 @@ public class BillControler implements Initializable{
 		float total = currentSplitsTotal();
 		txtTotalRecieved.setText("" + total);
 		float grand = isNumber(txtGrandTotal.getText()) ? Float.parseFloat(txtGrandTotal.getText()) : 0f;
-		txtBalanceDue.setText("" + (grand - total));
+		float balance = grand - total;
+		if (balance > 0.001f && grand > 0.001f) {
+			txtBalanceDue.setText("CREDIT " + balance);
+		} else {
+			txtBalanceDue.setText("" + balance);
+		}
 	}
 
 	private void autoAddPendingSplit() {
@@ -930,11 +945,7 @@ public class BillControler implements Initializable{
 				cmbRecievedBy.requestFocus();
 				return 0;
 			}
-			if (paymentSplits.isEmpty()) {
-				notification.showErrorMessage("Add at least one payment (Bank, Amount)!!!");
-				cmbBankName.requestFocus();
-				return 0;
-			}
+			// Credit bill: zero payments is allowed. The user will collect later via Payment Received.
 			if (currentSplitsTotal() > Float.parseFloat(txtGrandTotal.getText()) + 0.001f) {
 				notification.showErrorMessage("Total Received cannot exceed Grand Total!!!");
 				return 0;

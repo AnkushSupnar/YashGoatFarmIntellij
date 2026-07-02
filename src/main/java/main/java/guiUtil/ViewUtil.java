@@ -34,20 +34,18 @@ public class ViewUtil
     public Pane getPage(String fileName)
     {
         System.out.println("got to open "+fileName);
+        view = null;
         try {
             URL fileUrl = Main.class.getResource("/view/" + fileName + ".fxml");
-           // URL fileUrl = Main.class.getResource("/view/transaction/TransactionMenu.fxml");
-
             if(fileUrl==null)
             {
-                throw new java.io.FileNotFoundException("File Not Found!!!");
+                throw new java.io.FileNotFoundException("FXML not found on classpath: /view/" + fileName + ".fxml");
             }
-            new FXMLLoader();
             view = FXMLLoader.load(fileUrl);
-
-        } catch (Exception e) {
-            System.out.println("No Page "+fileName+" please Check fxmlLoader");
-            new Alert(Alert.AlertType.ERROR,"No Page "+fileName+" please Check fxmlLoader").showAndWait();
+            System.out.println("loaded OK: "+fileName);
+        } catch (Throwable e) {
+            System.out.println("ERROR loading page "+fileName+": "+e.getMessage());
+            new Alert(Alert.AlertType.ERROR,"No Page "+fileName+" please Check fxmlLoader\n"+e.getMessage()).showAndWait();
             e.printStackTrace();
         }
         return view;

@@ -37,100 +37,74 @@ public class TransactionMenuControler implements Initializable {
 		}
 	}
 
+	private void navigate(Pane page) {
+		if (page == null) return;
+		pane.setCenter(page);
+		page.setVisible(true);
+	}
+
 	@FXML
 	void openBilling(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (purchase != null)
-			purchase.setVisible(false);
+		if (purchase != null) purchase.setVisible(false);
 		billing = viewUtil.getPage("transaction/BillingFrame");
-		pane.setCenter(billing);
-		billing.setVisible(true);
+		navigate(billing);
 	}
 
 	@FXML
 	void openPurchaseBilling(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		purchase = viewUtil.getPage("transaction/PurchaseInviceFrame");
-		pane.setCenter(purchase);
-		purchase.setVisible(true);
+		navigate(purchase);
 	}
 
 	@FXML
 	void btnPaymentRecievedAction(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		paymentRecieved = viewUtil.getPage("transaction/CustomerPayment");
-		pane.setCenter(paymentRecieved);
-		paymentRecieved.setVisible(true);
+		navigate(paymentRecieved);
 	}
 
 	@FXML
 	void openViewAllBill(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		viewAllBills = viewUtil.getPage("report/ViewAllBills");
-		pane.setCenter(viewAllBills);
-		viewAllBills.setVisible(true);
+		navigate(viewAllBills);
 	}
 
 	@FXML
 	void btnPayInvoiceAction(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		payInvoice = viewUtil.getPage("transaction/PayPurchaseBills");
-		pane.setCenter(payInvoice);
-		payInvoice.setVisible(true);
+		navigate(payInvoice);
 	}
 
 	@FXML
 	void btnViewAllInvoicesAction(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		viewInvoices = viewUtil.getPage("report/ViewAllInvoices");
-		pane.setCenter(viewInvoices);
-		viewInvoices.setVisible(true);
+		navigate(viewInvoices);
 	}
 
 	@FXML
 	void openCuttingOrder(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("transaction/CuttingOrderFrame2");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
+		navigate(cuttingOrder);
 	}
 
 	@FXML
 	void btnViewCounterStock(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("report/viewcounterstock");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
-
+		navigate(cuttingOrder);
 	}
 
 	@FXML
@@ -140,68 +114,49 @@ public class TransactionMenuControler implements Initializable {
 			return;
 		}
 		pane = (BorderPane) transactionMenuPanel.getParent();
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("transaction/counterstock");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
+		navigate(cuttingOrder);
 	}
 
 	@FXML
 	void btnPaymentReceiptAction(ActionEvent event) {
-		pane=null;
 		pane = (BorderPane) transactionMenuPanel.getParent();
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("transaction/paymentreciept");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
+		navigate(cuttingOrder);
 	}
+
 	@FXML
 	void btnAdvancePayment(ActionEvent event) {
-		pane=null;
 		pane = (BorderPane) transactionMenuPanel.getParent();
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("transaction/advancepayment");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
+		navigate(cuttingOrder);
 	}
+
 	@FXML
-    void btnCustomerAdvancePayment(ActionEvent event) {
-		pane=null;
+	void btnCustomerAdvancePayment(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
-		if (billing != null)
-			billing.setVisible(false);
-
+		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("transaction/customeradvancepayment");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
+		navigate(cuttingOrder);
+	}
 
-    }
-	   @FXML
-	    void btnBankTransferAction(ActionEvent event) {
-		   pane=null;
-			pane = (BorderPane) transactionMenuPanel.getParent();
-			if (billing != null)
-				billing.setVisible(false);
-
-			cuttingOrder = viewUtil.getPage("transaction/bankmoneytransfer");
-			pane.setCenter(cuttingOrder);
-			cuttingOrder.setVisible(true);
-
-	    }
+	@FXML
+	void btnBankTransferAction(ActionEvent event) {
+		pane = (BorderPane) transactionMenuPanel.getParent();
+		if (billing != null) billing.setVisible(false);
+		cuttingOrder = viewUtil.getPage("transaction/bankmoneytransfer");
+		navigate(cuttingOrder);
+	}
 
 	@FXML
 	void openQuotation(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
 		if (billing != null) billing.setVisible(false);
 		cuttingOrder = viewUtil.getPage("transaction/QuotationFrame");
-		pane.setCenter(cuttingOrder);
-		cuttingOrder.setVisible(true);
+		navigate(cuttingOrder);
 	}
 
 }

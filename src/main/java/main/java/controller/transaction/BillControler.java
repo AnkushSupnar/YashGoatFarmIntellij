@@ -151,8 +151,9 @@ public class BillControler implements Initializable{
 		colAmount.setCellValueFactory(new PropertyValueFactory<Transaction, Float>("amount"));
 		table.setItems(trList);
 
-		customerNameList.addAll(customerService.getAllCustomerNames());
-		customerNameProvider = SuggestionProvider.create(customerService.getAllCustomerNames());
+		List<String> allCustomerNames = customerService.getAllCustomerNames();
+		if (allCustomerNames != null) customerNameList.addAll(allCustomerNames);
+		customerNameProvider = SuggestionProvider.create(allCustomerNames != null ? allCustomerNames : java.util.Collections.emptyList());
 		new AutoCompletionTextFieldBinding<>(txtCustomerName, customerNameProvider);
 		CommonData.setStockItemNames();
 		// itemNameList.addAll(CommonData.itemNames);
@@ -162,7 +163,8 @@ public class BillControler implements Initializable{
 		// cmbSalesman.getItems().addAll(employeeService.getAllSalesmanNames());
 		login = ViewUtil.login;
 		if (login.getId() == 1) {
-			cmbSalesman.getItems().addAll(employeeService.getAllSalesmanNames());
+			List<String> salesmanNames = employeeService.getAllSalesmanNames();
+			if (salesmanNames != null) cmbSalesman.getItems().addAll(salesmanNames);
 		} else {
 			cmbSalesman.getItems().add(login.getEmployee().getFname() + " " + login.getEmployee().getMname() + " "
 					+ login.getEmployee().getLname());
@@ -174,7 +176,8 @@ public class BillControler implements Initializable{
 		cmbRecievedBy.getItems().add("By Courier");
 		cmbRecievedBy.getItems().add("By Vehicle");
 
-		cmbBankName.getItems().addAll(bankService.getAllBankNames());
+		List<String> bankNames = bankService.getAllBankNames();
+		if (bankNames != null) cmbBankName.getItems().addAll(bankNames);
 
 		colPayBank.setCellValueFactory(p -> new javafx.beans.property.SimpleStringProperty(
 				p.getValue().getBank() != null ? p.getValue().getBank().getBankname() : ""));
@@ -184,7 +187,8 @@ public class BillControler implements Initializable{
 		tablePayments.setItems(paymentSplits);
 		paymentSplits.addListener((javafx.collections.ListChangeListener<BillPayment>) c -> refreshTotalReceived());
 
-		oldBillList.addAll(billService.getDateWiseBill(LocalDate.now()));
+		List<Bill> todaysBills = billService.getDateWiseBill(LocalDate.now());
+		if (todaysBills != null) oldBillList.addAll(todaysBills);
 		colBillNo.setCellValueFactory(new PropertyValueFactory<Bill, Long>("billno"));
 		colCustomerName.setCellValueFactory(new PropertyValueFactory<Bill, String>("recievedby"));
 		colDate.setCellValueFactory(new PropertyValueFactory<Bill, LocalDate>("date"));
@@ -192,8 +196,9 @@ public class BillControler implements Initializable{
 		colRecivedAmount.setCellValueFactory(new PropertyValueFactory<Bill, Float>("recivedamount"));
 		for (Bill b : oldBillList) {
 			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
+			if (b.getCustomer() != null) {
+				b.setRecievedby(b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
+			}
 		}
 		//salemanWiseOlBillList();
 		tableOldBill.setItems(oldBillList);

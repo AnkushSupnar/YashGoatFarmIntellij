@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="settingsMenuPanel" prefHeight="620.0" prefWidth="1080.0" styleClass="root-bg" stylesheets="@SettingsMenuCard.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.main.java.controller.settings.SettingsMenuControler">
+   <children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="menu-scroll" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="20.0">
+               <padding>
+                  <Insets bottom="28.0" left="32.0" right="32.0" top="28.0" />
+               </padding>
+               <children>
+                  <VBox spacing="4.0">
+                     <children>
+                        <Label styleClass="section-title" text="Settings" />
+                        <Label styleClass="section-subtitle" text="Configure stamp, signature and other app-wide preferences." />
+                     </children>
+                  </VBox>
+                  <FlowPane hgap="22.0" prefWrapLength="1000.0" vgap="22.0">
+                     <children>
+                        <VBox prefHeight="260.0" prefWidth="260.0" spacing="14.0" styleClass="card,card-stamp">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Stamp &amp; Signature" />
+                                          <Label styleClass="card-subtitle" text="For Quotation PDF" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openUploadStamp" styleClass="card-button" text="Upload Stamp">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_DOWNLOAD" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

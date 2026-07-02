@@ -34,8 +34,8 @@ public class CommonData {
 	public static void setStockItemNames()
 	{
 		stockItemNames.clear();
-		//stockItemNames.addAll(stockService.getItemNames());
-		stockItemNames.addAll(counterStockDataService.getAllCounterItemNames());
+		List<String> names = counterStockDataService.getAllCounterItemNames();
+		if (names != null) stockItemNames.addAll(names);
 	}
 	public static void setItemNames()
 	{

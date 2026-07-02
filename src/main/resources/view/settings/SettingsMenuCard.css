@@ -1,0 +1,79 @@
+.root-bg {
+    -fx-background-color: #ECEFF1;
+}
+
+.section-title {
+    -fx-text-fill: #1A237E;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.section-subtitle {
+    -fx-text-fill: #546E7A;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 13px;
+}
+
+.card {
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(38, 50, 56, 0.25), 14, 0.0, 0, 6);
+    -fx-cursor: default;
+}
+
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(38, 50, 56, 0.35), 18, 0.0, 0, 8);
+}
+
+.card-stamp { -fx-background-color: linear-gradient(to bottom right, #5E35B1, #7E57C2); }
+
+.card-icon-bg {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+}
+
+.card-title {
+    -fx-text-fill: white;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.card-subtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.78);
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 11px;
+}
+
+.card-divider {
+    -fx-background-color: rgba(255, 255, 255, 0.22);
+    -fx-min-height: 1;
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+.card-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "Roboto", "Segoe UI", "System";
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-alignment: center-left;
+    -fx-padding: 9 14 9 14;
+    -fx-background-radius: 10;
+    -fx-graphic-text-gap: 12;
+    -fx-cursor: hand;
+}
+
+.card-button:hover { -fx-background-color: rgba(255, 255, 255, 0.18); }
+.card-button:pressed { -fx-background-color: rgba(255, 255, 255, 0.32); }
+
+.menu-scroll { -fx-background-color: transparent; }
+.menu-scroll > .viewport { -fx-background-color: transparent; }
+.menu-scroll .scroll-bar:vertical .thumb,
+.menu-scroll .scroll-bar:horizontal .thumb {
+    -fx-background-color: #B0BEC5;
+    -fx-background-radius: 6;
+}

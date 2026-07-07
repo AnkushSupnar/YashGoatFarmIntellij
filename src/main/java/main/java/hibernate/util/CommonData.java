@@ -40,8 +40,8 @@ public class CommonData {
 	public static void setItemNames()
 	{
 		itemNames.clear();
-		itemNames.addAll(itemService.getAllItemNames());
-		
+		List<String> names = itemService.getAllItemNames();
+		if (names != null) itemNames.addAll(names);
 	}
 	
 }

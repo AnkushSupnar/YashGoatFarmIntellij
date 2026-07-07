@@ -155,10 +155,8 @@ public class BillControler implements Initializable{
 		if (allCustomerNames != null) customerNameList.addAll(allCustomerNames);
 		customerNameProvider = SuggestionProvider.create(allCustomerNames != null ? allCustomerNames : java.util.Collections.emptyList());
 		new AutoCompletionTextFieldBinding<>(txtCustomerName, customerNameProvider);
-		CommonData.setStockItemNames();
-		// itemNameList.addAll(CommonData.itemNames);
-		// TextFields.bindAutoCompletion(txtCustomerName, customerNameList);
-		TextFields.bindAutoCompletion(txtItemName, CommonData.stockItemNames);
+		CommonData.setItemNames();
+		TextFields.bindAutoCompletion(txtItemName, CommonData.itemNames);
 
 		// cmbSalesman.getItems().addAll(employeeService.getAllSalesmanNames());
 		login = ViewUtil.login;
@@ -311,7 +309,7 @@ public class BillControler implements Initializable{
 			txtItemName.requestFocus();
 			return;
 		}
-		if (!CommonData.stockItemNames.contains(txtItemName.getText())) {
+		if (!CommonData.itemNames.contains(txtItemName.getText())) {
 			return;
 		}
 		Item item = itemService.getItemByName(txtItemName.getText());

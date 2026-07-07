@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainPanel" prefHeight="780.0" prefWidth="1100.0"
+    style="-fx-background-color: #ECEFF1;"
+    stylesheets="@BillsDashboard.css"
+    xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/16"
+    fx:controller="main.java.main.java.controller.transaction.BillsDashboardControler">
+
+    <fx:define>
+        <ToggleGroup fx:id="filterGroup"/>
+    </fx:define>
+
+    <children>
+
+        <!-- ── HEADER BAR ─────────────────────────────────────────────── -->
+        <HBox alignment="CENTER_LEFT" prefHeight="56.0" spacing="12.0"
+              styleClass="header-bar"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding><Insets left="20.0" right="16.0"/></padding>
+            <FontAwesomeIcon fill="WHITE" glyphName="MONEY" size="22"/>
+            <Label styleClass="header-title" text="BILLING"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblCount"/>
+            <Button mnemonicParsing="false" onAction="#openNewBill"
+                    styleClass="btn-new-bill" text="  NEW BILL">
+                <graphic><FontAwesomeIcon glyphName="PLUS_CIRCLE" size="14"/></graphic>
+            </Button>
+        </HBox>
+
+        <!-- ── FILTER + SEARCH CARD ───────────────────────────────────── -->
+        <VBox spacing="0.0" styleClass="filter-card"
+              AnchorPane.topAnchor="64.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+
+            <!-- Quick filter row -->
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                <padding><Insets bottom="10.0" left="12.0" right="12.0" top="10.0"/></padding>
+                <FontAwesomeIcon fill="#546E7A" glyphName="FILTER" size="13"/>
+                <Label styleClass="filter-label" text="QUICK FILTER :"/>
+                <ToggleButton fx:id="btnToday" mnemonicParsing="false" onAction="#loadToday"
+                              selected="true" styleClass="filter-toggle" text=" TODAY"
+                              toggleGroup="$filterGroup">
+                    <graphic><FontAwesomeIcon glyphName="CALENDAR" size="11"/></graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="btnThisWeek" mnemonicParsing="false" onAction="#loadThisWeek"
+                              styleClass="filter-toggle" text=" THIS WEEK"
+                              toggleGroup="$filterGroup">
+                    <graphic><FontAwesomeIcon glyphName="CALENDAR_O" size="11"/></graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="btnThisMonth" mnemonicParsing="false" onAction="#loadThisMonth"
+                              styleClass="filter-toggle" text=" THIS MONTH"
+                              toggleGroup="$filterGroup">
+                    <graphic><FontAwesomeIcon glyphName="CALENDAR_PLUS_ALT" size="11"/></graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="btnAll" mnemonicParsing="false" onAction="#loadAll"
+                              styleClass="filter-toggle" text=" ALL BILLS"
+                              toggleGroup="$filterGroup">
+                    <graphic><FontAwesomeIcon glyphName="LIST" size="11"/></graphic>
+                </ToggleButton>
+            </HBox>
+
+            <Separator/>
+
+            <!-- Search row -->
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                <padding><Insets bottom="10.0" left="12.0" right="12.0" top="10.0"/></padding>
+                <FontAwesomeIcon fill="#757575" glyphName="SEARCH" size="13"/>
+                <TextField fx:id="txtSearchCustomer" prefWidth="200.0"
+                           promptText="Search by Customer..." styleClass="search-field"/>
+                <TextField fx:id="txtSearchBillNo" prefWidth="100.0"
+                           promptText="Bill No" styleClass="search-field"/>
+                <Label styleClass="filter-label" text="From :"/>
+                <DatePicker fx:id="dateFrom" prefWidth="145.0" promptText="From Date"/>
+                <Label styleClass="filter-label" text="To :"/>
+                <DatePicker fx:id="dateTo" prefWidth="145.0" promptText="To Date"/>
+                <Button mnemonicParsing="false" onAction="#searchByDateRange"
+                        styleClass="btn-search" text="  SEARCH">
+                    <graphic><FontAwesomeIcon glyphName="SEARCH" size="12"/></graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#resetSearch"
+                        styleClass="btn-reset" text="  RESET">
+                    <graphic><FontAwesomeIcon glyphName="REFRESH" size="12"/></graphic>
+                </Button>
+            </HBox>
+        </VBox>
+
+        <!-- ── BILLS TABLE CARD ───────────────────────────────────────── -->
+        <VBox styleClass="table-card"
+              AnchorPane.topAnchor="182.0" AnchorPane.bottomAnchor="52.0"
+              AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+            <TableView fx:id="table" styleClass="bills-table" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colBillNo"      prefWidth="80.0"  text="Bill No"/>
+                    <TableColumn fx:id="colDate"        prefWidth="110.0" text="Date"/>
+                    <TableColumn fx:id="colCustomer"    prefWidth="240.0" text="Customer"/>
+                    <TableColumn fx:id="colAmount"      prefWidth="120.0" text="Amount (₹)"/>
+                    <TableColumn fx:id="colPaid"        prefWidth="115.0" text="Paid (₹)"/>
+                    <TableColumn fx:id="colOutstanding" prefWidth="125.0" text="Outstanding (₹)"/>
+                    <TableColumn fx:id="colStatus"      prefWidth="90.0"  text="Status"/>
+                </columns>
+                <placeholder>
+                    <Label style="-fx-text-fill: #90A4AE; -fx-font-size: 14; -fx-font-style: italic;"
+                           text="No bills found for the selected filter"/>
+                </placeholder>
+            </TableView>
+        </VBox>
+
+        <!-- ── BOTTOM ACTION BAR ─────────────────────────────────────── -->
+        <HBox alignment="CENTER_LEFT" prefHeight="46.0" spacing="10.0" styleClass="action-bar"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <padding><Insets left="16.0" right="16.0"/></padding>
+            <Button mnemonicParsing="false" onAction="#previewBill"
+                    styleClass="btn-preview" text="  PREVIEW BILL">
+                <graphic><FontAwesomeIcon glyphName="EYE" size="14"/></graphic>
+            </Button>
+        </HBox>
+
+    </children>
+</AnchorPane>

@@ -20,6 +20,7 @@ public class HomeController implements Initializable {
     @FXML private HBox menuInventary;
     @FXML private HBox menuMaster;
     @FXML private HBox menuReport;
+    @FXML private HBox menuSettings;
     @FXML private HBox menuExit;
     @FXML private Text txtUserName;
     @FXML private Text txtTitle;
@@ -61,6 +62,15 @@ public class HomeController implements Initializable {
         menuDashboard.setOnMouseClicked(e->{
             centerPane = viewUtil.getPage("masterreport/DashboardReport");
             txtTitle.setText("Dashboard");
+            mainPane.setCenter(centerPane);
+        });
+        menuSettings.setOnMouseClicked(e->{
+            if (ViewUtil.login.getId() != 1) {
+                notify.showErrorMessage("You Are Not Authorised To See This Page");
+                return;
+            }
+            centerPane = viewUtil.getPage("settings/SettingsMenu");
+            txtTitle.setText("Settings");
             mainPane.setCenter(centerPane);
         });
     }

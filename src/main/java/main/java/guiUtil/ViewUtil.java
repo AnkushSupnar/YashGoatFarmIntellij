@@ -16,16 +16,30 @@ import main.java.main.java.hibernate.entities.Login;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ViewUtil
 {
     private Pane view;
     public static Login login;
 
+    private static final DateTimeFormatter LOG_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    private static String logPrefix() {
+        String ts   = LocalDateTime.now().format(LOG_FMT);
+        String user = (login != null && login.getUsername() != null) ? login.getUsername() : "unknown";
+        return "[" + ts + "] [user=" + user + "] ";
+    }
+
+    public static void log(String message) {
+        System.out.println(logPrefix() + message);
+    }
+
     public void changeWindow(ActionEvent event, String filename) throws IOException {
+        log("NAVIGATE => " + filename);
         URL fileUrl = Main.class.getResource("/view/" + filename + ".fxml");
         Parent parent = FXMLLoader.load(fileUrl);
-       // Parent parent = FXMLLoader.load(getClass().getResource("/resources/view/" + filename + ".fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setMaximized(true);
@@ -33,7 +47,7 @@ public class ViewUtil
 
     public Pane getPage(String fileName)
     {
-        System.out.println("got to open "+fileName);
+        log("OPEN => " + fileName);
         view = null;
         try {
             URL fileUrl = Main.class.getResource("/view/" + fileName + ".fxml");
@@ -42,9 +56,9 @@ public class ViewUtil
                 throw new java.io.FileNotFoundException("FXML not found on classpath: /view/" + fileName + ".fxml");
             }
             view = FXMLLoader.load(fileUrl);
-            System.out.println("loaded OK: "+fileName);
+            log("LOADED OK => " + fileName);
         } catch (Throwable e) {
-            System.out.println("ERROR loading page "+fileName+": "+e.getMessage());
+            log("ERROR => " + fileName + " : " + e.getMessage());
             new Alert(Alert.AlertType.ERROR,"No Page "+fileName+" please Check fxmlLoader\n"+e.getMessage()).showAndWait();
             e.printStackTrace();
         }

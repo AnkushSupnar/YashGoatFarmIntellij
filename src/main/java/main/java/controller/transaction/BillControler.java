@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -65,11 +66,11 @@ public class BillControler implements Initializable{
     @FXML private TableColumn<Transaction, Float> colQty;
     @FXML private TableColumn<Transaction, Float> colRate;
     @FXML private TableColumn<Transaction, Float> colAmount;
+    @FXML private Label lblMode;
     @FXML private Button btnSave;
     @FXML private Button btnClearBill;
     @FXML private Button btnExit;
     @FXML private Button btnPrint;
-    @FXML private Button btnEditBill;
     @FXML private ComboBox<String> cmbRecievedBy;
     @FXML private ComboBox<String> cmbBankName;
     @FXML private TextField txtReffNo;
@@ -87,24 +88,6 @@ public class BillControler implements Initializable{
     @FXML private TableColumn<BillPayment, Float> colPayAmount;
     @FXML private TextField txtTotalRecieved;
     @FXML private TextField txtBalanceDue;
-
-    @FXML private TableView<Bill> tableOldBill;
-    @FXML private TableColumn<Bill, Long> colBillNo;
-    @FXML private TableColumn<Bill,String> colCustomerName;
-    @FXML private TableColumn<Bill,LocalDate> colDate;
-    @FXML private TableColumn<Bill,Float> colBillAmount;
-    @FXML private TableColumn<Bill, Float> colRecivedAmount;
-    @FXML private Button btnTodaysBills;
-    @FXML private Button btnThisWeek;
-    @FXML private Button btnThisMonth;
-    @FXML private Button btnThisYear;
-    @FXML private Button btnAllBills;
-    @FXML private DatePicker dateSearch;
-    @FXML private TextField txtSearchBillNo;
-
-   
-    
-    private ObservableList<Bill> oldBillList = FXCollections.observableArrayList();
 
     private ObservableList<BillPayment> paymentSplits = FXCollections.observableArrayList();
 
@@ -187,26 +170,18 @@ public class BillControler implements Initializable{
 		tablePayments.setItems(paymentSplits);
 		paymentSplits.addListener((javafx.collections.ListChangeListener<BillPayment>) c -> refreshTotalReceived());
 
-		List<Bill> todaysBills = billService.getDateWiseBill(LocalDate.now());
-		if (todaysBills != null) oldBillList.addAll(todaysBills);
-		colBillNo.setCellValueFactory(new PropertyValueFactory<Bill, Long>("billno"));
-		colCustomerName.setCellValueFactory(new PropertyValueFactory<Bill, String>("recievedby"));
-		colDate.setCellValueFactory(new PropertyValueFactory<Bill, LocalDate>("date"));
-		colBillAmount.setCellValueFactory(new PropertyValueFactory<Bill, Float>("nettotal"));
-		colRecivedAmount.setCellValueFactory(new PropertyValueFactory<Bill, Float>("recivedamount"));
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			if (b.getCustomer() != null) {
-				b.setRecievedby(b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
+		if (CommonData.editBillNo != 0) {
+			long editId = CommonData.editBillNo;
+			CommonData.editBillNo = 0;
+			lblMode.setText("EDITING BILL #" + editId);
+			loadBillForEdit(editId);
+		} else {
+			lblMode.setText("NEW BILL");
+			if (CommonData.billFromQuotationId != 0) {
+				long qid = CommonData.billFromQuotationId;
+				CommonData.billFromQuotationId = 0;
+				prefillFromQuotation(qid);
 			}
-		}
-		//salemanWiseOlBillList();
-		tableOldBill.setItems(oldBillList);
-
-		if (CommonData.billFromQuotationId != 0) {
-			long qid = CommonData.billFromQuotationId;
-			CommonData.billFromQuotationId = 0;
-			prefillFromQuotation(qid);
 		}
 	}
 
@@ -665,27 +640,12 @@ public class BillControler implements Initializable{
 			showPrintBillConfirmation(bill.getBillno());
 			showPrintCouriorConfirmation(bill);
 
-			bill.setNettotal(bill.getNettotal() + bill.getTransportingchrges() + bill.getOtherchargs());
-			bill.setRecievedby(bill.getCustomer().getFname() + " " + bill.getCustomer().getMname() + " "
-					+ bill.getCustomer().getLname());
-
 			if (flag == 1) {
-				oldBillList.add(bill);
 				notification.showSuccessMessage("Bill saved Success");
 			} else {
-				int index = -1;
-				for (int i = 0; i < oldBillList.size(); i++) {
-					if (oldBillList.get(i).getBillno() == bill.getBillno()) {
-						index = i;
-						break;
-					}
-				}
-				if (index != -1) {
-					oldBillList.remove(index);
-					oldBillList.add(index, bill);
-				}
 				notification.showSuccessMessage("Bill Update Success");
 			}
+			lblMode.setText("NEW BILL");
 			new GetBackup("D:\\Software\\Backup\\");
 			clearBill();
 		}
@@ -718,7 +678,14 @@ public class BillControler implements Initializable{
 
 	@FXML
 	void btnExitAction(ActionEvent event) {
-		//System.out.println(mainPanel.getParent());
+		if (mainPanel.getParent() instanceof BorderPane) {
+			BorderPane homePane = (BorderPane) mainPanel.getParent();
+			Pane dashboard = new ViewUtil().getPage("transaction/BillsDashboard");
+			if (dashboard != null) {
+				homePane.setCenter(dashboard);
+				return;
+			}
+		}
 		mainPanel.setVisible(false);
 	}
 
@@ -745,114 +712,61 @@ public class BillControler implements Initializable{
 
 	@FXML
 	void btnPrintAction(ActionEvent event) {
-		if (tableOldBill.getSelectionModel().getSelectedItem() != null) {
-			new GenerateBill(tableOldBill.getSelectionModel().getSelectedItem().getBillno());
-			new PrintFile().openFile("D:\\Software\\Prints\\bill.pdf");
+		String billNoText = txtBillNo.getText();
+		if (billNoText == null || billNoText.isEmpty()) return;
+		try {
+			long billNo = Long.parseLong(billNoText);
+			if (billService.getBillByBillno(billNo) != null) {
+				new GenerateBill(billNo);
+				new PrintFile().openFile("D:\\Software\\Prints\\bill.pdf");
+			} else {
+				notification.showErrorMessage("Save the bill before printing");
+			}
+		} catch (NumberFormatException e) {
+			notification.showErrorMessage("Invalid bill number");
 		}
 	}
 
-	@FXML
-	void btnEditBillAction(ActionEvent event) {
-		if (tableOldBill.getSelectionModel().isEmpty()) {
+	private void loadBillForEdit(long billNo) {
+		Bill bill = billService.getBillByBillno(billNo);
+		if (bill == null) {
+			notification.showErrorMessage("Bill not found: " + billNo);
+			lblMode.setText("NEW BILL");
 			return;
 		}
-		Bill bill = billService.getBillByBillno(tableOldBill.getSelectionModel().getSelectedItem().getBillno());
-		if(login.getEmployee().getId()!=1)
-		{
-			if(bill.getEmployee().getId()!=login.getEmployee().getId())
-			{
+		if (login.getId() != 1) {
+			if (bill.getEmployee() == null || bill.getEmployee().getId() != login.getEmployee().getId()) {
 				notification.showErrorMessage("You are not Authorized to Edit This Bill !!!");
+				lblMode.setText("NEW BILL");
 				return;
 			}
 		}
-		
-		if (bill != null) {
-
-			txtBillNo.setText("" + bill.getBillno());
-			txtCustomerName.setText(bill.getCustomer().getFname() + " " + bill.getCustomer().getMname() + " "
-					+ bill.getCustomer().getLname());
-			btnSearch.fire();
-			cmbSalesman.setValue(bill.getEmployee().getFname() + " " + bill.getEmployee().getMname() + " "
-					+ bill.getEmployee().getLname());
-			trList.clear();
-			trList.addAll(bill.getTransaction());
-			txtNetTotal.setText("" + bill.getNettotal());
-			txtTransoChrgs.setText("" + bill.getTransportingchrges());
-			txtOtherChargs.setText("" + bill.getOtherchargs());
-			txtGrandTotal.setText("" + (bill.getNettotal() + bill.getOtherchargs() + bill.getTransportingchrges()));
-			cmbRecievedBy.setValue(bill.getRecievedby());
-			txtReffNo.setText("");
-			cmbBankName.getSelectionModel().clearSelection();
-			txtReivedAmount.setText("");
-
-			paymentSplits.clear();
-			if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
-				for (BillPayment p : bill.getPayments()) {
-					paymentSplits.add(new BillPayment(null, p.getBank(), p.getAmount(), p.getRefNo(), p.getDate()));
-				}
-			} else if (bill.getRecivedamount() > 0 && bill.getBank() != null) {
-				paymentSplits.add(new BillPayment(null, bill.getBank(), bill.getRecivedamount(),
-						bill.getRecievedreff(), bill.getDate()));
+		txtBillNo.setText("" + bill.getBillno());
+		txtCustomerName.setText(bill.getCustomer().getFname() + " " + bill.getCustomer().getMname() + " "
+				+ bill.getCustomer().getLname());
+		btnSearch.fire();
+		cmbSalesman.setValue(bill.getEmployee().getFname() + " " + bill.getEmployee().getMname() + " "
+				+ bill.getEmployee().getLname());
+		trList.clear();
+		trList.addAll(bill.getTransaction());
+		txtNetTotal.setText("" + bill.getNettotal());
+		txtTransoChrgs.setText("" + bill.getTransportingchrges());
+		txtOtherChargs.setText("" + bill.getOtherchargs());
+		txtGrandTotal.setText("" + (bill.getNettotal() + bill.getOtherchargs() + bill.getTransportingchrges()));
+		cmbRecievedBy.setValue(bill.getRecievedby());
+		txtReffNo.setText("");
+		cmbBankName.getSelectionModel().clearSelection();
+		txtReivedAmount.setText("");
+		paymentSplits.clear();
+		if (bill.getPayments() != null && !bill.getPayments().isEmpty()) {
+			for (BillPayment p : bill.getPayments()) {
+				paymentSplits.add(new BillPayment(null, p.getBank(), p.getAmount(), p.getRefNo(), p.getDate()));
 			}
-			refreshTotalReceived();
+		} else if (bill.getRecivedamount() > 0 && bill.getBank() != null) {
+			paymentSplits.add(new BillPayment(null, bill.getBank(), bill.getRecivedamount(),
+					bill.getRecievedreff(), bill.getDate()));
 		}
-	}
-
-	@FXML
-	void loadAllBills(ActionEvent event) {
-		oldBillList.clear();
-		oldBillList.addAll(billService.getAllBills());
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
-		}
-
-	}
-
-	@FXML
-	void loadThisMonthBills(ActionEvent event) {
-		oldBillList.clear();
-		oldBillList.addAll(billService.getMonthWiseBill(LocalDate.now()));
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
-		}
-
-	}
-
-	@FXML
-	void loadThisWeekBills(ActionEvent event) {
-		oldBillList.clear();
-		oldBillList.addAll(billService.getThisWeekBill());
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
-		}
-	}
-
-	@FXML
-	void loadThisYearBills(ActionEvent event) {
-		oldBillList.clear();
-		oldBillList.addAll(billService.getThisYearBill());
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
-		}
-	}
-
-	@FXML
-	void loadTodaysBills(ActionEvent event) {
-		oldBillList.clear();
-		oldBillList.addAll(billService.getDateWiseBill(LocalDate.now()));
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
-		}
+		refreshTotalReceived();
 	}
 
 	private boolean isNumber(String num) {
@@ -966,6 +880,7 @@ public class BillControler implements Initializable{
 	}
 
 	private void clearBill() {
+		lblMode.setText("NEW BILL");
 		txtBillNo.setText("" + billService.getNewBNillNo());
 		date.setValue(LocalDate.now());
 		txtCustomerName.setText("");
@@ -1030,46 +945,4 @@ public class BillControler implements Initializable{
 		}
 	}
 
-	@FXML
-	void dateSearchAction(ActionEvent event) {
-		if (dateSearch.getValue() == null) {
-			return;
-		}
-		oldBillList.clear();
-
-		oldBillList.addAll(billService.getDateWiseBill(dateSearch.getValue()));
-		for (Bill b : oldBillList) {
-			b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-			b.setRecievedby(
-					b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " " + b.getCustomer().getLname());
-		}
-		// new Alert(AlertType.INFORMATION,"dateAction").showAndWait();
-	}
-
-	@FXML
-	void txtSearchBillNo(ActionEvent event) {
-		try {
-			if (txtSearchBillNo.getText().equals("")) {
-				btnTodaysBills.fire();
-				return;
-			}
-			if (!isNumber(txtSearchBillNo.getText())) {
-				txtSearchBillNo.setText("");
-				return;
-			}
-
-			Bill b = billService.getBillByBillno(Long.parseLong(txtSearchBillNo.getText()));
-			if (b != null) {
-				oldBillList.clear();
-
-				b.setNettotal(b.getNettotal() + b.getTransportingchrges() + b.getOtherchargs());
-				b.setRecievedby(b.getCustomer().getFname() + " " + b.getCustomer().getMname() + " "
-						+ b.getCustomer().getLname());
-				oldBillList.add(b);
-			}
-		} catch (Exception e) {
-			notification.showErrorMessage("Error in Search Bill " + e.getMessage());
-		}
-	}
-	
 }

@@ -72,10 +72,10 @@ public class BillsDashboardControler implements Initializable {
         txtSearchCustomer.textProperty().addListener((obs, o, n) -> applyInMemoryFilter());
         txtSearchBillNo.textProperty().addListener((obs, o, n) -> applyInMemoryFilter());
 
-        // Double-click row to preview
+        // Double-click row to open for editing
         table.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2 && table.getSelectionModel().getSelectedItem() != null) {
-                doPreview();
+                openBillForEdit();
             }
         });
 
@@ -241,13 +241,31 @@ public class BillsDashboardControler implements Initializable {
     }
 
     @FXML void openNewBill(ActionEvent event) {
+        CommonData.editBillNo = 0;
         BorderPane bp = (BorderPane) mainPanel.getParent();
         if (bp == null) return;
         Pane billingFrame = new ViewUtil().getPage("transaction/BillingFrame");
         if (billingFrame != null) bp.setCenter(billingFrame);
     }
 
+    @FXML void editBill(ActionEvent event) {
+        openBillForEdit();
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────
+
+    private void openBillForEdit() {
+        Bill selected = table.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            notification.showErrorMessage("Please select a bill to edit");
+            return;
+        }
+        CommonData.editBillNo = selected.getBillno();
+        BorderPane bp = (BorderPane) mainPanel.getParent();
+        if (bp == null) return;
+        Pane billingFrame = new ViewUtil().getPage("transaction/BillingFrame");
+        if (billingFrame != null) bp.setCenter(billingFrame);
+    }
 
     private void doPreview() {
         Bill selected = table.getSelectionModel().getSelectedItem();

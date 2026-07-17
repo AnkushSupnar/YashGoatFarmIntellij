@@ -129,6 +129,10 @@
                     styleClass="btn-preview" text="  PREVIEW BILL">
                 <graphic><FontAwesomeIcon glyphName="EYE" size="14"/></graphic>
             </Button>
+            <Button mnemonicParsing="false" onAction="#editBill"
+                    styleClass="btn-edit-bill" text="  EDIT BILL">
+                <graphic><FontAwesomeIcon glyphName="PENCIL" size="14"/></graphic>
+            </Button>
         </HBox>
 
     </children>

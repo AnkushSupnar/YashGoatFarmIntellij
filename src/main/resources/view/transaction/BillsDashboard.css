@@ -189,6 +189,23 @@
     -fx-background-color: #311B92;
 }
 
+.btn-edit-bill {
+    -fx-background-color: #1565C0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-padding: 6 14 6 14;
+}
+
+.btn-edit-bill .glyph-icon {
+    -fx-fill: white;
+}
+
+.btn-edit-bill:hover {
+    -fx-background-color: #0D47A1;
+}
+
 /* Action bar */
 .action-bar {
     -fx-background-color: #ECEFF1;

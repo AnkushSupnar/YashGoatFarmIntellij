@@ -148,7 +148,7 @@ public class BillsDashboardControler implements Initializable {
         if (bills != null) {
             for (Bill b : bills) {
                 // Fold all charges into nettotal so all derived columns are consistent
-                b.setNettotal(b.getNettotal() + b.getOtherchargs() + b.getTransportingchrges());
+                b.setNettotal(b.getNettotal() + b.getIgstTotal() + b.getOtherchargs() + b.getTransportingchrges());
             }
             masterList.addAll(bills);
         }

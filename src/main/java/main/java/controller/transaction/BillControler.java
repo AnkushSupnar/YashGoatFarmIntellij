@@ -66,6 +66,10 @@ public class BillControler implements Initializable{
     @FXML private TableColumn<Transaction, Float> colQty;
     @FXML private TableColumn<Transaction, Float> colRate;
     @FXML private TableColumn<Transaction, Float> colAmount;
+    @FXML private TableColumn<Transaction, Float> colIgstPct;
+    @FXML private TableColumn<Transaction, Float> colIgstAmt;
+    @FXML private TextField txtIgstPct;
+    @FXML private TextField txtIgstTotal;
     @FXML private Label lblMode;
     @FXML private Button btnSave;
     @FXML private Button btnClearBill;
@@ -132,6 +136,8 @@ public class BillControler implements Initializable{
 		colQty.setCellValueFactory(new PropertyValueFactory<Transaction, Float>("quantity"));
 		colRate.setCellValueFactory(new PropertyValueFactory<Transaction, Float>("rate"));
 		colAmount.setCellValueFactory(new PropertyValueFactory<Transaction, Float>("amount"));
+		colIgstPct.setCellValueFactory(new PropertyValueFactory<Transaction, Float>("igstPercent"));
+		colIgstAmt.setCellValueFactory(new PropertyValueFactory<Transaction, Float>("igstAmount"));
 		table.setItems(trList);
 
 		List<String> allCustomerNames = customerService.getAllCustomerNames();
@@ -226,6 +232,8 @@ public class BillControler implements Initializable{
 				}
 				Transaction tr = new Transaction(qt.getItemname(), qt.getUnit(), qt.getRate(),
 						qt.getQuantity(), qt.getAmount(), null, com * qt.getQuantity());
+				tr.setIgstPercent(qt.getIgstPercent());
+				tr.setIgstAmount(qt.getIgstAmount());
 				tr.setId(sr++);
 				trList.add(tr);
 				netSum += qt.getAmount();
@@ -234,7 +242,9 @@ public class BillControler implements Initializable{
 		txtNetTotal.setText("" + netSum);
 		txtTransoChrgs.setText("" + q.getTransportingchrges());
 		txtOtherChargs.setText("" + q.getOtherchargs());
-		txtGrandTotal.setText("" + (netSum + q.getTransportingchrges() + q.getOtherchargs()));
+		recalculateIgstTotal();
+		float igstFromQuotation = isNumber(txtIgstTotal.getText()) ? Float.parseFloat(txtIgstTotal.getText()) : 0f;
+		txtGrandTotal.setText("" + (netSum + igstFromQuotation + q.getTransportingchrges() + q.getOtherchargs()));
 	}
 
 	private static String safeStr(String s) { return s == null ? "" : s; }
@@ -293,8 +303,8 @@ public class BillControler implements Initializable{
 		if (item != null) {
 			txtUnit.setText(item.getUnit());
 			txtRate.setText("" + item.getRate());
+			txtIgstPct.setText("" + item.getIgst());
 			txtQty.requestFocus();
-
 		}
 	}
 
@@ -382,16 +392,20 @@ public class BillControler implements Initializable{
 		}
 		else
 			com = flagItem.getCommision();
+		float igstPct = isNumber(txtIgstPct.getText()) ? Float.parseFloat(txtIgstPct.getText()) : 0f;
+		float igstAmt = Float.parseFloat(txtAmount.getText()) * igstPct / 100f;
 		Transaction transaction = new Transaction(
-				txtItemName.getText(), 
+				txtItemName.getText(),
 				txtUnit.getText(),
 				Float.parseFloat(txtRate.getText()),
 				Float.parseFloat(txtQty.getText()),
-				Float.parseFloat(txtAmount.getText()), 
+				Float.parseFloat(txtAmount.getText()),
 				bill,
                 //itemService.getItemByName(txtItemName.getText()).getCommision()*Float.parseFloat(txtQty.getText())
 				com*Float.parseFloat(txtQty.getText())
         );
+		transaction.setIgstPercent(igstPct);
+		transaction.setIgstAmount(igstAmt);
 		for (int i = 0; i < trList.size(); i++) {
 			if (trList.get(i).getItemname().equals(transaction.getItemname())
 					&& trList.get(i).getRate() == transaction.getRate()) {
@@ -415,6 +429,7 @@ public class BillControler implements Initializable{
 			transaction.setId(trList.size() + 1);
 			trList.add(transaction);
 			txtNetTotal.setText("" + (Float.parseFloat(txtNetTotal.getText()) + transaction.getAmount()));
+			recalculateIgstTotal();
 			calculateGrandTotal();
 
 		} else {
@@ -422,7 +437,7 @@ public class BillControler implements Initializable{
 			counterStockDataService.getCounterItemStock(transaction.getItemname())) {
 //				new Alert(AlertType.ERROR, "Quantity Not Available In Stock\n Please Check Stock\nAvailable Quantity="
 //						+ itemStockService.getItemStock(transaction.getItemname())).showAndWait();
-				notification.showErrorMessage("Quantity Not Available In Stock\n Please Check Stock\nAvailable Quantity="+ 
+				notification.showErrorMessage("Quantity Not Available In Stock\n Please Check Stock\nAvailable Quantity="+
 						counterStockDataService.getCounterItemStock(transaction.getItemname()));
 				return;
 			}
@@ -431,9 +446,11 @@ public class BillControler implements Initializable{
 			transaction.setAmount(transaction.getQuantity() * transaction.getRate());
 			//transaction.setCommision(transaction.getQuantity() * itemService.getCommision(txtItemName.getText()));
 			transaction.setCommision(transaction.getQuantity() * com);
+			transaction.setIgstAmount(transaction.getAmount() * igstPct / 100f);
 			trList.remove(index);
 			transaction.setId(index + 1);
 			trList.add(index, transaction);
+			recalculateIgstTotal();
 			calculateGrandTotal();
 		}
 		clear();
@@ -459,6 +476,7 @@ public class BillControler implements Initializable{
 			txtRate.setText("" + tr.getRate());
 			txtQty.setText("" + tr.getQuantity());
 			txtAmount.setText("" + tr.getAmount());
+			txtIgstPct.setText("" + tr.getIgstPercent());
 		}
 	}
 
@@ -602,12 +620,14 @@ public class BillControler implements Initializable{
 		Bank primaryBank = paymentSplits.isEmpty() ? null : paymentSplits.get(0).getBank();
 		String primaryRef = paymentSplits.isEmpty() ? "" : paymentSplits.get(0).getRefNo();
 
+		float igstTotalVal = isNumber(txtIgstTotal.getText()) ? Float.parseFloat(txtIgstTotal.getText()) : 0f;
 		Bill bill = new Bill(customerService.getCustomerByName(txtCustomerName.getText()), date.getValue(),
 				Float.parseFloat(txtNetTotal.getText()), Float.parseFloat(txtTransoChrgs.getText()),
 				Float.parseFloat(txtOtherChargs.getText()), primaryBank,
 				cmbRecievedBy.getValue(), primaryRef,
 				employeeService.getEmployeeByName(cmbSalesman.getValue()), null,
 				totalReceived, 0.0f);
+		bill.setIgstTotal(igstTotalVal);
 		bill.setBillno(Long.parseLong(txtBillNo.getText()));
 		for (Transaction tr : trList) {
 			tr.setBill(bill);
@@ -752,7 +772,8 @@ public class BillControler implements Initializable{
 		txtNetTotal.setText("" + bill.getNettotal());
 		txtTransoChrgs.setText("" + bill.getTransportingchrges());
 		txtOtherChargs.setText("" + bill.getOtherchargs());
-		txtGrandTotal.setText("" + (bill.getNettotal() + bill.getOtherchargs() + bill.getTransportingchrges()));
+		recalculateIgstTotal();
+		txtGrandTotal.setText("" + (bill.getNettotal() + bill.getIgstTotal() + bill.getOtherchargs() + bill.getTransportingchrges()));
 		cmbRecievedBy.setValue(bill.getRecievedby());
 		txtReffNo.setText("");
 		cmbBankName.getSelectionModel().clearSelection();
@@ -781,6 +802,12 @@ public class BillControler implements Initializable{
 		}
 	}
 
+	private void recalculateIgstTotal() {
+		float sum = 0f;
+		for (Transaction t : trList) sum += t.getIgstAmount();
+		txtIgstTotal.setText(String.format("%.2f", sum));
+	}
+
 	private void calculateGrandTotal() {
 		try {
 			if (!isNumber(txtTransoChrgs.getText())) {
@@ -789,8 +816,11 @@ public class BillControler implements Initializable{
 			if (!isNumber(txtOtherChargs.getText())) {
 				txtOtherChargs.setText("" + 0.0);
 			}
+			float igst = isNumber(txtIgstTotal.getText()) ? Float.parseFloat(txtIgstTotal.getText()) : 0f;
 			txtGrandTotal.setText("" + (Float.parseFloat(txtNetTotal.getText())
-					+ Float.parseFloat(txtTransoChrgs.getText()) + Float.parseFloat(txtOtherChargs.getText())));
+					+ igst
+					+ Float.parseFloat(txtTransoChrgs.getText())
+					+ Float.parseFloat(txtOtherChargs.getText())));
 		} catch (Exception e) {
 			notification.showErrorMessage("Error" + e.getMessage());
 		}
@@ -813,6 +843,8 @@ public class BillControler implements Initializable{
 				for (int i = index; i < trList.size(); i++) {
 					trList.get(i).setId(++sr);
 				}
+				recalculateIgstTotal();
+				calculateGrandTotal();
 			}
 
 		}
@@ -824,6 +856,7 @@ public class BillControler implements Initializable{
 		txtRate.setText("");
 		txtAmount.setText("");
 		txtQty.setText("");
+		txtIgstPct.setText("");
 	}
 
 	private int validateData() {
@@ -895,6 +928,7 @@ public class BillControler implements Initializable{
 		txtNetTotal.setText("" + 0.0f);
 		txtTransoChrgs.setText("" + 0.0f);
 		txtOtherChargs.setText("" + 0.0f);
+		txtIgstTotal.setText("0.0");
 		txtGrandTotal.setText("" + 0.0f);
 		txtReffNo.setText("");
 		txtReivedAmount.setText("");

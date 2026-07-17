@@ -29,6 +29,7 @@ public class Quotation {
 	private float nettotal;
 	private float transportingchrges;
 	private float otherchargs;
+	private float igstTotal;
 
 	@ManyToOne
 	@JoinColumn(name = "bankid")
@@ -79,6 +80,8 @@ public class Quotation {
 	public void setTransportingchrges(float transportingchrges) { this.transportingchrges = transportingchrges; }
 	public float getOtherchargs() { return otherchargs; }
 	public void setOtherchargs(float otherchargs) { this.otherchargs = otherchargs; }
+	public float getIgstTotal() { return igstTotal; }
+	public void setIgstTotal(float igstTotal) { this.igstTotal = igstTotal; }
 	public Bank getBank() { return bank; }
 	public void setBank(Bank bank) { this.bank = bank; }
 	public Employee getEmployee() { return employee; }

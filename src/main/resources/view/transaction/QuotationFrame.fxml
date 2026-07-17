@@ -146,6 +146,20 @@
                         </TextField>
                      </children>
                   </VBox>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Label text="IGST %">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtIgstPct" prefWidth="70.0" promptText="0.00">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <HBox spacing="6.0">
@@ -187,11 +201,13 @@
             <TableView fx:id="table" minHeight="180.0" prefHeight="260.0" stylesheets="@../css/table.css" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="colSrNo" maxWidth="60.0" minWidth="35.0" prefWidth="45.0" text="No" />
-                  <TableColumn fx:id="colItemName" minWidth="200.0" prefWidth="320.0" text="Item Name" />
+                  <TableColumn fx:id="colItemName" minWidth="160.0" prefWidth="240.0" text="Item Name" />
                   <TableColumn fx:id="colUnit" maxWidth="80.0" minWidth="40.0" prefWidth="50.0" text="Unit" />
-                  <TableColumn fx:id="colQty" maxWidth="100.0" minWidth="60.0" prefWidth="80.0" text="Quantity" />
-                  <TableColumn fx:id="colRate" maxWidth="110.0" minWidth="60.0" prefWidth="80.0" text="Rate" />
-                  <TableColumn fx:id="colAmount" maxWidth="140.0" minWidth="80.0" prefWidth="120.0" text="Amount" />
+                  <TableColumn fx:id="colQty" maxWidth="100.0" minWidth="60.0" prefWidth="75.0" text="Quantity" />
+                  <TableColumn fx:id="colRate" maxWidth="110.0" minWidth="60.0" prefWidth="75.0" text="Rate" />
+                  <TableColumn fx:id="colAmount" maxWidth="130.0" minWidth="70.0" prefWidth="100.0" text="Amount" />
+                  <TableColumn fx:id="colIgstPct" maxWidth="80.0" minWidth="50.0" prefWidth="65.0" text="IGST %" />
+                  <TableColumn fx:id="colIgstAmt" maxWidth="110.0" minWidth="60.0" prefWidth="85.0" text="IGST Amt" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -208,6 +224,7 @@
                   <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="110.0" prefWidth="150.0" />
                </columnConstraints>
                <rowConstraints>
+                  <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
@@ -233,6 +250,14 @@
                   <TextField fx:id="txtNotes" prefHeight="26.0" promptText="ESTIMATE / QUOTATION" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Other Chrgs." GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <TextField fx:id="txtOtherChargs" maxWidth="Infinity" onAction="#totalsAction" prefHeight="26.0" style="-fx-background-color: #ccff90;" text="0.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label text="" GridPane.rowIndex="3" />
+                  <Label text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="IGST Total" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtIgstTotal" editable="false" maxWidth="Infinity" prefHeight="26.0" style="-fx-background-color: #B2EBF2;" text="0.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

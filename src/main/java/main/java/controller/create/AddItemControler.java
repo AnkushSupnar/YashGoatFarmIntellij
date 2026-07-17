@@ -41,6 +41,8 @@ public class AddItemControler implements Initializable {
 	@FXML private TableColumn<Item,String> colCommisionRate;
 
 	@FXML private TableColumn<Item, Float> colLabour;
+	@FXML private TableColumn<Item, Float> colIgst;
+	@FXML private TextField txtIgst;
     @FXML private Button btnUpdate;
     @FXML private Button btnClear;
     @FXML private Button btnExit;
@@ -63,6 +65,7 @@ public class AddItemControler implements Initializable {
 		colCommisionRate.setCellValueFactory(new PropertyValueFactory<Item,String>("commisionrate"));
 		colHsnCode.setCellValueFactory(new PropertyValueFactory<Item,String>("hsn"));
 		colLabour.setCellValueFactory(new PropertyValueFactory<Item,Float>("labourCharges"));
+		colIgst.setCellValueFactory(new PropertyValueFactory<Item,Float>("igst"));
 		itemList.addAll(service.getAllItems());
 		filteredItems = new FilteredList<>(itemList, i -> true);
 		txtSearchItem.textProperty().addListener((obs, oldV, newV) -> applySearchFilter(newV));
@@ -139,6 +142,8 @@ public class AddItemControler implements Initializable {
 			{
 				com = Float.parseFloat(txtRate.getText())*(Float.parseFloat(txtCommision.getText())/100);
 			}
+			float igstVal = 0f;
+			try { igstVal = Float.parseFloat(txtIgst.getText().trim()); } catch (Exception ignored) {}
 			Item item = new Item(
 					txtItemName.getText().trim(),
 					txtHsnCode.getText().trim(),
@@ -148,6 +153,7 @@ public class AddItemControler implements Initializable {
 					com,
 					cmbCommisionRate.getSelectionModel().getSelectedItem(),
 					Float.parseFloat(txtLabour.getText().trim()));
+			item.setIgst(igstVal);
 			item.setId(id);
 
 			int f=0;
@@ -217,6 +223,7 @@ public class AddItemControler implements Initializable {
     		txtRate.setText(""+item.getRate());
     		txtCommision.setText(""+item.getCommision());
     		txtLabour.setText(""+item.getLabourCharges());
+    		txtIgst.setText(""+item.getIgst());
     		if(item.getHsn()==null)
     		txtHsnCode.setText("");
     		else txtHsnCode.setText(item.getHsn());
@@ -283,6 +290,7 @@ public class AddItemControler implements Initializable {
     	txtCommision.setText("");
     	txtHsnCode.setText("");
     	txtLabour.setText("");
+    	txtIgst.setText("");
     	id=0;
     }
    

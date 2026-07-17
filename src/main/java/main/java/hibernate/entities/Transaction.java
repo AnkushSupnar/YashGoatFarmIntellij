@@ -18,6 +18,8 @@ public class Transaction {
 	private float quantity;
 	private float amount;
 	private float commision;
+	private float igstPercent;
+	private float igstAmount;
 	@ManyToOne
 	@JoinColumn(name="billno")
 	private Bill bill;
@@ -76,6 +78,18 @@ public class Transaction {
 	}
 	public void setAmount(float amount) {
 		this.amount = amount;
+	}
+	public float getIgstPercent() {
+		return igstPercent;
+	}
+	public void setIgstPercent(float igstPercent) {
+		this.igstPercent = igstPercent;
+	}
+	public float getIgstAmount() {
+		return igstAmount;
+	}
+	public void setIgstAmount(float igstAmount) {
+		this.igstAmount = igstAmount;
 	}
 	public Bill getBill() {
 		return bill;

@@ -38,6 +38,7 @@ public class Bill {
 
 	private float recivedamount;
 	private float paidcommision;
+	private float igstTotal;
 	public Bill() {
 		super();
 	}
@@ -137,9 +138,16 @@ public class Bill {
 		this.payments = payments;
 	}
 
+	public float getIgstTotal() {
+		return igstTotal;
+	}
+	public void setIgstTotal(float igstTotal) {
+		this.igstTotal = igstTotal;
+	}
+
 	@Transient
 	public String getPaymentStatus() {
-		float total = nettotal + transportingchrges + otherchargs;
+		float total = nettotal + igstTotal + transportingchrges + otherchargs;
 		if (recivedamount >= total - 0.01f) return "PAID";
 		if (recivedamount <= 0.01f) return "UNPAID";
 		return "PARTIAL";
@@ -147,7 +155,7 @@ public class Bill {
 
 	@Transient
 	public float getOutstanding() {
-		float total = nettotal + transportingchrges + otherchargs;
+		float total = nettotal + igstTotal + transportingchrges + otherchargs;
 		float out = total - recivedamount;
 		return out < 0 ? 0 : out;
 	}

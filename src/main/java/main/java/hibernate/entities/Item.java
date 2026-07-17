@@ -18,6 +18,8 @@ public class Item {
 	float commision;
 	String commisionrate;
 	float labourCharges;
+	@Column(columnDefinition = "DECIMAL(5,2) DEFAULT 0.00")
+	float igst;
 	public Item() {
 		super();
 	}
@@ -100,6 +102,14 @@ public class Item {
 
 	public void setLabourCharges(float labourCharges) {
 		this.labourCharges = labourCharges;
+	}
+
+	public float getIgst() {
+		return igst;
+	}
+
+	public void setIgst(float igst) {
+		this.igst = igst;
 	}
 
 	@Override

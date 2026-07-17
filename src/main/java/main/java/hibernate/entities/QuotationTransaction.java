@@ -19,6 +19,8 @@ public class QuotationTransaction {
 	private float quantity;
 	private float amount;
 	private String hsn;
+	private float igstPercent;
+	private float igstAmount;
 
 	@ManyToOne
 	@JoinColumn(name = "quotationno")
@@ -53,4 +55,8 @@ public class QuotationTransaction {
 	public void setHsn(String hsn) { this.hsn = hsn; }
 	public Quotation getQuotation() { return quotation; }
 	public void setQuotation(Quotation quotation) { this.quotation = quotation; }
+	public float getIgstPercent() { return igstPercent; }
+	public void setIgstPercent(float igstPercent) { this.igstPercent = igstPercent; }
+	public float getIgstAmount() { return igstAmount; }
+	public void setIgstAmount(float igstAmount) { this.igstAmount = igstAmount; }
 }

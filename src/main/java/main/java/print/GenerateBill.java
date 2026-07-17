@@ -262,8 +262,9 @@ public class GenerateBill {
 				c1.setBorder(PdfPCell.RIGHT);
 				item.addCell(c1);
 				
-				c1 = new PdfPCell(new Paragraph("0%"));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
+				String igstLabel = tr.getIgstPercent() > 0 ? String.format("%.1f%%", tr.getIgstPercent()) : "0%";
+				c1 = new PdfPCell(new Paragraph(igstLabel));
+				c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 				c1.setBorder(PdfPCell.RIGHT);
 				item.addCell(c1);
 				
@@ -574,15 +575,39 @@ public class GenerateBill {
 					item.addCell(c1);
 				}
 			}
+			// IGST Total row (only shown when non-zero)
+			if (bill.getIgstTotal() > 0.001f) {
+				for (int i = 0; i < 5; i++) {
+					c1 = new PdfPCell(new Paragraph(" "));
+					c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+					c1.setBorder(i == 0 ? PdfPCell.NO_BORDER : PdfPCell.LEFT);
+					c1.setFixedHeight(20);
+					item.addCell(c1);
+				}
+				c1 = new PdfPCell(new Paragraph("IGST Total"));
+				c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				c1.setBorder(PdfPCell.BOX);
+				c1.setColspan(2);
+				c1.setFixedHeight(20);
+				item.addCell(c1);
+				c1 = new PdfPCell(new Paragraph(String.format("%.2f", bill.getIgstTotal())));
+				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+				c1.setBorder(PdfPCell.BOX);
+				c1.setColspan(2);
+				c1.setFixedHeight(20);
+				item.addCell(c1);
+			}
+
 			c1 = new PdfPCell(new Paragraph("Grand Total"));
-			c1.setHorizontalAlignment(Element.ALIGN_RIGHT);			
+			c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			c1.setBorder(PdfPCell.BOX);
 			c1.setColspan(2);
 			c1.setFixedHeight(20);
 			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph(""+bill.getNettotal()+bill.getOtherchargs()+bill.getTransportingchrges()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
+
+			float grandTotal = bill.getNettotal() + bill.getIgstTotal() + bill.getOtherchargs() + bill.getTransportingchrges();
+			c1 = new PdfPCell(new Paragraph(String.format("%.2f", grandTotal)));
+			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 			c1.setBorder(PdfPCell.BOX);
 			c1.setColspan(2);
 			c1.setFixedHeight(20);

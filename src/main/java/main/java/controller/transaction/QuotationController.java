@@ -101,6 +101,10 @@ public class QuotationController implements Initializable {
 	@FXML private TableColumn<QuotationTransaction, Float> colQty;
 	@FXML private TableColumn<QuotationTransaction, Float> colRate;
 	@FXML private TableColumn<QuotationTransaction, Float> colAmount;
+	@FXML private TableColumn<QuotationTransaction, Float> colIgstPct;
+	@FXML private TableColumn<QuotationTransaction, Float> colIgstAmt;
+	@FXML private TextField txtIgstPct;
+	@FXML private TextField txtIgstTotal;
 
 	@FXML private ComboBox<String> cmbBankName;
 	@FXML private TextField txtTransport;
@@ -174,6 +178,8 @@ public class QuotationController implements Initializable {
 		colQty.setCellValueFactory(new PropertyValueFactory<QuotationTransaction, Float>("quantity"));
 		colRate.setCellValueFactory(new PropertyValueFactory<QuotationTransaction, Float>("rate"));
 		colAmount.setCellValueFactory(new PropertyValueFactory<QuotationTransaction, Float>("amount"));
+		colIgstPct.setCellValueFactory(new PropertyValueFactory<QuotationTransaction, Float>("igstPercent"));
+		colIgstAmt.setCellValueFactory(new PropertyValueFactory<QuotationTransaction, Float>("igstAmount"));
 		table.setItems(trList);
 
 		txtQuotationNo.setText("" + quotationService.getNewQuotationNo());
@@ -203,7 +209,7 @@ public class QuotationController implements Initializable {
 			return new SimpleStringProperty(name.replaceAll(" +", " ").trim());
 		});
 		colHistTotal.setCellValueFactory(p -> new SimpleObjectProperty<Float>(
-				p.getValue().getNettotal() + p.getValue().getTransportingchrges() + p.getValue().getOtherchargs()));
+				p.getValue().getNettotal() + p.getValue().getIgstTotal() + p.getValue().getTransportingchrges() + p.getValue().getOtherchargs()));
 		colHistStatus.setCellValueFactory(new PropertyValueFactory<Quotation, String>("status"));
 		colHistBilled.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().isBilled() ? "YES" : "NO"));
 		tableHistory.setItems(historyList);
@@ -379,11 +385,14 @@ public class QuotationController implements Initializable {
 			int sr = 1;
 			for (QuotationTransaction tr : q.getTransaction()) {
 				QuotationTransaction copy = new QuotationTransaction(tr.getItemname(), tr.getUnit(), tr.getRate(), tr.getQuantity(), tr.getAmount(), tr.getHsn(), null);
+				copy.setIgstPercent(tr.getIgstPercent());
+				copy.setIgstAmount(tr.getIgstAmount());
 				copy.setId(sr++);
 				trList.add(copy);
 			}
 		}
 		recomputeNetTotal();
+		recalculateIgstTotal();
 		recomputeGrandTotal();
 	}
 
@@ -450,6 +459,7 @@ public class QuotationController implements Initializable {
 		if (item != null) {
 			txtUnit.setText(safe(item.getUnit()));
 			txtRate.setText("" + item.getRate());
+			txtIgstPct.setText("" + item.getIgst());
 			txtQty.requestFocus();
 		}
 	}
@@ -490,6 +500,8 @@ public class QuotationController implements Initializable {
 			txtItemName.requestFocus();
 			return;
 		}
+		float igstPct = parseOrZero(txtIgstPct.getText());
+		float igstAmt = Float.parseFloat(txtAmount.getText()) * igstPct / 100f;
 		QuotationTransaction tr = new QuotationTransaction(
 				txtItemName.getText(),
 				txtUnit.getText(),
@@ -498,6 +510,8 @@ public class QuotationController implements Initializable {
 				Float.parseFloat(txtAmount.getText()),
 				itemService.getItemByName(txtItemName.getText()) != null ? itemService.getItemByName(txtItemName.getText()).getHsn() : "",
 				null);
+		tr.setIgstPercent(igstPct);
+		tr.setIgstAmount(igstAmt);
 
 		int idx = -1;
 		for (int i = 0; i < trList.size(); i++) {
@@ -513,11 +527,13 @@ public class QuotationController implements Initializable {
 			float newQty = tr.getQuantity() + trList.get(idx).getQuantity();
 			tr.setQuantity(newQty);
 			tr.setAmount(newQty * tr.getRate());
+			tr.setIgstAmount(tr.getAmount() * igstPct / 100f);
 			tr.setId(idx + 1);
 			trList.remove(idx);
 			trList.add(idx, tr);
 		}
 		recomputeNetTotal();
+		recalculateIgstTotal();
 		recomputeGrandTotal();
 		clearItemInputs();
 		txtItemName.requestFocus();
@@ -534,6 +550,7 @@ public class QuotationController implements Initializable {
 		int n = 1;
 		for (QuotationTransaction t : trList) t.setId(n++);
 		recomputeNetTotal();
+		recalculateIgstTotal();
 		recomputeGrandTotal();
 	}
 
@@ -546,6 +563,7 @@ public class QuotationController implements Initializable {
 		txtRate.setText("" + tr.getRate());
 		txtQty.setText("" + tr.getQuantity());
 		txtAmount.setText("" + tr.getAmount());
+		txtIgstPct.setText("" + tr.getIgstPercent());
 	}
 
 	@FXML
@@ -662,11 +680,14 @@ public class QuotationController implements Initializable {
 		q.setEmployee(cmbSalesman.getValue() != null ? employeeService.getEmployeeByName(cmbSalesman.getValue()) : null);
 		q.setNotes(txtTransport.getText());
 		q.setStatus(txtNotes.getText() == null || txtNotes.getText().isEmpty() ? "ESTIMATE / QUOTATION" : txtNotes.getText());
+		q.setIgstTotal(parseOrZero(txtIgstTotal.getText()));
 
 		List<QuotationTransaction> copy = new ArrayList<>();
 		for (QuotationTransaction tr : trList) {
 			QuotationTransaction nt = new QuotationTransaction(tr.getItemname(), tr.getUnit(),
 					tr.getRate(), tr.getQuantity(), tr.getAmount(), tr.getHsn(), q);
+			nt.setIgstPercent(tr.getIgstPercent());
+			nt.setIgstAmount(tr.getIgstAmount());
 			copy.add(nt);
 		}
 		q.setTransaction(copy);
@@ -703,11 +724,18 @@ public class QuotationController implements Initializable {
 		txtNetTotal.setText("" + sum);
 	}
 
+	private void recalculateIgstTotal() {
+		float sum = 0f;
+		for (QuotationTransaction t : trList) sum += t.getIgstAmount();
+		txtIgstTotal.setText(String.format("%.2f", sum));
+	}
+
 	private void recomputeGrandTotal() {
 		float net = parseOrZero(txtNetTotal.getText());
 		float tp = parseOrZero(txtTransoChrgs.getText());
 		float oc = parseOrZero(txtOtherChargs.getText());
-		txtGrandTotal.setText("" + (net + tp + oc));
+		float igst = parseOrZero(txtIgstTotal.getText());
+		txtGrandTotal.setText("" + (net + igst + tp + oc));
 	}
 
 	private float parseOrZero(String s) {
@@ -725,6 +753,7 @@ public class QuotationController implements Initializable {
 		txtRate.setText("");
 		txtAmount.setText("");
 		txtQty.setText("");
+		txtIgstPct.setText("");
 	}
 
 	private void resetForm() {
@@ -743,6 +772,7 @@ public class QuotationController implements Initializable {
 		txtNetTotal.setText("0.0");
 		txtTransoChrgs.setText("0.0");
 		txtOtherChargs.setText("0.0");
+		txtIgstTotal.setText("0.0");
 		txtGrandTotal.setText("0.0");
 	}
 

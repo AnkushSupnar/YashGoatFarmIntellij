@@ -121,18 +121,18 @@
                         </TextField>
                      </VBox>
                      <VBox spacing="2.0">
-                        <Label style="-fx-font-weight: bold;" text="Amount">
-                           <font><Font size="13.0"/></font>
-                        </Label>
-                        <TextField fx:id="txtAmount" prefWidth="90.0" promptText="Amount">
-                           <font><Font size="13.0"/></font>
-                        </TextField>
-                     </VBox>
-                     <VBox spacing="2.0">
                         <Label style="-fx-font-weight: bold;" text="IGST %">
                            <font><Font size="13.0"/></font>
                         </Label>
                         <TextField fx:id="txtIgstPct" prefWidth="70.0" promptText="0.00">
+                           <font><Font size="13.0"/></font>
+                        </TextField>
+                     </VBox>
+                     <VBox spacing="2.0">
+                        <Label style="-fx-font-weight: bold;" text="Amount">
+                           <font><Font size="13.0"/></font>
+                        </Label>
+                        <TextField fx:id="txtAmount" prefWidth="90.0" promptText="Amount">
                            <font><Font size="13.0"/></font>
                         </TextField>
                      </VBox>

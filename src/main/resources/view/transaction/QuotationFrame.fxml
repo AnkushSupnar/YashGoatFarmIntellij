@@ -134,12 +134,12 @@
                   </VBox>
                   <VBox spacing="2.0">
                      <children>
-                        <Label text="Amount">
+                        <Label text="IGST %">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtAmount" prefWidth="100.0" promptText="Amount">
+                        <TextField fx:id="txtIgstPct" prefWidth="70.0" promptText="0.00">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -148,12 +148,12 @@
                   </VBox>
                   <VBox spacing="2.0">
                      <children>
-                        <Label text="IGST %">
+                        <Label text="Amount">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtIgstPct" prefWidth="70.0" promptText="0.00">
+                        <TextField fx:id="txtAmount" prefWidth="100.0" promptText="Amount">
                            <font>
                               <Font size="14.0" />
                            </font>

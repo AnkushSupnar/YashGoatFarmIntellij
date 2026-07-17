@@ -41,10 +41,10 @@
                                           <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="28" />
                                        </children>
                                     </StackPane>
-                                    <VBox spacing="2.0">
+                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label styleClass="card-title" text="Stamp &amp; Signature" />
-                                          <Label styleClass="card-subtitle" text="For Quotation PDF" />
+                                          <Label styleClass="card-title" text="Stamp &amp; Signature" wrapText="true" />
+                                          <Label styleClass="card-subtitle" text="For Quotation PDF" wrapText="true" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -55,6 +55,38 @@
                                     <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openUploadStamp" styleClass="card-button" text="Upload Stamp">
                                        <graphic>
                                           <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_DOWNLOAD" size="14" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="260.0" prefWidth="260.0" spacing="14.0" styleClass="card,card-business">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <StackPane prefHeight="56.0" prefWidth="56.0" styleClass="card-icon-bg">
+                                       <children>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="BUILDING" size="28" />
+                                       </children>
+                                    </StackPane>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label styleClass="card-title" text="Business Information" />
+                                          <Label styleClass="card-subtitle" text="GST, PAN &amp; Contact Info" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Region styleClass="card-divider" />
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openBusinessInfo" styleClass="card-button" text="Edit Details">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="14" />
                                        </graphic>
                                     </Button>
                                  </children>

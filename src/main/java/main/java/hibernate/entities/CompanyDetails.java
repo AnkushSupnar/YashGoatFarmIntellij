@@ -22,6 +22,7 @@ public class CompanyDetails {
 	String altercontact;
 	String email;
 	String gst;
+	String panNo;
 	LocalDate date;
 	public CompanyDetails() {
 		super();
@@ -106,6 +107,12 @@ public class CompanyDetails {
 	}
 	public void setGst(String gst) {
 		this.gst = gst;
+	}
+	public String getPanNo() {
+		return panNo;
+	}
+	public void setPanNo(String panNo) {
+		this.panNo = panNo;
 	}
 	public LocalDate getDate() {
 		return date;

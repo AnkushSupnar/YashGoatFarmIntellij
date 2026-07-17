@@ -1,0 +1,214 @@
+/* ===== PURCHASE INVOICE DASHBOARD — Material Design (Green Theme) ===== */
+
+/* Header */
+.header-bar {
+    -fx-background-color: #2E7D32;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 6, 0, 0, 2);
+}
+
+.header-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#lblCount {
+    -fx-text-fill: rgba(255,255,255,0.75);
+    -fx-font-size: 12px;
+}
+
+/* Filter + Search card */
+.filter-card {
+    -fx-background-color: white;
+    -fx-background-radius: 4px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 4, 0, 0, 1);
+}
+
+.filter-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-text-fill: #546E7A;
+}
+
+/* Quick-filter ToggleButtons */
+.filter-toggle {
+    -fx-background-color: #ECEFF1;
+    -fx-text-fill: #37474F;
+    -fx-border-color: transparent;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 12 5 12;
+}
+
+.filter-toggle .glyph-icon {
+    -fx-fill: #37474F;
+}
+
+.filter-toggle:hover {
+    -fx-background-color: #CFD8DC;
+}
+
+.filter-toggle:selected {
+    -fx-background-color: #2E7D32;
+    -fx-text-fill: white;
+}
+
+.filter-toggle:selected .glyph-icon {
+    -fx-fill: white;
+}
+
+/* Search fields */
+.search-field {
+    -fx-background-radius: 3px;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 3px;
+    -fx-padding: 4 8 4 8;
+}
+
+.search-field:focused {
+    -fx-border-color: #2E7D32;
+    -fx-border-width: 1.5px;
+}
+
+/* Table card */
+.table-card {
+    -fx-background-color: white;
+    -fx-background-radius: 4px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 4, 0, 0, 1);
+}
+
+.bills-table .column-header-background {
+    -fx-background-color: #2E7D32;
+}
+
+.bills-table .column-header {
+    -fx-background-color: transparent;
+}
+
+.bills-table .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.bills-table .filler {
+    -fx-background-color: #2E7D32;
+}
+
+.bills-table .table-row-cell:odd {
+    -fx-background-color: #F1F8E9;
+}
+
+.bills-table .table-row-cell:even {
+    -fx-background-color: white;
+}
+
+.bills-table .table-row-cell:selected {
+    -fx-background-color: #C8E6C9;
+}
+
+.bills-table .table-row-cell:hover {
+    -fx-background-color: #DCEDC8;
+}
+
+.bills-table .table-row-cell:selected .table-cell {
+    -fx-text-fill: #1B5E20;
+}
+
+/* Buttons */
+.btn-new-bill {
+    -fx-background-color: #FF6F00;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-padding: 7 14 7 14;
+}
+
+.btn-new-bill .glyph-icon {
+    -fx-fill: white;
+}
+
+.btn-new-bill:hover {
+    -fx-background-color: #E65100;
+}
+
+.btn-search {
+    -fx-background-color: #00897B;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.btn-search .glyph-icon {
+    -fx-fill: white;
+}
+
+.btn-search:hover {
+    -fx-background-color: #00695C;
+}
+
+.btn-reset {
+    -fx-background-color: #546E7A;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.btn-reset .glyph-icon {
+    -fx-fill: white;
+}
+
+.btn-reset:hover {
+    -fx-background-color: #37474F;
+}
+
+.btn-preview {
+    -fx-background-color: #4527A0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-padding: 6 14 6 14;
+}
+
+.btn-preview .glyph-icon {
+    -fx-fill: white;
+}
+
+.btn-preview:hover {
+    -fx-background-color: #311B92;
+}
+
+.btn-edit-bill {
+    -fx-background-color: #2E7D32;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-padding: 6 14 6 14;
+}
+
+.btn-edit-bill .glyph-icon {
+    -fx-fill: white;
+}
+
+.btn-edit-bill:hover {
+    -fx-background-color: #1B5E20;
+}
+
+/* Action bar */
+.action-bar {
+    -fx-background-color: #ECEFF1;
+    -fx-border-color: #B0BEC5;
+    -fx-border-width: 1 0 0 0;
+}

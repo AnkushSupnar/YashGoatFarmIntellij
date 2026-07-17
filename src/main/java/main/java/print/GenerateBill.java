@@ -7,794 +7,398 @@ import com.itextpdf.text.pdf.PdfWriter;
 import main.java.main.java.hibernate.entities.Bank;
 import main.java.main.java.hibernate.entities.Bill;
 import main.java.main.java.hibernate.entities.Transaction;
+import main.java.main.java.hibernate.entities.CompanyDetails;
 import main.java.main.java.hibernate.service.service.BankService;
 import main.java.main.java.hibernate.service.service.BillService;
 import main.java.main.java.hibernate.service.service.ItemService;
 import main.java.main.java.hibernate.service.serviceImpl.BankServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
+import main.java.main.java.hibernate.service.serviceImpl.CompanyServiceImpl;
 import main.java.main.java.hibernate.service.serviceImpl.ItemServiceImpl;
+import main.java.main.java.hibernate.util.AppSettings;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class GenerateBill {
+
 	public static String filename = "D:\\Software\\Prints\\bill.pdf";
-	//private static Font font = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
-	//private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-	//private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
-	//private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
-	//private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
-	private static Font smallfont = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.NORMAL);
-	private BillService billService;
-	private BankService bankService;
-	private Bank bank;
-	private ItemService itemService;
-	private Bill bill;
+
+	// ── fonts ────────────────────────────────────────────────────────────────
+	private static final Font F_NORMAL  = new Font(Font.FontFamily.TIMES_ROMAN,  9, Font.NORMAL);
+	private static final Font F_BOLD    = new Font(Font.FontFamily.TIMES_ROMAN,  9, Font.BOLD);
+	private static final Font F_HEAD    = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
+	private static final Font F_SMALL   = new Font(Font.FontFamily.TIMES_ROMAN,  8, Font.NORMAL);
+	private static final Font F_ITALIC  = new Font(Font.FontFamily.TIMES_ROMAN,  8, Font.ITALIC);
+	private static final Font F_COL_HDR = new Font(Font.FontFamily.HELVETICA,    9, Font.BOLD, BaseColor.WHITE);
+	private static final Font F_TAX     = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
+
+	// ── colours ──────────────────────────────────────────────────────────────
+	private static final BaseColor C_HDR_BG    = new BaseColor(44,  62,  80);   // dark blue-grey header
+	private static final BaseColor C_SUB_BG    = new BaseColor(235, 237, 239);  // light grey for sub-totals
+	private static final BaseColor C_GRAND_BG  = new BaseColor(255, 245, 157);  // yellow for Grand Total
+	private static final BaseColor C_CASH      = new BaseColor(27,  94,  32);
+	private static final BaseColor C_CREDIT    = new BaseColor(183, 28,  28);
+
+	// ── fields ───────────────────────────────────────────────────────────────
+	private final float[] COL_WIDTHS = {7f, 34f, 8f, 11f, 9f, 10f, 9f, 12f};
+
+	private BillService   billService;
+	private BankService   bankService;
+	private ItemService   itemService;
+	private Bill          bill;
+	private Bank          bank;
+	private CompanyDetails company;
 	long billno;
-	 float[] columnWidths = new float[]{8f,35f,8f,12f,10f,10f,10f,10f};
-	 public GenerateBill(long billno) {
-		 try {
-				this.billno = billno;
-				billService = new BillServiceImpl();
-				itemService = new ItemServiceImpl();
-				bill = billService.getBillByBillno(billno);
-				if(bill==null)
-				{
-					return;
-				}
-				bankService = new BankServiceImpl();
-				bank = bill.getBank() != null ? bankService.getBankById(bill.getBank().getId()) : null;
-				float left = 0;
-		        float right = 0;
-		        float top = 20;
-		        float bottom = 0;
-		        Document doc = new Document(PageSize.A4 ,left,right,top,bottom);
-			
-				PdfWriter.getInstance(doc, new FileOutputStream(filename));
-				doc.open();
-				addContent(doc);
-				doc.close();
-				System.out.println("Write Done");
-			} catch (FileNotFoundException | DocumentException e) {
-				e.printStackTrace();
-			}
-	}
-	public static void main(String[] args) {
-		
-		new GenerateBill(189);
-	}
-	void addContent(Document doc)
-	{
+
+	// ── constructor ──────────────────────────────────────────────────────────
+	public GenerateBill(long billno) {
 		try {
-			PdfPTable table = new PdfPTable(1);
-			String imageFile = "D:\\Software\\Images\\Yash Bill Head.png";
-			Image image = Image.getInstance(imageFile);
+			this.billno  = billno;
+			billService  = new BillServiceImpl();
+			itemService  = new ItemServiceImpl();
+			bill         = billService.getBillByBillno(billno);
+			if (bill == null) return;
+			bankService  = new BankServiceImpl();
+			bank = bill.getBank() != null ? bankService.getBankById(bill.getBank().getId()) : null;
+			try { company = new CompanyServiceImpl().getCompanyDetails(1); } catch (Exception ignored) {}
 
-			PdfPCell c1 = new PdfPCell(image, true);
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-			// c1.setBorder(0);
-			// c1.setBorder(PdfPCell.NO_BORDER);
-			table.addCell(c1);
+			Document doc = new Document(PageSize.A4, 36, 36, 20, 20);
+			PdfWriter.getInstance(doc, new FileOutputStream(filename));
+			doc.open();
+			addContent(doc);
+			doc.close();
+			System.out.println("Write Done");
+		} catch (FileNotFoundException | DocumentException e) {
+			e.printStackTrace();
+		}
+	}
 
-			// Payment status banner: green CASH if fully paid, red CREDIT/PARTIAL otherwise.
-			float billTotal = bill.getNettotal() + bill.getTransportingchrges() + bill.getOtherchargs();
-			float outstanding = billTotal - bill.getRecivedamount();
-			Font bannerFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.WHITE);
-			String bannerLabel;
-			BaseColor bannerColor;
+	public static void main(String[] args) { new GenerateBill(189); }
+
+	// ═════════════════════════════════════════════════════════════════════════
+	//  MAIN CONTENT
+	// ═════════════════════════════════════════════════════════════════════════
+	void addContent(Document doc) {
+		try {
+			PdfPTable page = new PdfPTable(1);
+			page.setWidthPercentage(100);
+
+			// ── 1. Letterhead image ───────────────────────────────────────
+			try {
+				Image img = Image.getInstance("D:\\Software\\Images\\Yash Bill Head.png");
+				PdfPCell ic = new PdfPCell(img, true);
+				ic.setHorizontalAlignment(Element.ALIGN_CENTER);
+				ic.setBorder(PdfPCell.BOX);
+				ic.setPadding(0);
+				page.addCell(ic);
+			} catch (Exception ignored) {}
+
+			// ── 2. GST No / PAN No row ───────────────────────────────────
+			String gstTxt = (company != null && nne(company.getGst()))   ? "GST No: " + company.getGst()   : "GST No: —";
+			String panTxt = (company != null && nne(company.getPanNo())) ? "PAN No: " + company.getPanNo() : "PAN No: —";
+			PdfPTable taxRow = new PdfPTable(2);
+			PdfPCell gc = cell(gstTxt, F_TAX, Element.ALIGN_CENTER, PdfPCell.BOX, 5, null); taxRow.addCell(gc);
+			PdfPCell pc = cell(panTxt, F_TAX, Element.ALIGN_CENTER, PdfPCell.BOX, 5, null); taxRow.addCell(pc);
+			page.addCell(wrap(taxRow));
+
+			// ── 3. Payment status banner ──────────────────────────────────
+			float bTotal      = bill.getNettotal() + bill.getTransportingchrges() + bill.getOtherchargs();
+			float outstanding = bTotal - bill.getRecivedamount();
+			Font bannerFont   = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+			String bannerTxt; BaseColor bannerBg;
 			if (outstanding <= 0.01f) {
-				bannerLabel = "CASH";
-				bannerColor = new BaseColor(46, 125, 50);
+				bannerTxt = "CASH PAYMENT";
+				bannerBg  = C_CASH;
 			} else if (bill.getRecivedamount() <= 0.01f) {
-				bannerLabel = "CREDIT BILL";
-				bannerColor = new BaseColor(211, 47, 47);
+				bannerTxt = "CREDIT BILL";
+				bannerBg  = C_CREDIT;
 			} else {
-				bannerLabel = "PARTIAL / CREDIT BILL — Paid Rs. " + String.format("%.2f", bill.getRecivedamount())
-						+ "  |  Outstanding Rs. " + String.format("%.2f", outstanding);
-				bannerColor = new BaseColor(211, 47, 47);
+				bannerTxt = "PARTIAL PAYMENT  —  Paid: Rs. " + fmt(bill.getRecivedamount())
+						+ "   |   Outstanding: Rs. " + fmt(outstanding);
+				bannerBg = C_CREDIT;
 			}
-			PdfPCell bannerCell = new PdfPCell(new Paragraph(bannerLabel, bannerFont));
-			bannerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			bannerCell.setBackgroundColor(bannerColor);
-			bannerCell.setPadding(6);
-			bannerCell.setBorder(PdfPCell.BOX);
-			table.addCell(bannerCell);
+			PdfPCell banner = cell(bannerTxt, bannerFont, Element.ALIGN_CENTER, PdfPCell.BOX, 7, bannerBg);
+			page.addCell(banner);
 
-			//costomer Infor and bill no
-			PdfPTable customer = new PdfPTable(2);
-			//1
-			c1 = new PdfPCell(new Paragraph("To,"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//2
-			c1 = new PdfPCell(new Paragraph(""));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//3
-			c1 = new PdfPCell(new Paragraph(bill.getCustomer().getFname()+" "+bill.getCustomer().getMname()+" "+bill.getCustomer().getLname()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//4
-			c1 = new PdfPCell(new Paragraph("Invoice No-"+bill.getBillno()));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-			c1.setVerticalAlignment(Element.ALIGN_CENTER);
-			// c1.setBorder(0);
-			 c1.setBorder(PdfPCell.BOTTOM);
-			customer.addCell(c1);			
-			
-			//5
-			c1 = new PdfPCell(new Paragraph(bill.getCustomer().getAddress()+","+bill.getCustomer().getCity()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//6
-			c1 = new PdfPCell(new Paragraph(""));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//7
-			c1 = new PdfPCell(new Paragraph(bill.getCustomer().getTaluka()+","+bill.getCustomer().getDistrict()+","+bill.getCustomer().getState()+","+bill.getCustomer().getPin()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			 c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//8
-			c1 = new PdfPCell(new Paragraph("Date:"+bill.getDate()));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			
-			//9
-			c1 = new PdfPCell(new Paragraph("Contact No:"+bill.getCustomer().getMobileno()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			//10
-			c1 = new PdfPCell(new Paragraph(""));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			c1.setBorder(PdfPCell.RIGHT);
-			customer.addCell(c1);
-			
-			String gst = bill.getCustomer().getGstno();
-			String pan = bill.getCustomer().getPanno();
-			c1 = new PdfPCell(new Paragraph("GSTIN- " + (gst == null || gst.isEmpty() || gst.equals("-") ? "" : gst)
-					+ "    PAN- " + (pan == null || pan.isEmpty() || pan.equals("-") ? "" : pan)));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			//c1.setBorder(PdfPCell.RIGHT);
-			//c1.setColspan(2);
-			customer.addCell(c1);
+			// ── 4. Customer info  +  Bill meta ───────────────────────────
+			PdfPTable custRow = new PdfPTable(new float[]{55f, 45f});
+			custRow.setWidthPercentage(100);
 
-			c1 = new PdfPCell(new Paragraph("Transport-"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			// c1.setBorder(0);
-			//c1.setBorder(PdfPCell.RIGHT);
-			//c1.setColspan(2);
-			customer.addCell(c1);
-			
-			c1 = new PdfPCell(customer);
-			//c1.setBorder(PdfPCell.BOX);
-			table.addCell(c1);
-			
+			// left: customer block
+			StringBuilder sb = new StringBuilder();
+			sb.append("To,\n");
+			sb.append(safe(bill.getCustomer().getFname())).append(" ")
+			  .append(safe(bill.getCustomer().getMname())).append(" ")
+			  .append(safe(bill.getCustomer().getLname())).append("\n");
+			if (nne(bill.getCustomer().getAddress()))
+				sb.append(bill.getCustomer().getAddress()).append(", ").append(safe(bill.getCustomer().getCity())).append("\n");
+			sb.append(safe(bill.getCustomer().getTaluka())).append(", ")
+			  .append(safe(bill.getCustomer().getDistrict())).append(", ")
+			  .append(safe(bill.getCustomer().getState())).append(" — ")
+			  .append(bill.getCustomer().getPin()).append("\n");
+			sb.append("Contact: ").append(safe(bill.getCustomer().getMobileno()));
+			String cGst = bill.getCustomer().getGstno();
+			String cPan = bill.getCustomer().getPanno();
+			if (cGst != null && !cGst.isEmpty() && !cGst.equals("-")) sb.append("\nGSTIN: ").append(cGst);
+			if (cPan != null && !cPan.isEmpty() && !cPan.equals("-")) sb.append("    PAN: ").append(cPan);
+			custRow.addCell(cell(sb.toString(), F_NORMAL, Element.ALIGN_LEFT, PdfPCell.BOX, 6, null));
+
+			// right: meta grid
+			PdfPTable meta = new PdfPTable(new float[]{42f, 58f});
+			addKV(meta, "Invoice No.", "" + bill.getBillno());
+			addKV(meta, "Date",        "" + bill.getDate());
+			addKV(meta, "Transport",   "");
+			PdfPCell metaWrap = new PdfPCell(meta);
+			metaWrap.setBorder(PdfPCell.BOX);
+			metaWrap.setPadding(0);
+			custRow.addCell(metaWrap);
+
+			page.addCell(wrap(custRow));
+
+			// ── 5. Items table ────────────────────────────────────────────
 			PdfPTable item = new PdfPTable(8);
-			item.setWidths(columnWidths);
-			c1 = new PdfPCell(new Paragraph("SrNo"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("Description"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("HSN"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("Quantity"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("Unit"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("Rate"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("GST %"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("Amount"));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			item.addCell(c1);
-			int sr=0;
-			for(Transaction tr:bill.getTransaction())
-			{
-				c1 = new PdfPCell(new Paragraph(""+(++sr)));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
-				
-				c1 = new PdfPCell(new Paragraph(tr.getItemname()));
-				c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-				c1.setBorder(PdfPCell.RIGHT);
-				item.addCell(c1);
-				
-				c1 = new PdfPCell(new Paragraph(itemService.getItemByName(tr.getItemname()).getHsn()));
-				c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-				c1.setBorder(PdfPCell.RIGHT);
-				item.addCell(c1);
-				
-				c1 = new PdfPCell(new Paragraph(""+tr.getQuantity()));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);				
-				item.addCell(c1);
-				
-				c1 = new PdfPCell(new Paragraph(""+tr.getUnit()));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				item.addCell(c1);
-				
-				c1 = new PdfPCell(new Paragraph(""+tr.getRate()));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				item.addCell(c1);
-				
-				String igstLabel = tr.getIgstPercent() > 0 ? String.format("%.1f%%", tr.getIgstPercent()) : "0%";
-				c1 = new PdfPCell(new Paragraph(igstLabel));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-				c1.setBorder(PdfPCell.RIGHT);
-				item.addCell(c1);
-				
-				c1 = new PdfPCell(new Paragraph(""+tr.getAmount()));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				item.addCell(c1);
-			}
-			
-			for(int i=sr;i<10;i++)
-			{
-				for(int j=0;j<8;j++)
-				{
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.RIGHT);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}
-			}
-			
-			//Add GoodsDetails
-			c1 = new PdfPCell(new Paragraph(" "));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("",smallfont));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			for(int i=0;i<6;i++)
-			{
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				//c1.setFixedHeight(20);
-				item.addCell(c1);
-			}
-			
-			c1 = new PdfPCell(new Paragraph(" "));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph(" ",smallfont));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			for(int i=0;i<6;i++)
-			{
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				//c1.setFixedHeight(20);
-				item.addCell(c1);
-			}
-			
-			c1 = new PdfPCell(new Paragraph(" "));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-			c1.setBorder(PdfPCell.TOP);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("FODDER SEEDS",smallfont));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			//c1.setBorder(PdfPCell.RIGHT);
-			c1.setBorder(PdfPCell.TOP);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			for(int i=0;i<6;i++)
-			{
-				
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.LEFT);
-				//c1.setFixedHeight(20);
-				item.addCell(c1);
-				
-			}
-			
-			c1 = new PdfPCell(new Paragraph(" "));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-			//c1.setBorder(PdfPCell.RIGHT);
-			c1.setBorder(PdfPCell.NO_BORDER);
-			//c1.setFixedHeight(20);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("NON TAXABLE GOODS",smallfont));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setBorder(PdfPCell.NO_BORDER);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			
-			
-			for(int i=0;i<6;i++)
-			{
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				//c1.setFixedHeight(20);
-				item.addCell(c1);
-			}
-			
-			c1 = new PdfPCell(new Paragraph(" "));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-			//c1.setBorder(PdfPCell.RIGHT);
-			c1.setBorder(PdfPCell.NO_BORDER);
-			//c1.setFixedHeight(20);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			
-			//c1 = new PdfPCell(packaging);
-			c1 = new PdfPCell(new Paragraph("EXEMPTED FROM VAT",smallfont));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setBorder(PdfPCell.NO_BORDER);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			
-			
-			for(int i=0;i<6;i++)
-			{
-				c1 = new PdfPCell(new Paragraph(" ",smallfont));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				//c1.setFixedHeight(20);
-				item.addCell(c1);
-			}
-			
-			c1 = new PdfPCell(new Paragraph(" "));
-			c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-			//c1.setBorder(PdfPCell.RIGHT);
-			c1.setBorder(PdfPCell.NO_BORDER);
-			//c1.setFixedHeight(20);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph("AGRICULTURE PRODUCE",smallfont));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.RIGHT);
-			//c1.setBorder(PdfPCell.LEFT);
-			//c1.setFixedHeight(20);
-			//c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			
-			
-			for(int i=0;i<6;i++)
-			{
-				c1 = new PdfPCell(new Paragraph(" ",smallfont));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
-			}
-			
-			
-			
-			
-			for(int i=0;i<5;i++)
-			{
-				if(i==1)
-				{
-					c1 = new PdfPCell(addPackaging());
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.RIGHT);
-					c1.setFixedHeight(20);
-					c1.setRowspan(3);
-					item.addCell(c1);
-				}
-				else if(i==0)
-				{
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.NO_BORDER);
-					c1.setFixedHeight(20);
-					//c1.setRowspan(3);
-					item.addCell(c1);
-				}
-				else {
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
-				}
-			}
-			
-			c1 = new PdfPCell(new Paragraph(" Net Total"));
-			c1.setHorizontalAlignment(Element.ALIGN_RIGHT);			
-			c1.setBorder(PdfPCell.BOX);
-			c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph(""+bill.getNettotal()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			//for other Charges
-			for(int i=0;i<5;i++)
-			{
-				
-				if(i>1)
-				{
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
-				}
-				else if(i==0)
-				{
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.NO_BORDER);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}
-				
-				
-			}
-			c1 = new PdfPCell(new Paragraph("Other Charges"));
-			c1.setHorizontalAlignment(Element.ALIGN_RIGHT);			
-			c1.setBorder(PdfPCell.BOX);
-			c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(new Paragraph(""+bill.getOtherchargs()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			//c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			//for Transporting Charges
-			for(int i=0;i<5;i++)
-			{
-				if(i>1) {
-				c1 = new PdfPCell(new Paragraph(" "));
-				c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-				c1.setBorder(PdfPCell.RIGHT);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
-				}
-				else if(i==0)
-				{
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.NO_BORDER);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}
-			}
-			
-			c1 = new PdfPCell(new Paragraph("Transp.Chargs"));
-			c1.setHorizontalAlignment(Element.ALIGN_RIGHT);			
-			c1.setBorder(PdfPCell.BOX);
-			c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			
-			c1 = new PdfPCell(new Paragraph(""+bill.getTransportingchrges()));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-			c1.setBorder(PdfPCell.BOX);
-			//c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			//for Grand Total
-			for(int i=0;i<5;i++)
-			{
-				if(i==1)
-				{
-					c1 = new PdfPCell(new Paragraph("GSTIN:27AHKPL3715E1ZG"));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.TOP);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}else if(i==0)
-				{
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.TOP);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}else
-				{
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-					c1.setBorder(PdfPCell.LEFT);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}
-			}
-			// IGST Total row (only shown when non-zero)
-			if (bill.getIgstTotal() > 0.001f) {
-				for (int i = 0; i < 5; i++) {
-					c1 = new PdfPCell(new Paragraph(" "));
-					c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-					c1.setBorder(i == 0 ? PdfPCell.NO_BORDER : PdfPCell.LEFT);
-					c1.setFixedHeight(20);
-					item.addCell(c1);
-				}
-				c1 = new PdfPCell(new Paragraph("IGST Total"));
-				c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
-				c1.setBorder(PdfPCell.BOX);
-				c1.setColspan(2);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
-				c1 = new PdfPCell(new Paragraph(String.format("%.2f", bill.getIgstTotal())));
-				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-				c1.setBorder(PdfPCell.BOX);
-				c1.setColspan(2);
-				c1.setFixedHeight(20);
-				item.addCell(c1);
+			item.setWidthPercentage(100);
+			item.setWidths(COL_WIDTHS);
+
+			// header row
+			String[] hTxt   = {"Sr.", "Description of Goods", "HSN", "Qty", "Unit", "Rate", "GST %", "Amount"};
+			int[]    hAlign = {Element.ALIGN_CENTER, Element.ALIGN_LEFT, Element.ALIGN_CENTER,
+			                   Element.ALIGN_CENTER, Element.ALIGN_CENTER, Element.ALIGN_RIGHT,
+			                   Element.ALIGN_CENTER, Element.ALIGN_RIGHT};
+			for (int i = 0; i < 8; i++) {
+				PdfPCell h = cell(hTxt[i], F_COL_HDR, hAlign[i], PdfPCell.BOX, 5, C_HDR_BG);
+				item.addCell(h);
 			}
 
-			c1 = new PdfPCell(new Paragraph("Grand Total"));
-			c1.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			c1.setBorder(PdfPCell.BOX);
-			c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
+			// data rows
+			int sr = 0;
+			for (Transaction tr : bill.getTransaction()) {
+				String hsn  = "";
+				try { hsn = safe(itemService.getItemByName(tr.getItemname()).getHsn()); } catch (Exception ignored) {}
+				String igst = tr.getIgstPercent() > 0 ? String.format("%.1f%%", tr.getIgstPercent()) : "—";
 
-			float grandTotal = bill.getNettotal() + bill.getIgstTotal() + bill.getOtherchargs() + bill.getTransportingchrges();
-			c1 = new PdfPCell(new Paragraph(String.format("%.2f", grandTotal)));
-			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-			c1.setBorder(PdfPCell.BOX);
-			c1.setColspan(2);
-			c1.setFixedHeight(20);
-			item.addCell(c1);
-			
-			c1 = new PdfPCell(item);
-			//c1.setBorder(PdfPCell.BOX);
-			table.addCell(c1);
-			
-			
-			
-			
-			
-			c1 = new PdfPCell(addFooter());
-			//c1.setBorder(PdfPCell.BOX);
-			table.addCell(c1);
-			
-			doc.add(table);
+				itemCell(item, "" + (++sr),                          Element.ALIGN_CENTER);
+				itemCell(item, tr.getItemname(),                     Element.ALIGN_LEFT);
+				itemCell(item, hsn,                                  Element.ALIGN_CENTER);
+				itemCell(item, "" + tr.getQuantity(),                Element.ALIGN_CENTER);
+				itemCell(item, "" + tr.getUnit(),                    Element.ALIGN_CENTER);
+				itemCell(item, fmt(tr.getRate()),                    Element.ALIGN_RIGHT);
+				itemCell(item, igst,                                 Element.ALIGN_CENTER);
+				itemCell(item, fmt(tr.getAmount()),                  Element.ALIGN_RIGHT);
+			}
+
+			// filler rows (min 8 rows total)
+			for (int i = sr; i < Math.max(8, sr); i++) {
+				for (int j = 0; j < 8; j++) {
+					PdfPCell ec = new PdfPCell(new Paragraph(" "));
+					ec.setBorder(PdfPCell.LEFT | PdfPCell.RIGHT);
+					ec.setFixedHeight(18);
+					item.addCell(ec);
+				}
+			}
+
+			// horizontal rule closing the item rows
+			PdfPCell rule = new PdfPCell(new Paragraph(""));
+			rule.setColspan(8);
+			rule.setBorder(PdfPCell.TOP);
+			rule.setFixedHeight(1);
+			item.addCell(rule);
+
+			// goods category note
+			PdfPCell goods = cell(
+				"FODDER SEEDS  —  NON TAXABLE GOODS  —  EXEMPTED FROM VAT  —  AGRICULTURE PRODUCE",
+				F_ITALIC, Element.ALIGN_CENTER, PdfPCell.BOX, 4, C_SUB_BG);
+			goods.setColspan(8);
+			item.addCell(goods);
+
+			// packaging block (left 4 cols, spans 5 rows) + totals (right 4 cols)
+			PdfPTable pkg = new PdfPTable(new float[]{65f, 35f});
+			pkg.setWidthPercentage(100);
+			pkgRow(pkg, "No. of Bags");
+			pkgRow(pkg, "CC Attach");
+			pkgRow(pkg, "To Pay / Paid");
+			PdfPCell pkgCell = new PdfPCell(pkg);
+			pkgCell.setColspan(4);
+			pkgCell.setRowspan(5);
+			pkgCell.setBorder(PdfPCell.BOX);
+			pkgCell.setPadding(0);
+			item.addCell(pkgCell);
+
+			float grandTotal = bill.getNettotal() + bill.getIgstTotal()
+					+ bill.getOtherchargs() + bill.getTransportingchrges();
+			totalRow(item, "Net Total",         fmt(bill.getNettotal()),             F_BOLD, C_SUB_BG);
+			totalRow(item, "IGST Total",        fmt(bill.getIgstTotal()),            F_BOLD, null);
+			totalRow(item, "Other Charges",     fmt(bill.getOtherchargs()),          F_BOLD, null);
+			totalRow(item, "Transport Charges", fmt(bill.getTransportingchrges()),   F_BOLD, null);
+			totalRow(item, "Grand Total",       fmt(grandTotal),                     F_HEAD, C_GRAND_BG);
+
+			PdfPCell itemWrap = new PdfPCell(item);
+			itemWrap.setBorder(PdfPCell.BOX);
+			itemWrap.setPadding(0);
+			page.addCell(itemWrap);
+
+			// ── 6. Footer ─────────────────────────────────────────────────
+			PdfPCell footCell = new PdfPCell(buildFooter());
+			footCell.setBorder(PdfPCell.NO_BORDER);
+			footCell.setPadding(0);
+			page.addCell(footCell);
+
+			doc.add(page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public PdfPTable addFooter()
-	{
+
+	// ═════════════════════════════════════════════════════════════════════════
+	//  FOOTER  (bank details + stamp/signature)
+	// ═════════════════════════════════════════════════════════════════════════
+	public PdfPTable buildFooter() {
 		try {
-		PdfPTable footer = new PdfPTable(3);
-		float width[] = new float[] {5f,10f,20f};
-		footer.setWidths(width);
-		PdfPCell c1 = new PdfPCell(new Paragraph("Bank Details",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);			
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" ",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.RIGHT);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" For Yash Goat Farm And Seeds"));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		c1.setVerticalAlignment(Element.ALIGN_BOTTOM);
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		c1.setRowspan(2);
-		footer.addCell(c1);
-		
-		
-		c1 = new PdfPCell(new Paragraph("Name",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph("Yash Goat Farm And Seeds",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.RIGHT);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		
-		
-		c1 = new PdfPCell(new Paragraph("IFSC Code ",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(bank != null && bank.getIfsc() != null ? bank.getIfsc() : "-",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.RIGHT);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		c1 = new PdfPCell(new Paragraph(" ",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph("Account No ",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(bank != null && bank.getAccountno() != null ? bank.getAccountno() : "-",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.RIGHT);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		c1 = new PdfPCell(new Paragraph("Proprietor "));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		c1.setVerticalAlignment(Element.ALIGN_BOTTOM);
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		c1.setRowspan(2);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph("Bank Branch ",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(bank != null && bank.getBranch() != null ? bank.getBranch() : "-",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.RIGHT);
-		c1.setFixedHeight(15);
-		footer.addCell(c1);
-		c1 = new PdfPCell(new Paragraph(" Propritor",smallfont));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		c1.setFixedHeight(15);
-		//footer.addCell(c1);
-		
-		return footer;
-		}catch(Exception e)
-		{
+			String coName = (company != null && nne(company.getName())) ? company.getName() : "Yash Goat Farm And Seeds";
+
+			// signature / stamp nested table
+			PdfPTable sig = new PdfPTable(1);
+			sig.setWidthPercentage(100);
+
+			Paragraph p1 = new Paragraph("For " + coName, F_SMALL);
+			p1.setAlignment(Element.ALIGN_CENTER);
+			PdfPCell sc = new PdfPCell(p1);
+			sc.setBorder(PdfPCell.NO_BORDER);
+			sc.setPadding(4);
+			sig.addCell(sc);
+
+			AppSettings.StampConfig stamp = AppSettings.loadStampConfig();
+			boolean stampDrawn = false;
+			if (stamp != null && stamp.isUsable()) {
+				try {
+					Image stampImg = Image.getInstance(stamp.imagePath);
+					stampImg.scaleAbsolute(stamp.widthPt, stamp.heightPt);
+					PdfPCell sc2 = new PdfPCell(stampImg, false);
+					sc2.setHorizontalAlignment(Element.ALIGN_CENTER);
+					sc2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					sc2.setFixedHeight(Math.max(40f, stamp.heightPt + 6f));
+					sc2.setBorder(PdfPCell.NO_BORDER);
+					sc2.setPadding(2);
+					sig.addCell(sc2);
+					stampDrawn = true;
+				} catch (Exception ignored) {}
+			}
+			if (!stampDrawn) {
+				PdfPCell sp = new PdfPCell(new Paragraph(" "));
+				sp.setFixedHeight(45);
+				sp.setBorder(PdfPCell.NO_BORDER);
+				sig.addCell(sp);
+			}
+
+			Paragraph p2 = new Paragraph("Authorised Signatory", F_SMALL);
+			p2.setAlignment(Element.ALIGN_CENTER);
+			PdfPCell sc3 = new PdfPCell(p2);
+			sc3.setBorder(PdfPCell.TOP);
+			sc3.setPadding(4);
+			sig.addCell(sc3);
+
+			// footer table: label | value | sig (rowspan=5)
+			PdfPTable footer = new PdfPTable(new float[]{14f, 26f, 60f});
+			footer.setWidthPercentage(100);
+
+			PdfPCell sigWrap = new PdfPCell(sig);
+			sigWrap.setBorder(PdfPCell.BOX);
+			sigWrap.setPadding(0);
+			sigWrap.setRowspan(5);
+
+			bankRow(footer, "Bank Details", "",                                                            sigWrap, true);
+			bankRow(footer, "Bank Name",    coName,                                                        null,   false);
+			bankRow(footer, "IFSC Code",    bank != null && bank.getIfsc()      != null ? bank.getIfsc()      : "—", null, false);
+			bankRow(footer, "Account No.",  bank != null && bank.getAccountno() != null ? bank.getAccountno() : "—", null, false);
+			bankRow(footer, "Bank Branch",  bank != null && bank.getBranch()    != null ? bank.getBranch()    : "—", null, false);
+
+			return footer;
+		} catch (Exception e) {
 			return null;
 		}
-		
-		
 	}
 
-	public PdfPTable addPackaging()
-	{
-		try {
-		float[] widths = new float[]{35f,8f};
-		PdfPTable packaging = new PdfPTable(2);
-		packaging.setWidths(widths);
-		PdfPCell c1 = new PdfPCell(new Paragraph(" "));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		//c1.setFixedHeight(20);
-		//packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph("No.OF BAGS"));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.BOX);
-		//c1.setFixedHeight(20);
-		packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" "));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		//c1.setFixedHeight(20);
-		packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" "));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		//c1.setFixedHeight(20);
-		//packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph("CC ATTACH"));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.BOX);
-		//c1.setFixedHeight(20);
-		packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" "));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		//c1.setFixedHeight(20);
-		packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" "));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		//c1.setFixedHeight(20);
-		//packaging.addCell(c1);		
-		c1 = new PdfPCell(new Paragraph("TO PAY/PAID"));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.BOX);
-		c1.setFixedHeight(15);
-		packaging.addCell(c1);
-		
-		c1 = new PdfPCell(new Paragraph(" "));
-		c1.setHorizontalAlignment(Element.ALIGN_LEFT);			
-		c1.setBorder(PdfPCell.NO_BORDER);
-		//c1.setFixedHeight(20);
-		packaging.addCell(c1);
-		return packaging;
-		}catch(Exception e)
-		{
-			return null;
-		}
+	// ═════════════════════════════════════════════════════════════════════════
+	//  HELPERS
+	// ═════════════════════════════════════════════════════════════════════════
+
+	/** Bold label | plain value row in a 2-col meta table */
+	private void addKV(PdfPTable t, String label, String value) {
+		PdfPCell lc = new PdfPCell(new Paragraph(label, F_BOLD));
+		lc.setBorder(PdfPCell.BOX); lc.setPadding(4);
+		t.addCell(lc);
+		PdfPCell vc = new PdfPCell(new Paragraph(value, F_NORMAL));
+		vc.setBorder(PdfPCell.BOX); vc.setPadding(4);
+		t.addCell(vc);
 	}
+
+	/** Single item table cell */
+	private void itemCell(PdfPTable t, String text, int align) {
+		PdfPCell c = new PdfPCell(new Paragraph(text == null ? "" : text, F_NORMAL));
+		c.setHorizontalAlignment(align);
+		c.setBorder(PdfPCell.BOX);
+		c.setPadding(4);
+		t.addCell(c);
+	}
+
+	/** Packaging label | blank value row */
+	private void pkgRow(PdfPTable t, String label) {
+		PdfPCell lc = new PdfPCell(new Paragraph(label, F_BOLD));
+		lc.setBorder(PdfPCell.BOX); lc.setPadding(5); lc.setFixedHeight(22);
+		t.addCell(lc);
+		PdfPCell vc = new PdfPCell(new Paragraph(" "));
+		vc.setBorder(PdfPCell.BOX); vc.setPadding(5); vc.setFixedHeight(22);
+		t.addCell(vc);
+	}
+
+	/** Totals row spanning the right 4 columns (colspan 2 + colspan 2) */
+	private void totalRow(PdfPTable t, String label, String value, Font f, BaseColor bg) {
+		PdfPCell lc = new PdfPCell(new Paragraph(label, f));
+		lc.setColspan(2); lc.setHorizontalAlignment(Element.ALIGN_RIGHT);
+		lc.setBorder(PdfPCell.BOX); lc.setPadding(4); lc.setFixedHeight(20);
+		if (bg != null) lc.setBackgroundColor(bg);
+		t.addCell(lc);
+		PdfPCell vc = new PdfPCell(new Paragraph(value, f));
+		vc.setColspan(2); vc.setHorizontalAlignment(Element.ALIGN_RIGHT);
+		vc.setBorder(PdfPCell.BOX); vc.setPadding(4); vc.setFixedHeight(20);
+		if (bg != null) vc.setBackgroundColor(bg);
+		t.addCell(vc);
+	}
+
+	/** Bank detail row; sigWrap (non-null only for first row) goes into col 3 */
+	private void bankRow(PdfPTable t, String label, String value, PdfPCell sigWrap, boolean first) {
+		PdfPCell lc = new PdfPCell(new Paragraph(label, F_BOLD));
+		lc.setBorder(PdfPCell.BOX); lc.setPadding(4); lc.setFixedHeight(16);
+		t.addCell(lc);
+		PdfPCell vc = new PdfPCell(new Paragraph(value, F_SMALL));
+		vc.setBorder(PdfPCell.BOX); vc.setPadding(4); vc.setFixedHeight(16);
+		t.addCell(vc);
+		if (first && sigWrap != null) t.addCell(sigWrap);
+	}
+
+	/** Generic styled cell */
+	private PdfPCell cell(String text, Font f, int align, int border, float pad, BaseColor bg) {
+		PdfPCell c = new PdfPCell(new Paragraph(text, f));
+		c.setHorizontalAlignment(align);
+		c.setBorder(border);
+		c.setPadding(pad);
+		if (bg != null) c.setBackgroundColor(bg);
+		return c;
+	}
+
+	/** Wraps a nested PdfPTable in a no-padding BOX cell */
+	private PdfPCell wrap(PdfPTable t) {
+		PdfPCell c = new PdfPCell(t);
+		c.setBorder(PdfPCell.BOX);
+		c.setPadding(0);
+		return c;
+	}
+
+	/** True if string is non-null and non-empty */
+	private boolean nne(String s) { return s != null && !s.isEmpty(); }
+
+	private String safe(String s) { return s == null ? "" : s; }
+
+	private String fmt(float v) { return String.format("%.2f", v); }
 }

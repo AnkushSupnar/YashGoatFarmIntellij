@@ -16,18 +16,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import main.java.main.java.guiUtil.AlertNotification;
 import main.java.main.java.guiUtil.ViewUtil;
-import main.java.main.java.hibernate.entities.Bill;
-import main.java.main.java.hibernate.entities.Customer;
-import main.java.main.java.hibernate.service.service.BillService;
-import main.java.main.java.hibernate.service.service.CustomerService;
-import main.java.main.java.hibernate.service.serviceImpl.BillServiceImpl;
-import main.java.main.java.hibernate.service.serviceImpl.CustomerServiceImpl;
+import main.java.main.java.hibernate.entities.PurchaseInvoice;
+import main.java.main.java.hibernate.service.service.PurchaseInvoiceService;
+import main.java.main.java.hibernate.service.service.PurchasePartyService;
+import main.java.main.java.hibernate.service.serviceImpl.PurchaseInvoiceServiceImpl;
+import main.java.main.java.hibernate.service.serviceImpl.PurchasePartyServiceImpl;
 import main.java.main.java.hibernate.util.CommonData;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -36,18 +34,19 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BillsDashboardControler implements Initializable {
+public class PurchaseInvoiceDashboardController implements Initializable {
 
     @FXML private AnchorPane mainPanel;
-    @FXML private TableView<Bill> table;
-    @FXML private TableColumn<Bill, Long>   colBillNo;
-    @FXML private TableColumn<Bill, LocalDate> colDate;
-    @FXML private TableColumn<Bill, String> colCustomer;
-    @FXML private TableColumn<Bill, Float>  colAmount;
-    @FXML private TableColumn<Bill, Float>  colPaid;
-    @FXML private TableColumn<Bill, Float>  colOutstanding;
-    @FXML private TableColumn<Bill, String> colStatus;
-    @FXML private TextField txtSearchCustomer;
+    @FXML private TableView<PurchaseInvoice> table;
+    @FXML private TableColumn<PurchaseInvoice, Long>      colBillNo;
+    @FXML private TableColumn<PurchaseInvoice, String>    colInvoiceNo;
+    @FXML private TableColumn<PurchaseInvoice, String>    colParty;
+    @FXML private TableColumn<PurchaseInvoice, LocalDate> colDate;
+    @FXML private TableColumn<PurchaseInvoice, Float>     colAmount;
+    @FXML private TableColumn<PurchaseInvoice, Float>     colPaid;
+    @FXML private TableColumn<PurchaseInvoice, Float>     colOutstanding;
+    @FXML private TableColumn<PurchaseInvoice, String>    colStatus;
+    @FXML private TextField txtSearchParty;
     @FXML private TextField txtSearchBillNo;
     @FXML private DatePicker dateFrom;
     @FXML private DatePicker dateTo;
@@ -58,69 +57,64 @@ public class BillsDashboardControler implements Initializable {
     @FXML private ToggleButton btnThisMonth;
     @FXML private ToggleButton btnAll;
 
-    private final ObservableList<Bill> masterList = FXCollections.observableArrayList();
-    private FilteredList<Bill> filteredList;
-    private BillService billService;
-    private CustomerService customerService;
+    private final ObservableList<PurchaseInvoice> masterList = FXCollections.observableArrayList();
+    private FilteredList<PurchaseInvoice> filteredList;
+    private PurchaseInvoiceService invoiceService;
+    private PurchasePartyService partyService;
     private AlertNotification notification;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        billService     = new BillServiceImpl();
-        customerService = new CustomerServiceImpl();
-        notification    = new AlertNotification();
+        invoiceService = new PurchaseInvoiceServiceImpl();
+        partyService   = new PurchasePartyServiceImpl();
+        notification   = new AlertNotification();
         setupColumns();
-        filteredList  = new FilteredList<>(masterList, b -> true);
+        filteredList = new FilteredList<>(masterList, b -> true);
         table.setItems(filteredList);
 
-        // Customer name autocomplete suggestions
-        List<String> customerNames = customerService.getAllCustomerNames();
-        if (customerNames != null && !customerNames.isEmpty()) {
-            TextFields.bindAutoCompletion(txtSearchCustomer, customerNames);
+        List<String> partyNames = partyService.getAllPurchasePartyNames();
+        if (partyNames != null && !partyNames.isEmpty()) {
+            TextFields.bindAutoCompletion(txtSearchParty, partyNames);
         }
 
-        // Live in-memory filter as user types
-        txtSearchCustomer.textProperty().addListener((obs, o, n) -> applyInMemoryFilter());
+        txtSearchParty.textProperty().addListener((obs, o, n) -> applyInMemoryFilter());
         txtSearchBillNo.textProperty().addListener((obs, o, n) -> applyInMemoryFilter());
 
-        // Double-click row to open for editing
         table.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2 && table.getSelectionModel().getSelectedItem() != null) {
-                openBillForEdit();
+                openInvoiceForEdit();
             }
         });
 
-        loadBills(billService.getDateWiseBill(LocalDate.now()));
+        loadInvoices(invoiceService.getDateWisePurchaseInvoice(LocalDate.now()));
     }
 
     // ── Column setup ────────────────────────────────────────────────────
 
     private void setupColumns() {
-        colBillNo.setCellValueFactory(new PropertyValueFactory<>("billno"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colBillNo.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().getBillno()));
+        colInvoiceNo.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getInvoiceNo()));
+        colDate.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().getDate()));
 
-        colCustomer.setCellValueFactory(p -> {
-            Customer c = p.getValue().getCustomer();
-            if (c == null) return new SimpleStringProperty("-");
-            String name = (c.getFname() + " " + c.getMname() + " " + c.getLname())
-                    .replaceAll("\\s+", " ").trim();
-            return new SimpleStringProperty(name);
+        colParty.setCellValueFactory(p -> {
+            if (p.getValue().getParty() == null) return new SimpleStringProperty("-");
+            return new SimpleStringProperty(p.getValue().getParty().getName());
         });
 
         colAmount.setCellValueFactory(p ->
-                new SimpleObjectProperty<>(p.getValue().getNettotal()));
+                new SimpleObjectProperty<>(p.getValue().getGrandtotal()));
 
         colPaid.setCellValueFactory(p ->
-                new SimpleObjectProperty<>(p.getValue().getRecivedamount()));
+                new SimpleObjectProperty<>(p.getValue().getPaid()));
 
         colOutstanding.setCellValueFactory(p -> {
-            float out = p.getValue().getNettotal() - p.getValue().getRecivedamount();
+            float out = p.getValue().getGrandtotal() - p.getValue().getPaid();
             return new SimpleObjectProperty<>(Math.max(0f, out));
         });
 
         colStatus.setCellValueFactory(p -> new SimpleStringProperty(paymentStatus(p.getValue())));
 
-        colStatus.setCellFactory(col -> new TableCell<Bill, String>() {
+        colStatus.setCellFactory(col -> new TableCell<PurchaseInvoice, String>() {
             @Override
             protected void updateItem(String status, boolean empty) {
                 super.updateItem(status, empty);
@@ -144,42 +138,34 @@ public class BillsDashboardControler implements Initializable {
         });
     }
 
-    private static String paymentStatus(Bill b) {
-        float paid = b.getRecivedamount();
-        float total = b.getNettotal();
-        if (paid <= 0)         return "UNPAID";
-        if (paid >= total)     return "PAID";
+    private static String paymentStatus(PurchaseInvoice inv) {
+        float paid  = inv.getPaid();
+        float total = inv.getGrandtotal();
+        if (paid <= 0)     return "UNPAID";
+        if (paid >= total) return "PAID";
         return "PARTIAL";
     }
 
     // ── Data loading ─────────────────────────────────────────────────────
 
-    private void loadBills(List<Bill> bills) {
+    private void loadInvoices(List<PurchaseInvoice> invoices) {
         masterList.clear();
-        if (bills != null) {
-            for (Bill b : bills) {
-                // Fold all charges into nettotal so all derived columns are consistent
-                b.setNettotal(b.getNettotal() + b.getIgstTotal() + b.getOtherchargs() + b.getTransportingchrges());
-            }
-            masterList.addAll(bills);
-        }
+        if (invoices != null) masterList.addAll(invoices);
         applyInMemoryFilter();
     }
 
     private void applyInMemoryFilter() {
-        String customerText = txtSearchCustomer.getText().toLowerCase().trim();
-        String billNoText   = txtSearchBillNo.getText().trim();
+        String partyText  = txtSearchParty.getText().toLowerCase().trim();
+        String billNoText = txtSearchBillNo.getText().trim();
 
-        filteredList.setPredicate(b -> {
-            if (!customerText.isEmpty()) {
-                Customer c = b.getCustomer();
-                String name = c == null ? ""
-                        : (c.getFname() + " " + c.getMname() + " " + c.getLname()).toLowerCase();
-                if (!name.contains(customerText)) return false;
+        filteredList.setPredicate(inv -> {
+            if (!partyText.isEmpty()) {
+                String name = inv.getParty() == null ? "" : inv.getParty().getName().toLowerCase();
+                if (!name.contains(partyText)) return false;
             }
             if (!billNoText.isEmpty()) {
                 try {
-                    if (b.getBillno() != Long.parseLong(billNoText)) return false;
+                    if (inv.getBillno() != Long.parseLong(billNoText)) return false;
                 } catch (NumberFormatException ignored) {
                     return false;
                 }
@@ -190,30 +176,30 @@ public class BillsDashboardControler implements Initializable {
         int shown = filteredList.size();
         int total = masterList.size();
         lblCount.setText(shown == total
-                ? shown + " bills"
-                : shown + " / " + total + " bills");
+                ? shown + " invoices"
+                : shown + " / " + total + " invoices");
     }
 
     // ── Quick-filter button actions ───────────────────────────────────────
 
     @FXML void loadToday(ActionEvent e) {
         clearDateRange();
-        loadBills(billService.getDateWiseBill(LocalDate.now()));
+        loadInvoices(invoiceService.getDateWisePurchaseInvoice(LocalDate.now()));
     }
 
     @FXML void loadThisWeek(ActionEvent e) {
         clearDateRange();
-        loadBills(billService.getThisWeekBill());
+        loadInvoices(invoiceService.getThisWeekInvoice());
     }
 
     @FXML void loadThisMonth(ActionEvent e) {
         clearDateRange();
-        loadBills(billService.getMonthWiseBill(LocalDate.now()));
+        loadInvoices(invoiceService.getMonthWisePurchaseInvoice(LocalDate.now()));
     }
 
     @FXML void loadAll(ActionEvent e) {
         clearDateRange();
-        loadBills(billService.getAllBills());
+        loadInvoices(invoiceService.getAllPurchaseInvoice());
     }
 
     // ── Search / reset ────────────────────────────────────────────────────
@@ -229,58 +215,55 @@ public class BillsDashboardControler implements Initializable {
             notification.showErrorMessage("From Date cannot be after To Date");
             return;
         }
-        loadBills(billService.getPeriodWiseBills(from, to));
+        loadInvoices(invoiceService.getPeriodPurchaseInvoice(from, to));
     }
 
     @FXML void resetSearch(ActionEvent e) {
-        txtSearchCustomer.clear();
+        txtSearchParty.clear();
         txtSearchBillNo.clear();
         clearDateRange();
         btnToday.setSelected(true);
-        loadBills(billService.getDateWiseBill(LocalDate.now()));
+        loadInvoices(invoiceService.getDateWisePurchaseInvoice(LocalDate.now()));
     }
 
     // ── Actions ───────────────────────────────────────────────────────────
 
-    @FXML void previewBill(ActionEvent event) {
-        if (table.getSelectionModel().getSelectedItem() == null) {
-            notification.showErrorMessage("Please select a bill to preview");
+    @FXML void previewInvoice(ActionEvent event) {
+        PurchaseInvoice selected = table.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            notification.showErrorMessage("Please select an invoice to preview");
             return;
         }
-        doPreview();
-        new ViewUtil().showBillPreview(event);
+        CommonData.previewInvoiceno = selected.getBillno();
+        new ViewUtil().showInvoicePreview(event);
     }
 
-    @FXML void openNewBill(ActionEvent event) {
-        CommonData.editBillNo = 0;
-        BorderPane bp = (BorderPane) mainPanel.getParent();
-        if (bp == null) return;
-        Pane billingFrame = new ViewUtil().getPage("transaction/BillingFrame");
-        if (billingFrame != null) bp.setCenter(billingFrame);
+    @FXML void openNewInvoice(ActionEvent event) {
+        CommonData.editInvoiceNo = 0;
+        navigateToForm();
     }
 
-    @FXML void editBill(ActionEvent event) {
-        openBillForEdit();
+    @FXML void editInvoice(ActionEvent event) {
+        openInvoiceForEdit();
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────
 
-    private void openBillForEdit() {
-        Bill selected = table.getSelectionModel().getSelectedItem();
+    private void openInvoiceForEdit() {
+        PurchaseInvoice selected = table.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            notification.showErrorMessage("Please select a bill to edit");
+            notification.showErrorMessage("Please select an invoice to edit");
             return;
         }
-        CommonData.editBillNo = selected.getBillno();
-        BorderPane bp = (BorderPane) mainPanel.getParent();
-        if (bp == null) return;
-        Pane billingFrame = new ViewUtil().getPage("transaction/BillingFrame");
-        if (billingFrame != null) bp.setCenter(billingFrame);
+        CommonData.editInvoiceNo = selected.getBillno();
+        navigateToForm();
     }
 
-    private void doPreview() {
-        Bill selected = table.getSelectionModel().getSelectedItem();
-        if (selected != null) CommonData.previewBillNo = selected.getBillno();
+    private void navigateToForm() {
+        BorderPane bp = (BorderPane) mainPanel.getParent();
+        if (bp == null) return;
+        Pane form = new ViewUtil().getPage("transaction/PurchaseInviceFrame");
+        if (form != null) bp.setCenter(form);
     }
 
     private void clearDateRange() {

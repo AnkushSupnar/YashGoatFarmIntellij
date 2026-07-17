@@ -55,7 +55,7 @@ public class TransactionMenuControler implements Initializable {
 	void openPurchaseBilling(ActionEvent event) {
 		pane = (BorderPane) transactionMenuPanel.getParent();
 		if (billing != null) billing.setVisible(false);
-		purchase = viewUtil.getPage("transaction/PurchaseInviceFrame");
+		purchase = viewUtil.getPage("transaction/PurchaseInvoiceDashboard");
 		navigate(purchase);
 	}
 

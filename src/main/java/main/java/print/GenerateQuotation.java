@@ -307,13 +307,24 @@ public class GenerateQuotation {
 		addStatusRow(t, "CC ATTACH", "-");
 		addStatusRow(t, "STATUS", q.getStatus() == null || q.getStatus().isEmpty() ? "ESTIMATE / QUOTATION" : q.getStatus());
 
-		if (company != null && company.getGst() != null && !company.getGst().isEmpty()) {
-			Paragraph p = new Paragraph("GSTIN: " + company.getGst(), SMALL_BOLD);
-			PdfPCell c = new PdfPCell(p);
-			c.setColspan(2);
-			c.setBorder(PdfPCell.BOX);
-			c.setPadding(4);
-			t.addCell(c);
+		if (company != null) {
+			String gs = company.getGst();
+			String pn = company.getPanNo();
+			boolean hasGst = gs != null && !gs.isEmpty();
+			boolean hasPan = pn != null && !pn.isEmpty();
+			if (hasGst || hasPan) {
+				StringBuilder taxLine = new StringBuilder();
+				if (hasGst) taxLine.append("GSTIN: ").append(gs);
+				if (hasPan) {
+					if (taxLine.length() > 0) taxLine.append("    |    ");
+					taxLine.append("PAN: ").append(pn);
+				}
+				PdfPCell c = new PdfPCell(new Paragraph(taxLine.toString(), SMALL_BOLD));
+				c.setColspan(2);
+				c.setBorder(PdfPCell.BOX);
+				c.setPadding(4);
+				t.addCell(c);
+			}
 		}
 		return t;
 	}

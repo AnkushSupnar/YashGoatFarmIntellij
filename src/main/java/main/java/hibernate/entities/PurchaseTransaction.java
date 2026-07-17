@@ -1,5 +1,6 @@
 package main.java.main.java.hibernate.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,10 @@ public class PurchaseTransaction {
 	float rate;
 	float quantity;
 	float amount;
+	@Column(columnDefinition = "DECIMAL(5,2) DEFAULT 0.00")
+	private float igstPercent;
+	@Column(columnDefinition = "DECIMAL(10,2) DEFAULT 0.00")
+	private float igstAmount;
 	@ManyToOne
 	@JoinColumn(name = "billno")
 	PurchaseInvoice invoice;
@@ -84,6 +89,12 @@ public class PurchaseTransaction {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
+
+	public float getIgstPercent() { return igstPercent; }
+	public void setIgstPercent(float igstPercent) { this.igstPercent = igstPercent; }
+
+	public float getIgstAmount() { return igstAmount; }
+	public void setIgstAmount(float igstAmount) { this.igstAmount = igstAmount; }
 
 	public PurchaseInvoice getInvoiceno() {
 		return invoice;

@@ -14,3 +14,8 @@ ALTER TABLE quotation ADD COLUMN igst_total DECIMAL(10,2) NOT NULL DEFAULT 0.00;
 ALTER TABLE quotation_transaction
     ADD COLUMN igst_percent DECIMAL(5,2) NOT NULL DEFAULT 0.00,
     ADD COLUMN igst_amount  DECIMAL(10,2) NOT NULL DEFAULT 0.00;
+
+-- Purchase Invoice IGST columns (igst total stored in existing gst column)
+ALTER TABLE purchasetransaction
+    ADD COLUMN igst_percent DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    ADD COLUMN igst_amount  DECIMAL(10,2) NOT NULL DEFAULT 0.00;

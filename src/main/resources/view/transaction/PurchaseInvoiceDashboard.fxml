@@ -18,10 +18,10 @@
 
 <AnchorPane fx:id="mainPanel" prefHeight="780.0" prefWidth="1100.0"
     style="-fx-background-color: #ECEFF1;"
-    stylesheets="@BillsDashboard.css"
+    stylesheets="@PurchaseInvoiceDashboard.css"
     xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/16"
-    fx:controller="main.java.main.java.controller.transaction.BillsDashboardControler">
+    fx:controller="main.java.main.java.controller.transaction.PurchaseInvoiceDashboardController">
 
     <fx:define>
         <ToggleGroup fx:id="filterGroup"/>
@@ -34,12 +34,12 @@
               styleClass="header-bar"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding><Insets left="20.0" right="16.0"/></padding>
-            <FontAwesomeIcon fill="WHITE" glyphName="MONEY" size="22"/>
-            <Label styleClass="header-title" text="BILLING"/>
+            <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" size="22"/>
+            <Label styleClass="header-title" text="PURCHASE INVOICES"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Label fx:id="lblCount"/>
-            <Button mnemonicParsing="false" onAction="#openNewBill"
-                    styleClass="btn-new-bill" text="  NEW BILL">
+            <Button mnemonicParsing="false" onAction="#openNewInvoice"
+                    styleClass="btn-new-bill" text="  NEW INVOICE">
                 <graphic><FontAwesomeIcon glyphName="PLUS_CIRCLE" size="14"/></graphic>
             </Button>
         </HBox>
@@ -69,7 +69,7 @@
                     <graphic><FontAwesomeIcon glyphName="SIGNAL" size="11"/></graphic>
                 </ToggleButton>
                 <ToggleButton fx:id="btnAll" mnemonicParsing="false" onAction="#loadAll"
-                              styleClass="filter-toggle" text=" ALL BILLS"
+                              styleClass="filter-toggle" text=" ALL INVOICES"
                               toggleGroup="$filterGroup">
                     <graphic><FontAwesomeIcon glyphName="LIST" size="11"/></graphic>
                 </ToggleButton>
@@ -81,8 +81,8 @@
             <HBox alignment="CENTER_LEFT" spacing="8.0">
                 <padding><Insets bottom="10.0" left="12.0" right="12.0" top="10.0"/></padding>
                 <FontAwesomeIcon fill="#757575" glyphName="SEARCH" size="13"/>
-                <TextField fx:id="txtSearchCustomer" prefWidth="200.0"
-                           promptText="Search by Customer..." styleClass="search-field"/>
+                <TextField fx:id="txtSearchParty" prefWidth="200.0"
+                           promptText="Search by Party..." styleClass="search-field"/>
                 <TextField fx:id="txtSearchBillNo" prefWidth="100.0"
                            promptText="Bill No" styleClass="search-field"/>
                 <Label styleClass="filter-label" text="From :"/>
@@ -100,15 +100,16 @@
             </HBox>
         </VBox>
 
-        <!-- ── BILLS TABLE CARD ───────────────────────────────────────── -->
+        <!-- ── INVOICES TABLE CARD ────────────────────────────────────── -->
         <VBox styleClass="table-card"
               AnchorPane.topAnchor="182.0" AnchorPane.bottomAnchor="52.0"
               AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
             <TableView fx:id="table" styleClass="bills-table" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="colBillNo"      prefWidth="80.0"  text="Bill No"/>
+                    <TableColumn fx:id="colInvoiceNo"   prefWidth="110.0" text="Invoice No"/>
+                    <TableColumn fx:id="colParty"       prefWidth="220.0" text="Party"/>
                     <TableColumn fx:id="colDate"        prefWidth="110.0" text="Date"/>
-                    <TableColumn fx:id="colCustomer"    prefWidth="240.0" text="Customer"/>
                     <TableColumn fx:id="colAmount"      prefWidth="120.0" text="Amount (₹)"/>
                     <TableColumn fx:id="colPaid"        prefWidth="115.0" text="Paid (₹)"/>
                     <TableColumn fx:id="colOutstanding" prefWidth="125.0" text="Outstanding (₹)"/>
@@ -116,7 +117,7 @@
                 </columns>
                 <placeholder>
                     <Label style="-fx-text-fill: #90A4AE; -fx-font-size: 14; -fx-font-style: italic;"
-                           text="No bills found for the selected filter"/>
+                           text="No invoices found for the selected filter"/>
                 </placeholder>
             </TableView>
         </VBox>
@@ -125,12 +126,12 @@
         <HBox alignment="CENTER_LEFT" prefHeight="46.0" spacing="10.0" styleClass="action-bar"
               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <padding><Insets left="16.0" right="16.0"/></padding>
-            <Button mnemonicParsing="false" onAction="#previewBill"
-                    styleClass="btn-preview" text="  PREVIEW BILL">
+            <Button mnemonicParsing="false" onAction="#previewInvoice"
+                    styleClass="btn-preview" text="  PREVIEW INVOICE">
                 <graphic><FontAwesomeIcon glyphName="EYE" size="14"/></graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#editBill"
-                    styleClass="btn-edit-bill" text="  EDIT BILL">
+            <Button mnemonicParsing="false" onAction="#editInvoice"
+                    styleClass="btn-edit-bill" text="  EDIT INVOICE">
                 <graphic><FontAwesomeIcon glyphName="PENCIL" size="14"/></graphic>
             </Button>
         </HBox>

@@ -36,6 +36,7 @@ public class PurchaseInvoicePreviewControler implements Initializable {
     @FXML private TextField txtNetTotal;
     @FXML private TextField txtOtherCharges;
     @FXML private TextField txtTransport;
+    @FXML private TextField txtIgstTotal;
     @FXML private TextField txtGrand;
     @FXML private TextField txtPaid;
     @FXML private TextField txtRemaining;
@@ -79,6 +80,7 @@ public class PurchaseInvoicePreviewControler implements Initializable {
 				Double.parseDouble(txtGrand.getText())-Double.parseDouble(txtPaid.getText())
 				));
 		txtTransport.setText(""+invoice.getTransportcharges());
+		txtIgstTotal.setText(""+invoice.getGst());
 		date.setValue(invoice.getDate());
 		
 	}

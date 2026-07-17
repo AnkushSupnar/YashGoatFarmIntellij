@@ -43,26 +43,32 @@
             <TableColumn fx:id="colAmount" prefWidth="57.0" text="Amount" />
         </columns>
       </TableView>
-      <Label layoutX="14.0" layoutY="495.0" text="Net Total" AnchorPane.bottomAnchor="100.0" />
-      <Label layoutX="124.0" layoutY="495.0" text="Other Chargs" AnchorPane.bottomAnchor="100.0" />
-      <Label layoutX="239.0" layoutY="495.0" text="Transporting Chargs" AnchorPane.bottomAnchor="100.0" />
-      <Label layoutX="359.0" layoutY="495.0" text="Grand Total" AnchorPane.bottomAnchor="100.0" />
-      <TextField fx:id="txtNetTotal" editable="false" layoutX="14.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+      <Label layoutX="14.0" layoutY="495.0" text="Net Total" />
+      <Label layoutX="106.0" layoutY="495.0" text="Other Chargs" />
+      <Label layoutX="200.0" layoutY="495.0" text="Transport" />
+      <Label layoutX="294.0" layoutY="495.0" text="IGST Total" />
+      <Label layoutX="390.0" layoutY="495.0" text="Grand Total" />
+      <TextField fx:id="txtNetTotal" editable="false" layoutX="14.0" layoutY="512.0" prefHeight="25.0" prefWidth="88.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtOtherCharges" editable="false" layoutX="120.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+      <TextField fx:id="txtOtherCharges" editable="false" layoutX="106.0" layoutY="512.0" prefHeight="25.0" prefWidth="88.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtTransport" editable="false" layoutX="238.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+      <TextField fx:id="txtTransport" editable="false" layoutX="198.0" layoutY="512.0" prefHeight="25.0" prefWidth="88.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtGrand" editable="false" layoutX="353.0" layoutY="512.0" prefHeight="25.0" prefWidth="104.0" AnchorPane.bottomAnchor="70.0">
+      <TextField fx:id="txtIgstTotal" editable="false" layoutX="290.0" layoutY="512.0" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #b2ebf2;">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtGrand" editable="false" layoutX="382.0" layoutY="512.0" prefHeight="25.0" prefWidth="96.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

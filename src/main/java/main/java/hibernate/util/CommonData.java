@@ -22,6 +22,7 @@ public class CommonData {
 	public static long previewInvoiceno;
 	public static long billFromQuotationId;
 	public static long editBillNo = 0;
+	public static long editInvoiceNo = 0;
 	public static String paymentCustomerName;
 	private static ItemService itemService = new ItemServiceImpl();
 	private static ItemStockService stockService = new ItemStockServiceImpl();

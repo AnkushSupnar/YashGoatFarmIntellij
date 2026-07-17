@@ -13,6 +13,7 @@ public interface PurchaseInvoiceService extends PurchasInvoiceDao {
 	public List<PurchaseInvoice>getMonthWisePurchaseInvoice(LocalDate date);
 	public List<PurchaseInvoice>getThisYearPurchaseInvoice();
 	public List<PurchaseInvoice>getThisWeekInvoice();
+	public List<PurchaseInvoice>getPeriodPurchaseInvoice(LocalDate start, LocalDate end);
 	public List<PurchaseInvoice>getPartyWiseUnpaidPurchaseInvoice(int partyId);
 	public int savePurchaseInvoice(PurchaseInvoice purchaseInvoice);
 	public long getNewInvoiceNo();

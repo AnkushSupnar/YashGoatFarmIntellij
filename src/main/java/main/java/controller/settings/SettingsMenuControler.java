@@ -32,4 +32,13 @@ public class SettingsMenuControler implements Initializable {
 		pane.setCenter(current);
 		current.setVisible(true);
 	}
+
+	@FXML
+	void openBusinessInfo(ActionEvent event) {
+		pane = (BorderPane) settingsMenuPanel.getParent();
+		if (current != null) current.setVisible(false);
+		current = viewUtil.getPage("settings/BusinessInfo");
+		pane.setCenter(current);
+		current.setVisible(true);
+	}
 }
